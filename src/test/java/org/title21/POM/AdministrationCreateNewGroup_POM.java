@@ -19,6 +19,7 @@ public WebElement element;
  By groupfilterresult=By.cssSelector(".form-control.t21-placeholder");
  By groupfilterresutgobutton=By.xpath("//button[@type='submit'][@tabindex='1']");
  By nogroupfoundresulttext=By.xpath("//*[text()='No group found']");
+ By listOfGroups=By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td[1]");
  
  public WebElement groupsTab(WebDriver driver)
  {
@@ -83,6 +84,11 @@ public WebElement element;
 	 return element;
  }
  
+ public WebElement listOfGroups(WebDriver driver){
+	 element=driver.findElement(listOfGroups);
+	 return element;
+ }
+ 
  /*
 	 * 
 	 * This method verify text on Administration 
@@ -118,11 +124,20 @@ public WebElement element;
 		}
 		
 	}
-	
 
 	public void switchToModalDialog(WebDriver driver){
 		 
 		 driver.switchTo().alert();
+	 }
+	
+	public void acceptToAddGroup(WebDriver driver){
+		 
+		 driver.switchTo().alert().accept();
+	 }
+	
+	public void cancelToAddGroup(WebDriver driver){
+		 
+		 driver.switchTo().alert().dismiss();
 	 }
 	
 }

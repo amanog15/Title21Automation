@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="DDFSuite">	
-	<parameter name="configFile" value="config.properties"/>
+<suite name="DDFSuite">
+	<parameter name="configFile" value="config.properties" />
 	<test name="TestDDF">
-		<classes>			
-			<class name="org.title21.test.LoginPage_Test"/>
-			<class name="org.title21.test.LogoutPage_Test"/>
-			<!--class name="org.title21.test.Wizard" /-->				
+		<classes>
+			<class name="org.title21.test.LoginPage_Test" />
+			<class name="org.title21.test.LogoutPage_Test" />
+			<!--class name="org.title21.test.Wizard" / -->
 		</classes>
 	</test>
 </suite>

@@ -5,12 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Formatter;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -31,7 +29,6 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
-import org.testng.asserts.SoftAssert;
 import org.title21.reporting.ExtentManager;
 
 //import com.framework.selenium.BaseClass;
@@ -206,7 +203,11 @@ public class BaseClass {
 
 	public String[][] ExcelData(String path, String sheetname) throws Exception {
 		File excel = new File(path);
+		System.out.println(excel);
+		
 		FileInputStream fis = new FileInputStream(excel);
+		System.out.println(fis);
+
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet ws = wb.getSheet(sheetname);
 
