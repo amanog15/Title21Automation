@@ -1,5 +1,10 @@
 package org.title21.test;
 
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -7,6 +12,7 @@ import org.testng.annotations.Test;
 import org.title21.POM.AdministrationCreateNewGroup_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
+import org.title21.POM.Table;
 import org.title21.utility.BaseClass;
 
 import com.relevantcodes.extentreports.LogStatus;
@@ -16,7 +22,9 @@ public class CreateGroup_Test extends BaseClass {
 
 	String className="";
 	AdministrationCreateNewGroup_POM adminCreateGroup;
-	
+	Table tableObj = new Table(driver);
+	boolean GroupPresence = false;
+	boolean GroupPresenceAfterSearch = false;
 	
 	@BeforeClass
 	public void openURL() 
@@ -26,6 +34,8 @@ public class CreateGroup_Test extends BaseClass {
 		createDirectory(className);
 		login=new LoginPage_POM(driver);
 		login.loginFunction();
+		
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 	}
 	
 	@Test(testName = "CreateGroup_admin", groups = "CreateGroup", priority = 0)
@@ -80,29 +90,28 @@ public class CreateGroup_Test extends BaseClass {
 			Select SelectObj = new Select(adminCreateGroup.groupLocationDropDownClick());
 			SelectObj.selectByVisibleText("Dallas");
 			
-			
-			String location = adminCreateGroup.groupLocationDropDownClick().getText();
-
-			
-			if(location.contains("Dallas"))
-			{
-				test.log(LogStatus.PASS, "Successfully set 'Dallas' Location.");
-			}else{
-				test.log(LogStatus.FAIL, "Unable to set 'Dallas' Location.");
-			}
-			
 			adminCreateGroup.addGroupTextBox().sendKeys("Test123");
 			adminCreateGroup.addGroupTextBox().click();
 			
-			/*if(adminCreateGroup.verifyalreadyGroupCreatedErrorMsg(driver)) {
+			try{
+				driver.findElement(By.cssSelector("#Group_Groups-error")); 
+				GroupPresence = true;
+				
+			}catch(NoSuchElementException e) {
+				
+				GroupPresence = false;
+			}
+			
+			if(GroupPresence) {
 				
 				adminCreateGroup.addGroupCancelButton().click();
-				
+				test.log(LogStatus.PASS, "'Test123' Group is already created.");
+				test.addScreenCapture(captureScreenShot(driver, "AftercloseAlert"));
 			}
 			else 
-			{*/
+			{
 				adminCreateGroup.addGroupAddButton().click();
-				
+				test.log(LogStatus.PASS, "Successfully click on Add button.");
 				sleep(2);
 				if(adminCreateGroup.verifyAlerPopUp(driver)) 
 				{
@@ -121,11 +130,18 @@ public class CreateGroup_Test extends BaseClass {
 					
 					sleep(2);
 					
-					String allGroupList = adminCreateGroup.listOfGroups().getText();
-					test.addScreenCapture(captureScreenShot(driver, "listOfGroups"));
-					
-					if(allGroupList.contains("Test123")) {
+					for(int i=1; i<=10; i++ ) {
 						
+						System.out.println(i);
+						String groups = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[1]")).getText();
+						
+						if(groups.equalsIgnoreCase("test")) {
+							GroupPresenceAfterSearch = true;
+							break;
+						}
+					}
+					
+					if(GroupPresenceAfterSearch) {
 						test.log(LogStatus.PASS, "Successfully group is created and verified.");
 						test.addScreenCapture(captureScreenShot(driver, "groupCreated"));
 					}else {
@@ -136,7 +152,7 @@ public class CreateGroup_Test extends BaseClass {
 				{
 					test.log(LogStatus.PASS, "Unable to find 'Filter Result' text field.");
 				}
-		//	}
+			}
 			
 		}else{
 			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");

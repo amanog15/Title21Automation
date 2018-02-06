@@ -1,15 +1,20 @@
 package org.title21.POM;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.title21.utility.BaseClass;
 import org.title21.validation.entities.ErrorMessages;
 
 public class AdministrationCreateNewGroup_POM
 {
 public WebDriver driver;
 public WebElement element;
+BaseClass baseClassObj = new BaseClass();
+
 
 public AdministrationCreateNewGroup_POM(WebDriver driver) {
 	this.driver = driver;
@@ -197,6 +202,7 @@ WebElement alreadyGroupCreatedErrorMsg;
 	
 	public boolean verifyalreadyGroupCreatedErrorMsg(WebDriver driver){
 		
+		baseClassObj.waitForPageToLoad(driver, 10);
 		String errorMessage = alreadyGroupCreatedErrorMsg().getText();		
 		if(errorMessage.contains(ErrorMessages.groupnamealreadyexist))
 		{
@@ -208,6 +214,35 @@ WebElement alreadyGroupCreatedErrorMsg;
 		}		
 		
 	}
+	
+	public boolean verifyalreadyGroupCreatedErrorMsg1(WebDriver driver){
+		
+		try {
+			
+			driver.findElement(By.cssSelector("#Group_Groups-error")); 
+			
+		}catch(NoSuchElementException e) {
+			
+			
+			
+		}
+		
+		
+		baseClassObj.waitForPageToLoad(driver, 10);
+		String errorMessage = alreadyGroupCreatedErrorMsg().getText();		
+		if(errorMessage.contains(ErrorMessages.groupnamealreadyexist))
+		{
+			return true;
+		}
+		else
+		{	
+			return false;
+		}		
+		
+	}
+	
+	
+	
 	
 	public void switchToModalDialog(WebDriver driver){
 		 
