@@ -31,6 +31,12 @@ public class AddEmployee_Test extends BaseClass {
 	@Test(testName = "login_admin", groups = "Logins", priority = 0)
 	public void LoginWithInvalidCredentials() throws Exception 
 	{		
+		test = extent.startTest("Add Employee");
+		
+		
+		
+		
+		
 		logout=new LogoutPage_POM(driver);
 		logout.logoutFunction();		
 	}	

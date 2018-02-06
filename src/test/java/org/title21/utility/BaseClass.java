@@ -20,10 +20,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -96,6 +98,7 @@ public class BaseClass {
 		baseUrl=p.getProperty("baseUrl");
 		excelFile=p.getProperty("excelFilePath");
 		sheetName=p.getProperty("sheetName");
+		
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
 		
@@ -105,8 +108,9 @@ public class BaseClass {
 		
 		filePath = workingDir + "\\index.html";		
 		
-		data = ExcelData(excelFile, sheetName);
-		extent = ExtentManager.getReporter(filePath);	
+		data = ExcelData(excelFile, sheetName);	
+		
+		extent = ExtentManager.getReporter(filePath);
 		
 	}
 
@@ -247,10 +251,10 @@ public class BaseClass {
 		FileInputStream fis = new FileInputStream(excel);
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet ws = wb.getSheet(sheetname);
-
-		int rowNum = ws.getLastRowNum() + 1;
+		
+		int rowNum = ws.getLastRowNum()+1;
 		int colNum = ws.getRow(0).getLastCellNum();
-
+		
 		String[][] data = new String[rowNum][colNum];
 
 		for (int i = 0; i < rowNum; i++) {
@@ -305,5 +309,10 @@ public class BaseClass {
 
 	}
 	
-	
+	public void setExplicitWait(WebElement element) {		
+		
+		WebDriverWait wait=new WebDriverWait(driver,10);
+		wait.until(ExpectedConditions.invisibilityOf(element));			
+		
+	}		
 }
