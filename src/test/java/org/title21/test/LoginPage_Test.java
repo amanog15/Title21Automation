@@ -27,7 +27,7 @@ public class LoginPage_Test extends BaseClass {
 	@Test(testName = "login_admin", groups = "Logins", priority = 0)
 	public void LoginWithInvalidCredentials() throws Exception 
 	{
-		test = extent.startTest(data[0][2]);		
+		test = extent.startTest(loginData[0][2]);		
 		test.log(LogStatus.PASS, "Opened URL");
 		login= new LoginPage_POM(driver);
 		login.getLogin_button().click();
@@ -39,8 +39,8 @@ public class LoginPage_Test extends BaseClass {
 			test.addScreenCapture(captureScreenShot(driver, "withBlankUsername")));
 		}
 		
-		//login.sendKeys(data[0][0]);
-		login.getUsername().sendKeys(data[0][0]);
+		//login.sendKeys(loginData[0][0]);
+		login.getUsername().sendKeys(loginData[0][0]);
 		test.log(LogStatus.PASS, "Username Entered");
 		login.getLogin_button().click();
 		test.log(LogStatus.PASS, "Clicked on Login button after entering Username.");
@@ -53,7 +53,7 @@ public class LoginPage_Test extends BaseClass {
 			test.addScreenCapture(captureScreenShot(driver, "MessageWithblankPassword")));
 		}
 		
-		login.getpassword().sendKeys(data[0][1]);
+		login.getpassword().sendKeys(loginData[0][1]);
 		test.log(LogStatus.PASS, "Incorrect Password Entered");
 		login.getLogin_button().click();
 		test.log(LogStatus.PASS, "Clicked on Login Button.");
@@ -71,8 +71,8 @@ public class LoginPage_Test extends BaseClass {
 	@Test(testName = "login_admin", groups = "Logins", priority = 1)
 	public void LoginValidPassword() 
 	{
-		test = extent.startTest(data[1][2]);
-		login.getpassword().sendKeys(data[1][1]);
+		test = extent.startTest(loginData[1][2]);
+		login.getpassword().sendKeys(loginData[1][1]);
 		test.log(LogStatus.PASS, "Correct password Entered.");
 		login.getLogin_button().click();
 		test.log(LogStatus.PASS, "Clicked on Login button."+

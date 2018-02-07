@@ -52,13 +52,16 @@ public class BaseClass {
 	protected static ExtentReports extent;
 	protected static ExtentTest test;
 	protected String filePath;
+	protected String loginData[][];
+	protected String groupData[][];
 	protected String data[][];
 	protected WebDriverWait waitDriver = null;
 	LoginPage_POM login;
 	LogoutPage_POM logout;
 	
 	public String excelFile="";
-	public String sheetName="";
+	public String loginSheet="";
+	public String groupSheet="";
 	public static String browser="";
 	public static String baseUrl="";
 	public static String adminUsername="";
@@ -96,9 +99,11 @@ public class BaseClass {
 		
 		browser=p.getProperty("browser");
 		baseUrl=p.getProperty("baseUrl");
-		excelFile=p.getProperty("excelFilePath");
-		sheetName=p.getProperty("sheetName");
-		
+		excelFile=p.getProperty("excelFilePath");		
+
+		loginSheet=p.getProperty("Loginsheet");
+		groupSheet=p.getProperty("Groupsheet");
+
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
 		
@@ -107,11 +112,11 @@ public class BaseClass {
 		SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 		
 		filePath = workingDir + "\\index.html";		
+
+		loginData=ExcelData(excelFile, loginSheet);
+		groupData=ExcelData(excelFile, groupSheet);
 		
-		data = ExcelData(excelFile, sheetName);	
-		
-		extent = ExtentManager.getReporter(filePath);
-		
+		extent = ExtentManager.getReporter(filePath);		
 	}
 
 	@AfterSuite
@@ -180,8 +185,6 @@ public class BaseClass {
 
 		});
 	}
-		
-	
 	
 	
 	public void getBrowser() {				
@@ -222,12 +225,16 @@ public class BaseClass {
 		if(administratorTab.contains("Administrator"))
 		{
 			administrationPage.administratorDropDown().click();
-			test.log(LogStatus.PASS, "Successfully click on 'administrator");
+			test.log(LogStatus.PASS, "Successfully click on 'administrator"+
+					test.addScreenCapture(captureScreenShot(driver, "administrator")));
+			
 			administrationPage.administrationLink().click();
-			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
+			test.log(LogStatus.PASS, "Successfully click on 'administration' link."+
+					test.addScreenCapture(captureScreenShot(driver, "'administration' link.")));
 			
 			if(administrationPage.verifyAdministrationPagePrescence()) {
-				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence.");
+				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence."+
+						test.addScreenCapture(captureScreenShot(driver, "'administration Page")));
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
 			}
@@ -254,8 +261,8 @@ public class BaseClass {
 		
 		int rowNum = ws.getLastRowNum()+1;
 		int colNum = ws.getRow(0).getLastCellNum();
-		
-		String[][] data = new String[rowNum][colNum];
+
+		data = new String[rowNum][colNum];
 
 		for (int i = 0; i < rowNum; i++) {
 			XSSFRow row = ws.getRow(i);
@@ -315,4 +322,8 @@ public class BaseClass {
 		wait.until(ExpectedConditions.invisibilityOf(element));			
 		
 	}		
+	
+	public void createRandomGenerator(){
+		
+	}
 }
