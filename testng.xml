@@ -10,7 +10,7 @@
 			<!--class name="org.title21.test.AddEmployee_Test"/-->
 			<!--class name="org.title21.test.Wizard" /-->
 			<class name="org.title21.test.AdministratonPage_Test"/>
-			<!-- class name="org.title21.test.CreateGroup_Test"/-->
+			<class name="org.title21.test.CreateGroup_Test"/>
 		
 		</classes>
 	</test>

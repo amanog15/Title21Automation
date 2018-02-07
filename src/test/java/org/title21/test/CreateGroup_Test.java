@@ -90,7 +90,7 @@ public class CreateGroup_Test extends BaseClass {
 			Select SelectObj = new Select(adminCreateGroup.groupLocationDropDownClick());
 			SelectObj.selectByVisibleText("Dallas");
 			
-			adminCreateGroup.addGroupTextBox().sendKeys("Test123");
+			adminCreateGroup.addGroupTextBox().sendKeys("Test1234");
 			adminCreateGroup.addGroupTextBox().click();
 			
 			try{
