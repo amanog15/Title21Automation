@@ -206,8 +206,15 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 	
 	public boolean verifyNoGroupFoundText(WebDriver driver){
 		
-		String NoGroupFoundResultText = noGroupFoundResultText().getText();
+		String NoGroupFoundResultText="";
 		
+		try 
+		{
+			NoGroupFoundResultText = noGroupFoundResultText().getText();
+			
+		}catch(NoSuchElementException e) {
+			
+		}
 		if(NoGroupFoundResultText.equalsIgnoreCase("No group found"))
 		{
 			return true;
