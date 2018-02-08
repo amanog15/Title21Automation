@@ -57,9 +57,7 @@ public class ReadExcel {
 		
 		sheet1 = wb.getSheetAt(SheetNumber);
 		row1  = sheet1.getRow(row);
-		Cell cell= row1.getCell(column, row1.RETURN_BLANK_AS_NULL);
-			
-		
+		Cell cell= row1.getCell(column, row1.RETURN_BLANK_AS_NULL);		
 		
 		String data = formatter.formatCellValue(cell); //Returns the formatted value of a cell as a String regardless of the cell type.
 		//System.out.println(data);

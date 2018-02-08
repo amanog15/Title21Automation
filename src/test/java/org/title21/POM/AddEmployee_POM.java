@@ -100,8 +100,7 @@ public class AddEmployee_POM {
 	WebElement trainingLink;//=By.xpath("//*[@class='collapsible-icon t21-padding-right-5']");
 
 	@FindBy(xpath="//*[@id='IsTraining']")
-	WebElement uponSaveCheckbox;//=By.xpath("//*[@id='IsTraining']");
-    
+	WebElement uponSaveCheckbox;//=By.xpath("//*[@id='IsTraining']");    
 
 	@FindBy(xpath="//*[@id='collapse-1']/div/div[2]/div/label")
 	WebElement employeeSupervisorradioBtn;//=By.xpath("//*[@id='collapse-1']/div/div[2]/div/label");
@@ -109,13 +108,12 @@ public class AddEmployee_POM {
 	@FindBy(xpath="//*[@id='collapse-1']/div/div[3]/div[1]/label")
 	WebElement otherSpecificSupervisorradioBtn;//=By.xpath("//*[@id='collapse-1']/div/div[3]/div[1]/label");
     
-
 	@FindBy(xpath="//*[@name='Supervisor']")
 	WebElement supervisorOtherTab;//=By.xpath("//*[@name='Supervisor']");
 
 	@FindBy(xpath="//*[@id='IsEmailNotificationTobeSend']")
 	WebElement sendEmailNotification;//=By.xpath("//*[@id='IsEmailNotificationTobeSend']");
-
+	
 	@FindBy(xpath="//*[@id='Employee_HireDate']")
 	WebElement hireDate;//=By.xpath("//*[@id='Employee_HireDate']");
 
@@ -132,25 +130,22 @@ public class AddEmployee_POM {
 	WebElement altEmployeeID;//=By.xpath("//*[@name='Employee.AltEmployeeID']");
 
 	@FindBy(xpath="//*[@id='CreateUserId']")
-	WebElement createUserID;//=By.xpath();
-    
-    
-    
+	WebElement createUserID;//=By.xpath();     
     
 	public WebElement administrator_dropdown()
 	{
 		//WebElement element=driver.findElement(administrator);
 		return administrator;
 	}
-	public WebElement administration_menue()
+	public WebElement administration_menu()
 	{
 		//WebElement element=driver.findElement(administration);
-		return employees;
+		return administration;
 	}
-	public WebElement employees_menue()
+	public WebElement employees_menu()
 	{
 		//WebElement element=driver.findElement(employees);
-		return element;
+		return employees;
 	}
 	public WebElement addNew_Employee()
 	{

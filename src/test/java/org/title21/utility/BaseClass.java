@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 
@@ -20,10 +21,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -97,9 +100,11 @@ public class BaseClass {
 		
 		browser=p.getProperty("browser");
 		baseUrl=p.getProperty("baseUrl");
-		excelFile=p.getProperty("excelFilePath");
+		excelFile=p.getProperty("excelFilePath");		
+
 		loginSheet=p.getProperty("Loginsheet");
 		groupSheet=p.getProperty("Groupsheet");
+
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
 		
@@ -108,13 +113,11 @@ public class BaseClass {
 		SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 		
 		filePath = workingDir + "\\index.html";		
-		
-		
+
 		loginData=ExcelData(excelFile, loginSheet);
 		groupData=ExcelData(excelFile, groupSheet);
 		
-		extent = ExtentManager.getReporter(filePath);	
-		
+		extent = ExtentManager.getReporter(filePath);		
 	}
 
 	@AfterSuite
@@ -126,7 +129,7 @@ public class BaseClass {
 	}
 
 	public void implicitwait(WebDriver driver) {
-		driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 	}
 
 	public static void createDirectory(String classname) {
@@ -183,7 +186,8 @@ public class BaseClass {
 
 		});
 	}
-		
+	
+	
 	public void getBrowser() {				
 		     
 		if (browser.equalsIgnoreCase("chrome")) {
@@ -255,8 +259,8 @@ public class BaseClass {
 		FileInputStream fis = new FileInputStream(excel);
 		XSSFWorkbook wb = new XSSFWorkbook(fis);
 		XSSFSheet ws = wb.getSheet(sheetname);
-
-		int rowNum = ws.getLastRowNum() + 1;
+		
+		int rowNum = ws.getLastRowNum()+1;
 		int colNum = ws.getRow(0).getLastCellNum();
 
 		data = new String[rowNum][colNum];
@@ -310,22 +314,23 @@ public class BaseClass {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
 	}
 	
-	public void loginFunction(WebDriver driver){		
-		login=new LoginPage_POM(driver);
-		login.getUsername().sendKeys(adminUsername);
-		login.getLogin_button().click();
-		login.getpassword().sendKeys(adminPassword);
-		login.getLogin_button().click();
-		sleep(2);
-	}
+	public void setExplicitWait(WebElement element) {		
+		
+		WebDriverWait wait=new WebDriverWait(driver,10);
+		wait.until(ExpectedConditions.invisibilityOf(element));			
+		
+	}		
 	
-	/*public void logoutFunction(WebDriver driver){			
-		logout.administratorDropDown(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
-		logout.logoutLink(driver).click();
-		test.log(LogStatus.PASS, "Clicked on logout link");
-	}*/
+	public static String generateString() 
+	{
+	 
+		String uuid = UUID.randomUUID().toString();
+
+		return uuid;
+	 
+	}
 	
 }
