@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class AddEmployee_POM {
 	
@@ -142,21 +143,24 @@ public class AddEmployee_POM {
 		//WebElement element=driver.findElement(administration);
 		return administration;
 	}
-	public WebElement employees_menu()
+	public WebElement employees_link()
 	{
 		//WebElement element=driver.findElement(employees);
 		return employees;
 	}
-	public WebElement addNew_Employee()
+	
+	public WebElement addNewLink()
 	{
 		//WebElement element=driver.findElement(addNew);
 		return addNew;
 	}
-	public WebElement location_Field()
+	
+	public Select location_dropdown()
 	{
-		//WebElement element=driver.findElement(locationTab);
-		return locationTab;
+		Select selectObj=new Select(locationTab);
+		return selectObj;
 	}
+	
 	public WebElement searchText_Box()
 	{
 		//WebElement element=driver.findElement(searchBox);
@@ -172,74 +176,72 @@ public class AddEmployee_POM {
 		//WebElement element=driver.findElement(locationEmployee);
 		return locationEmployee;
 	}
-	public WebElement employee_FullName()
+	public WebElement getEmployeeFullName()
 	{
-		//WebElement element=driver.findElement(locationEmployee);
-		return locationEmployee;
+		return employeeFullName;
 	}
-	public WebElement supervisorDropdown_Field()
+	
+	public WebElement getEmployeeID()
 	{
-		//WebElement element=driver.findElement(supervisorDropdown);
-		return supervisorDropdown;
+		return employeeID;
 	}
-	public WebElement businessUnit_Dropdown()
+	
+	public Select getsupervisorDropdown()
+	{		
+		Select selectObj=new Select(supervisorDropdown);
+		return selectObj;		
+	}
+	
+	public Select getbusinessUnitDropdown()
 	{
-		//WebElement element=driver.findElement(businessUnit);
-		return businessUnit;
+		Select selectObj=new Select(businessUnit);
+		return selectObj;		
 	}
-	public WebElement department_Dropdown()
+	
+	public Select getDepartmentDropdown()
 	{
-		//WebElement element=driver.findElement(department);
-		return department;
+		Select selectObj=new Select(department);
+		return selectObj;			
 	}
+	
 	public WebElement address_textbox()
 	{
-		//WebElement element=driver.findElement(address);
 		return address;
 	}
 	public WebElement employee_City()
 	{
-		//WebElement element=driver.findElement(city);
 		return city;
 	}
 	public WebElement employee_State()
 	{
-		//WebElement element=driver.findElement(state);
 		return state;
 	}
 	public WebElement employee_PostalCode()
 	{
-		//WebElement element=driver.findElement(postal_Code);
 		return postal_Code;
 	}
 	public WebElement employee_Country()
 	{
-		//WebElement element=driver.findElement(country);
 		return country;
 	}
 	public WebElement employee_Phone()
 	{
-		//WebElement element=driver.findElement(phone);
 		return phone;
 	}
 	public WebElement employee_email()
 	{
-		//WebElement element=driver.findElement(email);
 		return email;
 	}
 	public WebElement cancel_Btn()
 	{
-		//WebElement element=driver.findElement(cancelButton);
 		return cancelButton;
 	}
-	public WebElement add_Btn()
+	public WebElement getAddBtn()
 	{
-		//WebElement element=driver.findElement(addButton);
 		return addButton;
 	}
 	public WebElement job_Codes()
 	{
-		//WebElement element=driver.findElement(jobCodesTab);
 		return jobCodesTab;
 	}
 	public WebElement jobCode_Dropdown1()

@@ -92,13 +92,12 @@ public class CreateGroup_Test extends BaseClass {
 			Select SelectObj = new Select(adminCreateGroup.groupLocationDropDownClick());
 			SelectObj.selectByVisibleText(""+groupData[1][0]+"");		
 
-		//	adminCreateGroup.addGroupTextBox().sendKeys(groupData[1][1]);
-			adminCreateGroup.addGroupTextBox().sendKeys(generateString());
+			adminCreateGroup.addGroupTextBox().sendKeys(groupData[1][1]);
+			//adminCreateGroup.addGroupTextBox().sendKeys();
 			
 			test.log(LogStatus.PASS, "Selected Location:"+groupData[1][0]+" and Group: "+groupData[1][1]+"."+
 					test.addScreenCapture(captureScreenShot(driver, "Location & Group")));
-
-
+			
 			adminCreateGroup.addGroupTextBox().click();
 			
 			try{

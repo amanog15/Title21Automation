@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.relevantcodes.extentreports.LogStatus;
+
 public class AdministrationPage_POM
 {
 	
@@ -60,6 +62,8 @@ public AdministrationPage_POM(WebDriver driver) {
 			return false;
 		}
 		
-	}
+	}	
  
 }
+
+

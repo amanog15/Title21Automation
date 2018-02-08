@@ -55,6 +55,8 @@ public class BaseClass {
 	protected String filePath;
 	protected String loginData[][];
 	protected String groupData[][];
+	protected String employeeData[][];
+	
 	protected String data[][];
 	protected WebDriverWait waitDriver = null;
 	LoginPage_POM login;
@@ -63,6 +65,7 @@ public class BaseClass {
 	public String excelFile="";
 	public String loginSheet="";
 	public String groupSheet="";
+	public String employeeSheet;
 	public static String browser="";
 	public static String baseUrl="";
 	public static String adminUsername="";
@@ -104,7 +107,8 @@ public class BaseClass {
 
 		loginSheet=p.getProperty("Loginsheet");
 		groupSheet=p.getProperty("Groupsheet");
-
+		employeeSheet=p.getProperty("EmployeeSheet");
+		
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
 		
@@ -116,6 +120,7 @@ public class BaseClass {
 
 		loginData=ExcelData(excelFile, loginSheet);
 		groupData=ExcelData(excelFile, groupSheet);
+		employeeData=ExcelData(excelFile, employeeSheet);
 		
 		extent = ExtentManager.getReporter(filePath);		
 	}
@@ -324,13 +329,5 @@ public class BaseClass {
 		
 	}		
 	
-	public static String generateString() 
-	{
-	 
-		String uuid = UUID.randomUUID().toString();
-
-		return uuid;
-	 
-	}
 	
 }
