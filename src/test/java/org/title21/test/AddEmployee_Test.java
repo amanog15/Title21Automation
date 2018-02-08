@@ -1,5 +1,6 @@
 package org.title21.test;
 
+import org.apache.log4j.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,6 +18,7 @@ public class AddEmployee_Test extends BaseClass {
 	DashBord_POM dashboardObj;
 	SoftAssert softAssertion=new SoftAssert();
 	String className="";
+	static Logger log = Logger.getLogger(AddEmployee_Test.class);
 	
 	@BeforeClass
 	public void openURL() 
@@ -31,12 +33,10 @@ public class AddEmployee_Test extends BaseClass {
 	@Test(testName = "login_admin", groups = "Logins", priority = 0)
 	public void LoginWithInvalidCredentials() throws Exception 
 	{		
-		test = extent.startTest("Add Employee");	
-		
-		
-		
+		test = extent.startTest("Add Employee");		
 		logout=new LogoutPage_POM(driver);
-		logout.logoutFunction();		
+		logout.logoutFunction();	
+		log.info("logout function.");
 	}	
 		
 	@AfterClass

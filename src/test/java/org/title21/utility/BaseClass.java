@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 
@@ -323,7 +324,13 @@ public class BaseClass {
 		
 	}		
 	
-	public void createRandomGenerator(){
-		
+	public static String generateString() 
+	{
+	 
+		String uuid = UUID.randomUUID().toString();
+
+		return uuid;
+	 
 	}
+	
 }

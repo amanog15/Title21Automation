@@ -52,19 +52,17 @@ public class CreateGroup_Test extends BaseClass {
 		if(GroupsTab.contains("Groups"))
 		{
 			adminCreateGroup.groupsTab().click();
-			test.log(LogStatus.PASS, "Successfully click on 'Groups tab");
+			test.log(LogStatus.PASS, "Successfully click on Groups tab");
 			adminCreateGroup.groupAddNewLink().click();
-			test.log(LogStatus.PASS, "Successfully click on 'Add New' link.");
+			test.log(LogStatus.PASS, "Successfully click on Add New link.");
 			adminCreateGroup.verifyAddGroupPopUp(driver);
 			test.log(LogStatus.PASS, "Verify 'Add Group' pop-up.");
 			test.log(LogStatus.PASS, "Successfully verified Add Group Pop-Up"+
 					test.addScreenCapture(captureScreenShot(driver, "Add Group")));
-			sleep(2);
-			
+			sleep(2);			
 			adminCreateGroup.addGroupCancelButton().click();
 			test.log(LogStatus.PASS, "Successfully clicked on 'Cancel' button\""+
-					test.addScreenCapture(captureScreenShot(driver, "'Cancel' button")));
-
+					test.addScreenCapture(captureScreenShot(driver, "Cancel button")));
 			
 			sleep(2);
 			
@@ -83,21 +81,22 @@ public class CreateGroup_Test extends BaseClass {
 			
 			adminCreateGroup.groupAddNewLink().click();
 			test.log(LogStatus.PASS, "Successfully click on 'Add New' link."+
-					test.addScreenCapture(captureScreenShot(driver, "'Add New' link.")));
+					test.addScreenCapture(captureScreenShot(driver, "Add New' link.")));
 			sleep(2);
 			adminCreateGroup.verifyAddGroupPopUp(driver);
 			test.log(LogStatus.PASS, "Verify 'Add Group' pop-up."+
-					test.addScreenCapture(captureScreenShot(driver, "'Add Group' pop-up")));
+					test.addScreenCapture(captureScreenShot(driver, "Add Group pop-up")));
 			
 			adminCreateGroup.groupLocationDropDownClick().click();
 			sleep(2);
 			Select SelectObj = new Select(adminCreateGroup.groupLocationDropDownClick());
 			SelectObj.selectByVisibleText(""+groupData[1][0]+"");		
 
-			adminCreateGroup.addGroupTextBox().sendKeys(groupData[1][1]);
+		//	adminCreateGroup.addGroupTextBox().sendKeys(groupData[1][1]);
+			adminCreateGroup.addGroupTextBox().sendKeys(generateString());
 			
 			test.log(LogStatus.PASS, "Selected Location:"+groupData[1][0]+" and Group: "+groupData[1][1]+"."+
-					test.addScreenCapture(captureScreenShot(driver, "'Location & Group")));
+					test.addScreenCapture(captureScreenShot(driver, "Location & Group")));
 
 
 			adminCreateGroup.addGroupTextBox().click();
@@ -114,7 +113,7 @@ public class CreateGroup_Test extends BaseClass {
 			if(GroupPresence) {
 				
 				adminCreateGroup.addGroupCancelButton().click();
-				test.log(LogStatus.PASS, "'"+groupData[1][1]+"' Group is already created."+
+				test.log(LogStatus.PASS, "'"+groupData[1][1]+"Group is already created."+
 						test.addScreenCapture(captureScreenShot(driver, "Group is already created.")));
 			}
 			else 
@@ -162,14 +161,14 @@ public class CreateGroup_Test extends BaseClass {
 				}
 				else
 				{
-					test.log(LogStatus.PASS, "Unable to find 'Filter Result' text field."+
-							test.addScreenCapture(captureScreenShot(driver, "Unable to find 'Filter Result' text field.")));
-				}
+					test.log(LogStatus.PASS, "Unable to find Filter Result text field."+
+							test.addScreenCapture(captureScreenShot(driver, "Unable to find Filter Result text field.")));
+				} 
 			}
 			
 		}else{
-			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab"+
-					test.addScreenCapture(captureScreenShot(driver, "Unable to find 'Groups' tab")));
+			test.log(LogStatus.FAIL, "Unable to find Groups tab"+
+					test.addScreenCapture(captureScreenShot(driver, "Unable to find Groups tab")));
 		}
 		extent.endTest(test);
 	}
