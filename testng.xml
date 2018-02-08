@@ -4,6 +4,7 @@
 	<parameter name="configFile" value="config.properties"/>
 	<test name="TestDDF">
 		<classes>			
+<<<<<<< HEAD
 
 			<!-- <class name="org.title21.test.LoginPage_Test"/>
 			<class name="org.title21.test.LogoutPage_Test"/> -->
@@ -12,6 +13,9 @@
 			<class name="org.title21.test.AdministratonPage_Test"/>
 			<class name="org.title21.test.CreateGroup_Test"/> -->
 		
+=======
+			<class name="org.title21.test.CreateDeleteGroups_Test"/>
+>>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
 		</classes>
 	</test>
 </suite>
