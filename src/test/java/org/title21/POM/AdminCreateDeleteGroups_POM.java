@@ -9,14 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.title21.utility.BaseClass;
 import org.title21.validation.entities.ErrorMessages;
 
-public class AdministrationCreateNewGroup_POM
+public class AdminCreateDeleteGroups_POM
 {
 public WebDriver driver;
 public WebElement element;
 BaseClass baseClassObj = new BaseClass();
 
 
-public AdministrationCreateNewGroup_POM(WebDriver driver) {
+public AdminCreateDeleteGroups_POM(WebDriver driver) {
 	this.driver = driver;
 	PageFactory.initElements(driver, this);
 }
@@ -65,6 +65,17 @@ WebElement alertMsgPopUp;
 @FindBy(css="#Group_Groups-error")
 WebElement alreadyGroupCreatedErrorMsg;
 
+@FindBy(xpath="//input[@value='Yes']")
+WebElement deleteGroupPopUpYesButton;
+
+@FindBy(xpath="//button[text()='Close']")
+WebElement ConfirmPopUpCloseButton;
+
+@FindBy(css=".modal-title>span")
+WebElement deleteGroupPopUpHeaderText;
+
+@FindBy(xpath="//*[text()='Message']")
+WebElement deleteGroupConfirmPopUpHeaderText;
  
  public WebElement groupsTab()
  {
@@ -149,6 +160,29 @@ WebElement alreadyGroupCreatedErrorMsg;
 	 return alreadyGroupCreatedErrorMsg;
  }
  
+ public WebElement deleteGroupPopUpYesButton()
+ {
+	 //element=driver.findElement(groupslink);
+	 return deleteGroupPopUpYesButton;
+ }
+ 
+ public WebElement ConfirmPopUpCloseButton()
+ {
+	 return ConfirmPopUpCloseButton;
+ }
+ 
+ public WebElement deleteGroupPopUpHeaderText()
+ {
+	// element=driver.findElement(deleteGroupPopUpHeaderText);
+	 return deleteGroupPopUpHeaderText;
+ }
+ 
+ public WebElement deleteGroupConfirmPopUpHeaderText()
+ {
+	// element=driver.findElement(deleteGroupConfirmPopUpHeaderText);
+	 return deleteGroupConfirmPopUpHeaderText;
+ }
+ 
  /*
 	 * 
 	 * This method verify text on Administration 
@@ -217,16 +251,13 @@ WebElement alreadyGroupCreatedErrorMsg;
 	
 	public boolean verifyalreadyGroupCreatedErrorMsg1(WebDriver driver){
 		
-		try {
-			
+		try 
+		{
 			driver.findElement(By.cssSelector("#Group_Groups-error")); 
 			
 		}catch(NoSuchElementException e) {
 			
-			
-			
 		}
-		
 		
 		baseClassObj.waitForPageToLoad(driver, 10);
 		String errorMessage = alreadyGroupCreatedErrorMsg().getText();		
@@ -241,22 +272,36 @@ WebElement alreadyGroupCreatedErrorMsg;
 		
 	}
 	
+	public boolean verifyDeleteGroupPopUp(){
+		
+		String DeleteGroupHeaderText = deleteGroupPopUpHeaderText().getText();
+		
+		if(DeleteGroupHeaderText.equalsIgnoreCase("Delete Group"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+	
+	public boolean verifyDeleteGroupcConfirmPopUpText(){
+		
+		String DeleteGroupHeaderText = deleteGroupConfirmPopUpHeaderText.getText();
+		
+		if(DeleteGroupHeaderText.equalsIgnoreCase("Message"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
 	
 	
-	
-	public void switchToModalDialog(WebDriver driver){
-		 
-		 driver.switchTo().alert();
-	 }
-	
-	public void acceptToAddGroup(WebDriver driver){
-		 
-		 driver.switchTo().alert().accept();
-	 }
-	
-	public void cancelToAddGroup(WebDriver driver){
-		 
-		 driver.switchTo().alert().dismiss();
-	 }
 	
 }
