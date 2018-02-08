@@ -10,8 +10,6 @@ import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
 import org.title21.utility.BaseClass;
 
-import com.relevantcodes.extentreports.LogStatus;
-
 public class AddEmployee_Test extends BaseClass {
 	LoginPage_POM login; 
 	LogoutPage_POM logout;
