@@ -4,7 +4,7 @@
 	<parameter name="configFile" value="config.properties"/>
 	<test name="TestDDF">
 		<classes>			
-			<class name="org.title21.test.CreateGroup_Test"/>
+			<class name="org.title21.test.CreateDeleteGroups_Test"/>
 		</classes>
 	</test>
 </suite>
