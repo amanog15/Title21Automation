@@ -52,17 +52,17 @@ public class BaseClass {
 	protected static WebDriver driver;
 	protected static ExtentReports extent;
 	protected static ExtentTest test;
-	protected String filePath;
-	protected String loginData[][];
-	protected String groupData[][];
-	protected String data[][];
+	protected static String filePath;
+	protected static String loginData[][];
+	protected static String groupData[][];
+	protected static String data[][];
 	protected WebDriverWait waitDriver = null;
 	LoginPage_POM login;
 	LogoutPage_POM logout;
 	
-	public String excelFile="";
-	public String loginSheet="";
-	public String groupSheet="";
+	public static String excelFile="";
+	public static String loginSheet="";
+	public static String groupSheet="";
 	public static String browser="";
 	public static String baseUrl="";
 	public static String adminUsername="";
@@ -104,6 +104,7 @@ public class BaseClass {
 
 		loginSheet=p.getProperty("Loginsheet");
 		groupSheet=p.getProperty("Groupsheet");
+		System.out.println(groupSheet);
 
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
