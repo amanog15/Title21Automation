@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import org.title21.validation.entities.ErrorMessages;
 
 public class AddEmployee_POM {
 	
@@ -27,9 +28,9 @@ public class AddEmployee_POM {
 
 	@FindBy(css=".fa.fa-plus-circle.t21-padding-right-5")
 	WebElement addNew;
-
-	@FindBy(css=".form-control#GridLocation")
-	WebElement locationTab;
+	
+	@FindBy(xpath="//select[contains(@name,'Employee.Location')]")
+	WebElement locationDropdown;
 
 	@FindBy(css=".form-control.t21-placeholder")
 	WebElement searchBox;
@@ -86,14 +87,15 @@ public class AddEmployee_POM {
 	WebElement cancelButton;//=By.xpath("//button[contains(@class,'btn t21-btn-default pull-left')]");
 
 	@FindBy(xpath="//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]")
-	WebElement addButton;//=By.xpath("//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]");
+	WebElement addButton;
 
 	@FindBy(xpath="//a[contains(@href,'#tab2')]")
-	WebElement jobCodesTab;//=By.xpath("//a[contains(@href,'#tab2')]");
+	WebElement jobCodesTab;
 
-	@FindBy(xpath="//a[contains(text(),'Human Resources Clerk')]")
-	WebElement jobCodesDropdown;//=By.xpath("//a[contains(text(),'Human Resources Clerk')]");
-
+	//@FindBy(xpath="//a[contains(text(),'Human Resources Clerk')]")
+	@FindBy(xpath="//a[contains(text(),'Senior Technologist')]")
+	WebElement jobCodesDropdown;
+		
 	@FindBy(xpath="//a[contains(@href,'#tab3')]")
 	WebElement otherTab;//=By.xpath("//a[contains(@href,'#tab3')]");
 
@@ -101,10 +103,10 @@ public class AddEmployee_POM {
 	WebElement trainingLink;//=By.xpath("//*[@class='collapsible-icon t21-padding-right-5']");
 
 	@FindBy(xpath="//*[@id='IsTraining']")
-	WebElement uponSaveCheckbox;//=By.xpath("//*[@id='IsTraining']");    
+	WebElement uponSaveCheckbox;    
 
 	@FindBy(xpath="//*[@id='collapse-1']/div/div[2]/div/label")
-	WebElement employeeSupervisorradioBtn;//=By.xpath("//*[@id='collapse-1']/div/div[2]/div/label");
+	WebElement employeeSupervisorradioBtn;
 
 	@FindBy(xpath="//*[@id='collapse-1']/div/div[3]/div[1]/label")
 	WebElement otherSpecificSupervisorradioBtn;//=By.xpath("//*[@id='collapse-1']/div/div[3]/div[1]/label");
@@ -131,8 +133,27 @@ public class AddEmployee_POM {
 	WebElement altEmployeeID;//=By.xpath("//*[@name='Employee.AltEmployeeID']");
 
 	@FindBy(xpath="//*[@id='CreateUserId']")
-	WebElement createUserID;//=By.xpath();     
+	WebElement createUserID;    
     
+	@FindBy(css=".t21-js-user-message-text")
+	WebElement successMessageText;	
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.Location')]")
+	WebElement locationFieldValidationMessage;	
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.FullName')]")
+	WebElement fullNameValidationMessage;	
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.EmployeeID')]")
+	WebElement employeeIDValidationMessage;
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.DefaultFirm')]")
+	WebElement businessUnitValidationMessage;
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.Department')]")
+	WebElement departmentValidationMessage;
+	
+	
 	public WebElement administrator_dropdown()
 	{
 		//WebElement element=driver.findElement(administrator);
@@ -155,9 +176,9 @@ public class AddEmployee_POM {
 		return addNew;
 	}
 	
-	public Select location_dropdown()
+	public Select getLocationDropdown()
 	{
-		Select selectObj=new Select(locationTab);
+		Select selectObj=new Select(locationDropdown);
 		return selectObj;
 	}
 	
@@ -244,9 +265,8 @@ public class AddEmployee_POM {
 	{
 		return jobCodesTab;
 	}
-	public WebElement jobCode_Dropdown1()
+	public WebElement getjobCodeSeniorTechnologist()
 	{
-		//WebElement element=driver.findElement(jobCodesDropdown);
 		return jobCodesDropdown;
 	}
 	public WebElement other_Tab()
@@ -311,4 +331,84 @@ public class AddEmployee_POM {
 		//WebElement element=driver.findElement(createUserID);
 		return sendEmailNotification;
 	}
+	
+	public WebElement getSuccessMessage(){
+		
+		return successMessageText;
+	}
+	
+	public WebElement getlocationValidationMessage(){
+		
+		return locationFieldValidationMessage;
+	}
+	
+	public WebElement getfullNameValidationMessage(){
+		
+		return fullNameValidationMessage;
+	}
+	
+	public WebElement getEmployeeIDValidationMessage(){
+		
+		return employeeIDValidationMessage;
+	}
+		
+	public WebElement getBusinessUnitValidationMessage(){
+		
+		return businessUnitValidationMessage;
+	}
+	
+	public WebElement getdepartmentValidationMessage(){
+		
+		return departmentValidationMessage;
+	}
+	
+	
+	
+	public boolean verifyAddEmployeeValidationMessages(){
+		
+		element=getlocationValidationMessage();
+		String errorMessage = element.getText();
+		boolean isValidationMessagePresent=true;		
+		
+		if(!errorMessage.contains(ErrorMessages.locationValidationMessage))
+		{
+			isValidationMessagePresent=false;
+		}
+		
+		element=getfullNameValidationMessage();
+		errorMessage = element.getText();
+		
+		if(!errorMessage.contains(ErrorMessages.fullNameValidationMessage))
+		{
+			isValidationMessagePresent=false;			
+		}
+		
+		element=getEmployeeIDValidationMessage();
+		errorMessage = element.getText();
+		
+		if(!errorMessage.contains(ErrorMessages.employeeValidationMessage))
+		{
+			isValidationMessagePresent=false;			
+		}
+		
+		element=getBusinessUnitValidationMessage();
+		errorMessage = element.getText();
+		
+		if(!errorMessage.contains(ErrorMessages.businessUnitValidationMessage))
+		{
+			isValidationMessagePresent=false;			
+		}
+		
+		element=getdepartmentValidationMessage();
+		errorMessage = element.getText();
+		
+		if(!errorMessage.contains(ErrorMessages.departmentValidationMessage))
+		{
+			isValidationMessagePresent=false;			
+		}		
+		
+		return isValidationMessagePresent;
+	}
+	
+	
 }

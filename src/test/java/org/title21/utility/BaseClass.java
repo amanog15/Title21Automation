@@ -53,9 +53,9 @@ public class BaseClass {
 	protected static ExtentReports extent;
 	protected static ExtentTest test;
 	protected String filePath;
-	protected String loginData[][];
-	protected String groupData[][];
-	protected String employeeData[][];
+	protected static String loginData[][];
+	protected static String groupData[][];
+	protected static String employeeData[][];
 	
 	protected String data[][];
 	protected WebDriverWait waitDriver = null;
@@ -63,9 +63,9 @@ public class BaseClass {
 	LogoutPage_POM logout;
 	
 	public String excelFile="";
-	public String loginSheet="";
-	public String groupSheet="";
-	public String employeeSheet;
+	public static String loginSheet="";
+	public static String groupSheet="";
+	public static String employeeSheet="";
 	public static String browser="";
 	public static String baseUrl="";
 	public static String adminUsername="";
@@ -228,7 +228,7 @@ public class BaseClass {
 		
 		String administratorTab = administrationPage.administratorDropDown().getText();
 		
-		if(administratorTab.contains("Administrator"))
+		try
 		{
 			administrationPage.administratorDropDown().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administrator'"+
@@ -244,13 +244,14 @@ public class BaseClass {
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
 			}
+			extent.endTest(test);
 			
-		}else{
+		}catch(Exception e){
 			
-			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
-			
+			test.log(LogStatus.FAIL, "Unable to find dropdown for Administration submenu.");
+			extent.endTest(test);
 		}
-		extent.endTest(test);
+		
 	}
 	
 

@@ -11,6 +11,7 @@ import org.title21.POM.DashBord_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
 import org.title21.utility.BaseClass;
+import org.title21.utility.FunctionUtils;
 
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -37,7 +38,7 @@ public class AddEmployee_Test extends BaseClass {
 	public void LoginWithInvalidCredentials() throws Exception 
 	{		
 		test = extent.startTest("Add Employee");	
-		BaseClass.getAdministrationPage();
+		getAdministrationPage();
 		
 		addEmployeePOM=new AddEmployee_POM(driver);
 		addEmployeePOM.employees_link().click();
@@ -49,31 +50,56 @@ public class AddEmployee_Test extends BaseClass {
 			test.log(LogStatus.PASS, "Add employee popup opened with General TAB opened"+
 					test.addScreenCapture(captureScreenShot(driver, "employeepopup")));
 		}
-						
-		log.info("Entering data in form");
-				
-		addEmployeePOM.location_dropdown().selectByVisibleText(employeeData[1][0]);	
-		sleep(2);		
-				
-		addEmployeePOM.getEmployeeFullName().sendKeys(employeeData[1][1]);
 		
-		addEmployeePOM.getEmployeeID().sendKeys(employeeData[1][2]);
+		log.info("First checking Validation Messages. without entering in any"
+				+ "field, click on Add button.");
+		
+		addEmployeePOM.getAddBtn().click();	
+		
+		if (addEmployeePOM.verifyAddEmployeeValidationMessages()){
+			test.log(LogStatus.PASS, "All validation messages are present."+
+					test.addScreenCapture(captureScreenShot(driver, "ValidationMessages"))
+					);
+		}
+		else
+		{
+			test.log(LogStatus.FAIL, "All validation messages are not present. see the screenshot"+
+					test.addScreenCapture(captureScreenShot(driver, "ValidationMessages"))
+		            );
+		}
+				
+		log.info("Entering data in form.");
+		
+		sleep(2);			
+		addEmployeePOM.getLocationDropdown().selectByValue(employeeData[1][0]);
+								
+		addEmployeePOM.getEmployeeFullName().sendKeys(employeeData[1][1]+FunctionUtils.generateRandomNumber());
+		
+		addEmployeePOM.getEmployeeID().sendKeys(employeeData[1][2]+FunctionUtils.generateRandomNumber());
 		
 		addEmployeePOM.getsupervisorDropdown().selectByVisibleText(employeeData[1][3]);
 		
 		addEmployeePOM.getbusinessUnitDropdown().selectByIndex(1);
 		
-		addEmployeePOM.getDepartmentDropdown().selectByVisibleText(employeeData[1][5]);		
+		addEmployeePOM.getDepartmentDropdown().selectByVisibleText(employeeData[1][5]);	
 		
-		addEmployeePOM.getAddBtn().click();
+		sleep(3);	
 		
-		sleep(6);		
+		addEmployeePOM.getAddBtn().click();		
 		
-		addEmployeePOM.cancel_Btn().click();
-		sleep(2);		
+		sleep(1);
+		addEmployeePOM.getjobCodeSeniorTechnologist().click();
 		
-		logout=new LogoutPage_POM(driver);
-		logout.logoutFunction();	
+		sleep(2);
+		
+		addEmployeePOM.getAddBtn().click();	
+		
+		
+				
+		sleep(1);
+				
+		/*logout=new LogoutPage_POM(driver);
+		logout.logoutFunction();	*/
 		log.info("logout function.");
 		extent.endTest(test);
 	}	
