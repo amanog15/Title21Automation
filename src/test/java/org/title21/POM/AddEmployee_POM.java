@@ -57,7 +57,7 @@ public class AddEmployee_POM {
 	WebElement supervisorDropdown;
 
 	@FindBy(xpath="//select[contains(@name,'Employee.DefaultFirm')]")
-	WebElement businessUnit;//=By.xpath("//select[contains(@name,'Employee.DefaultFirm')]");
+	WebElement businessUnit;
 
 	@FindBy(xpath="//select[contains(@name,'Employee.Department')]")
 	WebElement department;//=By.xpath("//select[contains(@name,'Employee.Department')]");
@@ -89,7 +89,7 @@ public class AddEmployee_POM {
 	@FindBy(xpath="//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]")
 	WebElement addButton;
 
-	@FindBy(xpath="//a[contains(@href,'#tab2')]")
+	@FindBy(xpath="//a[contains(text(),'Job Codes')]")
 	WebElement jobCodesTab;
 
 	//@FindBy(xpath="//a[contains(text(),'Human Resources Clerk')]")
@@ -137,7 +137,13 @@ public class AddEmployee_POM {
     
 	@FindBy(css=".t21-js-user-message-text")
 	WebElement successMessageText;	
+		
+	@FindBy(css=".min-column")
+	WebElement selectedJobCode;
 	
+	@FindBy(xpath="//button[contains(text(),'Close')]")
+	WebElement closeButtonOnSuccessMessage;
+		
 	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.Location')]")
 	WebElement locationFieldValidationMessage;	
 	
@@ -294,8 +300,7 @@ public class AddEmployee_POM {
 		//WebElement element=driver.findElement(otherSpecificSupervisorradioBtn);
 		return otherSpecificSupervisorradioBtn;
 	}
-	
-	
+		
 	public WebElement hire_Date()
 	{
 		//WebElement element=driver.findElement(hireDate);
@@ -332,10 +337,20 @@ public class AddEmployee_POM {
 		return sendEmailNotification;
 	}
 	
+	public WebElement getSelectedJobCode() {
+		
+		return selectedJobCode;
+	}
+		
 	public WebElement getSuccessMessage(){
 		
 		return successMessageText;
 	}
+			
+	public WebElement getCloseButtononSuccessMessage(){
+		
+		return closeButtonOnSuccessMessage;
+	}	
 	
 	public WebElement getlocationValidationMessage(){
 		
@@ -362,7 +377,10 @@ public class AddEmployee_POM {
 		return departmentValidationMessage;
 	}
 	
-	
+	public WebElement getJobCodesTab() {
+		
+		return jobCodesTab;
+	}
 	
 	public boolean verifyAddEmployeeValidationMessages(){
 		
@@ -410,5 +428,17 @@ public class AddEmployee_POM {
 		return isValidationMessagePresent;
 	}
 	
+	public boolean verifySuccessMessage() {
+		
+		element=getSuccessMessage();
+		String errorMessage = element.getText();
+		boolean isSuccessMessagePresent=true;		
+		
+		if(!errorMessage.contains(ErrorMessages.createEmployeeSuccessMessage))
+		{
+			isSuccessMessagePresent=false;
+		}
+		return isSuccessMessagePresent;		
+	}
 	
 }
