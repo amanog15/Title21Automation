@@ -37,6 +37,7 @@ import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
 import org.title21.POM.AdministrationPage_POM;
 import org.title21.POM.LoginPage_POM;
+import org.openqa.selenium.JavascriptExecutor;
 
 import org.title21.reporting.ExtentManager;
 
@@ -126,7 +127,8 @@ public class BaseClass {
 	}
 
 	@AfterSuite
-	public void afterSuite() {
+	public void afterSuite() throws InterruptedException {	
+		extent.wait(4000);
 		extent.close();
 		System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -323,12 +325,27 @@ public class BaseClass {
 
 	}
 	
-	public void setExplicitWait(WebElement element) {		
+	public void waitTillElementisInvisible(WebElement element) {	
 		
-		WebDriverWait wait=new WebDriverWait(driver,10);
-		wait.until(ExpectedConditions.invisibilityOf(element));			
-		
+		WebDriverWait wait=new WebDriverWait(driver,5);
+		wait.until(ExpectedConditions.invisibilityOf(element));		
 	}		
 	
+	public void waitTillElementVisible(WebElement element) {		
+		WebDriverWait wait=new WebDriverWait(driver,5);
+		wait.until(ExpectedConditions.visibilityOf(element));		
+	}	
 	
+	public void waitTillElementClickable(WebElement element) {		
+		WebDriverWait wait=new WebDriverWait(driver,5);
+		wait.until(ExpectedConditions.elementToBeClickable(element));		
+	}	
+	
+	public void virtualScrolling() {
+		
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		
+		js.executeScript("window.scrollBy(0,600)");
+		
+	}
 }

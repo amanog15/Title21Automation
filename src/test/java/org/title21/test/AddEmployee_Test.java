@@ -53,6 +53,8 @@ public class AddEmployee_Test extends BaseClass {
 		
 		log.info("First checking Validation Messages. without entering in any"
 				+ "field, click on Add button.");
+				
+		waitTillElementVisible(addEmployeePOM.getAddBtn());
 		
 		addEmployeePOM.getAddBtn().click();	
 		
@@ -85,27 +87,33 @@ public class AddEmployee_Test extends BaseClass {
 		
 		sleep(3);	
 		
-		addEmployeePOM.getAddBtn().click();		
+		addEmployeePOM.getAddBtn().click();	
 		
-		sleep(1);
+		waitTillElementVisible(addEmployeePOM.getJobCodesTab());
+		
 		addEmployeePOM.getjobCodeSeniorTechnologist().click();
+		
+		waitTillElementVisible(addEmployeePOM.getSelectedJobCode());
+		
+		addEmployeePOM.getAddBtn().click();	
+						
+		addEmployeePOM.verifySuccessMessage();
+		
+		addEmployeePOM.getCloseButtononSuccessMessage().click();		
 		
 		sleep(2);
 		
-		addEmployeePOM.getAddBtn().click();	
+		log.info("Now calling logout function.");
 		
+		logout=new LogoutPage_POM(driver);
+			
+		logout.logoutFunction();		
 		
-				
-		sleep(1);
-				
-		/*logout=new LogoutPage_POM(driver);
-		logout.logoutFunction();	*/
-		log.info("logout function.");
 		extent.endTest(test);
 	}	
 		
 	@AfterClass
-	public void closeBrowserInstance() 
+	public void closeBrowserInstance()
 	{		
 		driver.close();
 	}
