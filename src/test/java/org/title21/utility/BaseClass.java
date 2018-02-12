@@ -104,7 +104,6 @@ public class BaseClass {
 
 		loginSheet=p.getProperty("Loginsheet");
 		groupSheet=p.getProperty("Groupsheet");
-		System.out.println(groupSheet);
 
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
@@ -244,7 +243,6 @@ public class BaseClass {
 		}else{
 			
 			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
-			
 		}
 		extent.endTest(test);
 	}
