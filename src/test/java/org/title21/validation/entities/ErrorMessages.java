@@ -10,7 +10,7 @@ public class ErrorMessages
 	public static final String locationValidationMessage="Location is Required";
 	public static final String fullNameValidationMessage="Full Name is required";
 	public static final String employeeValidationMessage="Employee ID is required";	
-	public static final String businessUnitValidationMessage="Business Unit is Required";
+	public static final String businessUnitValidationMessage="Bussiness Unit is required";
 	public static final String departmentValidationMessage="Department is Required";
 	
 	public static final String createEmployeeSuccessMessage="Employee with EmployeeID added successfully!";

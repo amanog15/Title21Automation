@@ -231,31 +231,31 @@ public class AddEmployee_POM {
 		return selectObj;			
 	}
 	
-	public WebElement address_textbox()
+	public WebElement getAddressField()
 	{
 		return address;
 	}
-	public WebElement employee_City()
+	public WebElement getEmployeeCity()
 	{
 		return city;
 	}
-	public WebElement employee_State()
+	public WebElement getEmployeeState()
 	{
 		return state;
 	}
-	public WebElement employee_PostalCode()
+	public WebElement getEmployeePostalCode()
 	{
 		return postal_Code;
 	}
-	public WebElement employee_Country()
+	public WebElement getEmployeeCountry()
 	{
 		return country;
 	}
-	public WebElement employee_Phone()
+	public WebElement getEmployeePhone()
 	{
 		return phone;
 	}
-	public WebElement employee_email()
+	public WebElement getEmployeeemail()
 	{
 		return email;
 	}
@@ -386,14 +386,15 @@ public class AddEmployee_POM {
 		
 		element=getlocationValidationMessage();
 		String errorMessage = element.getText();
-		boolean isValidationMessagePresent=true;		
+		boolean isValidationMessagePresent=false;		
 		
-		if(!errorMessage.contains(ErrorMessages.locationValidationMessage))
+		if(errorMessage.contains(ErrorMessages.locationValidationMessage))
 		{
-			isValidationMessagePresent=false;
+			System.out.println(ErrorMessages.locationValidationMessage);
+			isValidationMessagePresent=true;
 		}
 		
-		element=getfullNameValidationMessage();
+		/*element=getfullNameValidationMessage();
 		errorMessage = element.getText();
 		
 		if(!errorMessage.contains(ErrorMessages.fullNameValidationMessage))
@@ -425,6 +426,7 @@ public class AddEmployee_POM {
 			isValidationMessagePresent=false;			
 		}		
 		
+		*/
 		return isValidationMessagePresent;
 	}
 	
@@ -432,11 +434,11 @@ public class AddEmployee_POM {
 		
 		element=getSuccessMessage();
 		String errorMessage = element.getText();
-		boolean isSuccessMessagePresent=true;		
+		boolean isSuccessMessagePresent=false;		
 		
-		if(!errorMessage.contains(ErrorMessages.createEmployeeSuccessMessage))
+		if(errorMessage.contains(ErrorMessages.createEmployeeSuccessMessage))
 		{
-			isSuccessMessagePresent=false;
+			isSuccessMessagePresent=true;
 		}
 		return isSuccessMessagePresent;		
 	}

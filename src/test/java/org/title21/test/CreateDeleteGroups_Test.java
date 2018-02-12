@@ -66,7 +66,6 @@ public class CreateDeleteGroups_Test extends BaseClass {
 			adminCreateGroup.addGroupCancelButton().click();
 			test.log(LogStatus.PASS, "Successfully clicked on 'Cancel' button"+
 					test.addScreenCapture(captureScreenShot(driver, "Cancel button")));
-
 			
 			sleep(2);
 			
@@ -166,9 +165,8 @@ public class CreateDeleteGroups_Test extends BaseClass {
 					
 					for(int i=1; i<=10; i++) {
 						
-						System.out.println(i);
 						WebElement groups = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[1]"));
-						 String groupName= groups.getText();
+						String groupName= groups.getText();
 						
 						if(groupName.equalsIgnoreCase(groupData[1][1]+number)) {
 							
@@ -180,8 +178,7 @@ public class CreateDeleteGroups_Test extends BaseClass {
 					}
 					sleep(2);
 					
-					if(adminCreateGroup.verifyDeleteGroupPopUp()) 
-					{
+					if(adminCreateGroup.verifyDeleteGroupPopUp()) 					{
 						
 						test.log(LogStatus.PASS, "Verified Delete Group Pop-Up."+
 								test.addScreenCapture(captureScreenShot(driver, "Verified Delete Group Pop-Up.")));
