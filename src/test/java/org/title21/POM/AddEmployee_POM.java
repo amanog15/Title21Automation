@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+import org.title21.validation.entities.ErrorMessages;
 
 public class AddEmployee_POM {
 	
@@ -26,9 +28,9 @@ public class AddEmployee_POM {
 
 	@FindBy(css=".fa.fa-plus-circle.t21-padding-right-5")
 	WebElement addNew;
-
-	@FindBy(css=".form-control#GridLocation")
-	WebElement locationTab;
+	
+	@FindBy(xpath="//select[contains(@name,'Employee.Location')]")
+	WebElement locationDropdown;
 
 	@FindBy(css=".form-control.t21-placeholder")
 	WebElement searchBox;
@@ -55,7 +57,7 @@ public class AddEmployee_POM {
 	WebElement supervisorDropdown;
 
 	@FindBy(xpath="//select[contains(@name,'Employee.DefaultFirm')]")
-	WebElement businessUnit;//=By.xpath("//select[contains(@name,'Employee.DefaultFirm')]");
+	WebElement businessUnit;
 
 	@FindBy(xpath="//select[contains(@name,'Employee.Department')]")
 	WebElement department;//=By.xpath("//select[contains(@name,'Employee.Department')]");
@@ -85,14 +87,15 @@ public class AddEmployee_POM {
 	WebElement cancelButton;//=By.xpath("//button[contains(@class,'btn t21-btn-default pull-left')]");
 
 	@FindBy(xpath="//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]")
-	WebElement addButton;//=By.xpath("//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]");
+	WebElement addButton;
 
-	@FindBy(xpath="//a[contains(@href,'#tab2')]")
-	WebElement jobCodesTab;//=By.xpath("//a[contains(@href,'#tab2')]");
+	@FindBy(xpath="//a[contains(text(),'Job Codes')]")
+	WebElement jobCodesTab;
 
-	@FindBy(xpath="//a[contains(text(),'Human Resources Clerk')]")
-	WebElement jobCodesDropdown;//=By.xpath("//a[contains(text(),'Human Resources Clerk')]");
-
+	//@FindBy(xpath="//a[contains(text(),'Human Resources Clerk')]")
+	@FindBy(xpath="//a[contains(text(),'Senior Technologist')]")
+	WebElement jobCodesDropdown;
+		
 	@FindBy(xpath="//a[contains(@href,'#tab3')]")
 	WebElement otherTab;//=By.xpath("//a[contains(@href,'#tab3')]");
 
@@ -100,10 +103,10 @@ public class AddEmployee_POM {
 	WebElement trainingLink;//=By.xpath("//*[@class='collapsible-icon t21-padding-right-5']");
 
 	@FindBy(xpath="//*[@id='IsTraining']")
-	WebElement uponSaveCheckbox;//=By.xpath("//*[@id='IsTraining']");    
+	WebElement uponSaveCheckbox;    
 
 	@FindBy(xpath="//*[@id='collapse-1']/div/div[2]/div/label")
-	WebElement employeeSupervisorradioBtn;//=By.xpath("//*[@id='collapse-1']/div/div[2]/div/label");
+	WebElement employeeSupervisorradioBtn;
 
 	@FindBy(xpath="//*[@id='collapse-1']/div/div[3]/div[1]/label")
 	WebElement otherSpecificSupervisorradioBtn;//=By.xpath("//*[@id='collapse-1']/div/div[3]/div[1]/label");
@@ -130,8 +133,33 @@ public class AddEmployee_POM {
 	WebElement altEmployeeID;//=By.xpath("//*[@name='Employee.AltEmployeeID']");
 
 	@FindBy(xpath="//*[@id='CreateUserId']")
-	WebElement createUserID;//=By.xpath();     
+	WebElement createUserID;    
     
+	@FindBy(css=".t21-js-user-message-text")
+	WebElement successMessageText;	
+		
+	@FindBy(css=".min-column")
+	WebElement selectedJobCode;
+	
+	@FindBy(xpath="//button[contains(text(),'Close')]")
+	WebElement closeButtonOnSuccessMessage;
+		
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.Location')]")
+	WebElement locationFieldValidationMessage;	
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.FullName')]")
+	WebElement fullNameValidationMessage;	
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.EmployeeID')]")
+	WebElement employeeIDValidationMessage;
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.DefaultFirm')]")
+	WebElement businessUnitValidationMessage;
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.Department')]")
+	WebElement departmentValidationMessage;
+	
+	
 	public WebElement administrator_dropdown()
 	{
 		//WebElement element=driver.findElement(administrator);
@@ -142,21 +170,24 @@ public class AddEmployee_POM {
 		//WebElement element=driver.findElement(administration);
 		return administration;
 	}
-	public WebElement employees_menu()
+	public WebElement employees_link()
 	{
 		//WebElement element=driver.findElement(employees);
 		return employees;
 	}
-	public WebElement addNew_Employee()
+	
+	public WebElement addNewLink()
 	{
 		//WebElement element=driver.findElement(addNew);
 		return addNew;
 	}
-	public WebElement location_Field()
+	
+	public Select getLocationDropdown()
 	{
-		//WebElement element=driver.findElement(locationTab);
-		return locationTab;
+		Select selectObj=new Select(locationDropdown);
+		return selectObj;
 	}
+	
 	public WebElement searchText_Box()
 	{
 		//WebElement element=driver.findElement(searchBox);
@@ -172,79 +203,76 @@ public class AddEmployee_POM {
 		//WebElement element=driver.findElement(locationEmployee);
 		return locationEmployee;
 	}
-	public WebElement employee_FullName()
+	public WebElement getEmployeeFullName()
 	{
-		//WebElement element=driver.findElement(locationEmployee);
-		return locationEmployee;
+		return employeeFullName;
 	}
-	public WebElement supervisorDropdown_Field()
+	
+	public WebElement getEmployeeID()
 	{
-		//WebElement element=driver.findElement(supervisorDropdown);
-		return supervisorDropdown;
+		return employeeID;
 	}
-	public WebElement businessUnit_Dropdown()
+	
+	public Select getsupervisorDropdown()
+	{		
+		Select selectObj=new Select(supervisorDropdown);
+		return selectObj;		
+	}
+	
+	public Select getbusinessUnitDropdown()
 	{
-		//WebElement element=driver.findElement(businessUnit);
-		return businessUnit;
+		Select selectObj=new Select(businessUnit);
+		return selectObj;		
 	}
-	public WebElement department_Dropdown()
+	
+	public Select getDepartmentDropdown()
 	{
-		//WebElement element=driver.findElement(department);
-		return department;
+		Select selectObj=new Select(department);
+		return selectObj;			
 	}
+	
 	public WebElement address_textbox()
 	{
-		//WebElement element=driver.findElement(address);
 		return address;
 	}
 	public WebElement employee_City()
 	{
-		//WebElement element=driver.findElement(city);
 		return city;
 	}
 	public WebElement employee_State()
 	{
-		//WebElement element=driver.findElement(state);
 		return state;
 	}
 	public WebElement employee_PostalCode()
 	{
-		//WebElement element=driver.findElement(postal_Code);
 		return postal_Code;
 	}
 	public WebElement employee_Country()
 	{
-		//WebElement element=driver.findElement(country);
 		return country;
 	}
 	public WebElement employee_Phone()
 	{
-		//WebElement element=driver.findElement(phone);
 		return phone;
 	}
 	public WebElement employee_email()
 	{
-		//WebElement element=driver.findElement(email);
 		return email;
 	}
 	public WebElement cancel_Btn()
 	{
-		//WebElement element=driver.findElement(cancelButton);
 		return cancelButton;
 	}
-	public WebElement add_Btn()
+	public WebElement getAddBtn()
 	{
-		//WebElement element=driver.findElement(addButton);
 		return addButton;
 	}
 	public WebElement job_Codes()
 	{
-		//WebElement element=driver.findElement(jobCodesTab);
 		return jobCodesTab;
 	}
-	public WebElement jobCode_Dropdown1()
+	public WebElement getjobCodeSeniorTechnologist()
 	{
-		//WebElement element=driver.findElement(jobCodesDropdown);
 		return jobCodesDropdown;
 	}
 	public WebElement other_Tab()
@@ -272,8 +300,7 @@ public class AddEmployee_POM {
 		//WebElement element=driver.findElement(otherSpecificSupervisorradioBtn);
 		return otherSpecificSupervisorradioBtn;
 	}
-	
-	
+		
 	public WebElement hire_Date()
 	{
 		//WebElement element=driver.findElement(hireDate);
@@ -309,4 +336,109 @@ public class AddEmployee_POM {
 		//WebElement element=driver.findElement(createUserID);
 		return sendEmailNotification;
 	}
+	
+	public WebElement getSelectedJobCode() {
+		
+		return selectedJobCode;
+	}
+		
+	public WebElement getSuccessMessage(){
+		
+		return successMessageText;
+	}
+			
+	public WebElement getCloseButtononSuccessMessage(){
+		
+		return closeButtonOnSuccessMessage;
+	}	
+	
+	public WebElement getlocationValidationMessage(){
+		
+		return locationFieldValidationMessage;
+	}
+	
+	public WebElement getfullNameValidationMessage(){
+		
+		return fullNameValidationMessage;
+	}
+	
+	public WebElement getEmployeeIDValidationMessage(){
+		
+		return employeeIDValidationMessage;
+	}
+		
+	public WebElement getBusinessUnitValidationMessage(){
+		
+		return businessUnitValidationMessage;
+	}
+	
+	public WebElement getdepartmentValidationMessage(){
+		
+		return departmentValidationMessage;
+	}
+	
+	public WebElement getJobCodesTab() {
+		
+		return jobCodesTab;
+	}
+	
+	public boolean verifyAddEmployeeValidationMessages(){
+		
+		element=getlocationValidationMessage();
+		String errorMessage = element.getText();
+		boolean isValidationMessagePresent=true;		
+		
+		if(!errorMessage.contains(ErrorMessages.locationValidationMessage))
+		{
+			isValidationMessagePresent=false;
+		}
+		
+		element=getfullNameValidationMessage();
+		errorMessage = element.getText();
+		
+		if(!errorMessage.contains(ErrorMessages.fullNameValidationMessage))
+		{
+			isValidationMessagePresent=false;			
+		}
+		
+		element=getEmployeeIDValidationMessage();
+		errorMessage = element.getText();
+		
+		if(!errorMessage.contains(ErrorMessages.employeeValidationMessage))
+		{
+			isValidationMessagePresent=false;			
+		}
+		
+		element=getBusinessUnitValidationMessage();
+		errorMessage = element.getText();
+		
+		if(!errorMessage.contains(ErrorMessages.businessUnitValidationMessage))
+		{
+			isValidationMessagePresent=false;			
+		}
+		
+		element=getdepartmentValidationMessage();
+		errorMessage = element.getText();
+		
+		if(!errorMessage.contains(ErrorMessages.departmentValidationMessage))
+		{
+			isValidationMessagePresent=false;			
+		}		
+		
+		return isValidationMessagePresent;
+	}
+	
+	public boolean verifySuccessMessage() {
+		
+		element=getSuccessMessage();
+		String errorMessage = element.getText();
+		boolean isSuccessMessagePresent=true;		
+		
+		if(!errorMessage.contains(ErrorMessages.createEmployeeSuccessMessage))
+		{
+			isSuccessMessagePresent=false;
+		}
+		return isSuccessMessagePresent;		
+	}
+	
 }
