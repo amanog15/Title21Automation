@@ -9,6 +9,8 @@ import java.util.Formatter;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.UUID;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import org.apache.commons.io.FileUtils;
 
@@ -72,6 +74,8 @@ public class BaseClass {
 	public static String adminUsername="";
 	public static String adminPassword="";
 	static String imagesDirectory = "";
+	
+	int pixels=0;
 
 	@BeforeMethod
 	public void beforeMethod() {
@@ -91,12 +95,15 @@ public class BaseClass {
 			test.log(LogStatus.PASS, "Test passed");
 		}
 
-		extent.flush();
+		//extent.flush();
 	}
 
 	@BeforeSuite
 	@Parameters({"configFile"})
 	public void beforeSuite(String configFile) throws Exception {
+		
+		// loading log4j properties.
+		PropertyConfigurator.configure("log4j.properties");
 		
 		Properties p=new Properties();
 		FileInputStream readconfig=new FileInputStream(configFile);
@@ -110,6 +117,7 @@ public class BaseClass {
 		groupSheet=p.getProperty("Groupsheet");
 		employeeSheet=p.getProperty("EmployeeSheet");
 		
+		
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
 		
@@ -121,14 +129,13 @@ public class BaseClass {
 
 		loginData=ExcelData(excelFile, loginSheet);
 		groupData=ExcelData(excelFile, groupSheet);
-		employeeData=ExcelData(excelFile, employeeSheet);
+		employeeData=ExcelData(excelFile, employeeSheet);		
 		
 		extent = ExtentManager.getReporter(filePath);		
 	}
 
 	@AfterSuite
 	public void afterSuite() throws InterruptedException {	
-		extent.wait(4000);
 		extent.close();
 		System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -226,7 +233,7 @@ public class BaseClass {
 	public static void getAdministrationPage() {
 		
 		AdministrationPage_POM administrationPage = new AdministrationPage_POM(driver);
-		test = extent.startTest("NavigateToAdministrationPage");
+		//test = extent.startTest("NavigateToAdministrationPage");
 		
 		String administratorTab = administrationPage.administratorDropDown().getText();
 		
@@ -246,12 +253,12 @@ public class BaseClass {
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
 			}
-			extent.endTest(test);
+			//extent.endTest(test);
 			
 		}catch(Exception e){
 			
 			test.log(LogStatus.FAIL, "Unable to find dropdown for Administration submenu.");
-			extent.endTest(test);
+			//extent.endTest(test);
 		}
 		
 	}
@@ -341,11 +348,13 @@ public class BaseClass {
 		wait.until(ExpectedConditions.elementToBeClickable(element));		
 	}	
 	
-	public void virtualScrolling() {
+	public void javaScriptClick(WebElement element){
+		JavascriptExecutor js=(JavascriptExecutor)driver;		
+		js.executeScript("arguments[0].click();",element);			
+	}
 		
-		JavascriptExecutor js=(JavascriptExecutor)driver;
-		
-		js.executeScript("window.scrollBy(0,600)");
-		
+	public void virtualScrolling() {		
+		JavascriptExecutor js=(JavascriptExecutor)driver;		
+		js.executeScript("window.scrollBy(0,500)");		
 	}
 }

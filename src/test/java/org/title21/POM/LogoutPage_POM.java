@@ -71,7 +71,8 @@ public class LogoutPage_POM extends BaseClass
 		sleep(2);
 		getlogoutLink().click();
 		sleep(2);
-		getLogoutButton().click();	
+		getLogoutButton().click();
+		sleep(2);
 		 
 	 }
  
