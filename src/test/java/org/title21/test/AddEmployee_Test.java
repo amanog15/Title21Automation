@@ -42,7 +42,5 @@ public class AddEmployee_Test extends BaseClass {
 	{		
 		driver.close();
 	}
-
-	
 	
 }

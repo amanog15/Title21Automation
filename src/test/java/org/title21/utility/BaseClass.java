@@ -5,13 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Formatter;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -23,7 +21,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,18 +31,15 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
-import org.testng.asserts.SoftAssert;
 import org.title21.POM.AdministrationPage_POM;
 import org.title21.POM.LoginPage_POM;
-
+import org.title21.POM.LogoutPage_POM;
 import org.title21.reporting.ExtentManager;
 
 //import com.framework.selenium.BaseClass;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-
-import org.title21.POM.LogoutPage_POM;
 
 public class BaseClass {
 
@@ -56,6 +50,7 @@ public class BaseClass {
 	protected String loginData[][];
 	protected String groupData[][];
 	protected String data[][];
+	protected String userData[][];
 	protected WebDriverWait waitDriver = null;
 	LoginPage_POM login;
 	LogoutPage_POM logout;
@@ -67,6 +62,7 @@ public class BaseClass {
 	public static String baseUrl="";
 	public static String adminUsername="";
 	public static String adminPassword="";
+	public static String createUserSheet="";
 	static String imagesDirectory = "";
 
 	@BeforeMethod
@@ -104,6 +100,7 @@ public class BaseClass {
 
 		loginSheet=p.getProperty("Loginsheet");
 		groupSheet=p.getProperty("Groupsheet");
+		createUserSheet=p.getProperty("Createusersheet");
 
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
@@ -116,6 +113,7 @@ public class BaseClass {
 
 		loginData=ExcelData(excelFile, loginSheet);
 		groupData=ExcelData(excelFile, groupSheet);
+		userData=ExcelData(excelFile,createUserSheet );
 		
 		extent = ExtentManager.getReporter(filePath);		
 	}
@@ -209,7 +207,7 @@ public class BaseClass {
 
 		else if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.gecko.driver", ".\\drivers\\geckodriver.exe");
-			driver = new FirefoxDriver();
+			///driver = new FirefoxDriver();
 			implicitwait(driver);
 			driver.get(baseUrl);
 		}
