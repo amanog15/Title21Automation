@@ -9,6 +9,8 @@ import java.util.Formatter;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.UUID;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import org.apache.commons.io.FileUtils;
 
@@ -37,6 +39,7 @@ import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
 import org.title21.POM.AdministrationPage_POM;
 import org.title21.POM.LoginPage_POM;
+import org.openqa.selenium.JavascriptExecutor;
 
 import org.title21.reporting.ExtentManager;
 
@@ -52,22 +55,27 @@ public class BaseClass {
 	protected static WebDriver driver;
 	protected static ExtentReports extent;
 	protected static ExtentTest test;
-	protected static String filePath;
+	protected String filePath;
 	protected static String loginData[][];
 	protected static String groupData[][];
-	protected static String data[][];
+	protected static String employeeData[][];
+	
+	protected String data[][];
 	protected WebDriverWait waitDriver = null;
 	LoginPage_POM login;
 	LogoutPage_POM logout;
 	
-	public static String excelFile="";
+	public String excelFile="";
 	public static String loginSheet="";
 	public static String groupSheet="";
+	public static String employeeSheet="";
 	public static String browser="";
 	public static String baseUrl="";
 	public static String adminUsername="";
 	public static String adminPassword="";
 	static String imagesDirectory = "";
+	
+	int pixels=0;
 
 	@BeforeMethod
 	public void beforeMethod() {
@@ -87,12 +95,15 @@ public class BaseClass {
 			test.log(LogStatus.PASS, "Test passed");
 		}
 
-		extent.flush();
+		//extent.flush();
 	}
 
 	@BeforeSuite
 	@Parameters({"configFile"})
 	public void beforeSuite(String configFile) throws Exception {
+		
+		// loading log4j properties.
+		PropertyConfigurator.configure("log4j.properties");
 		
 		Properties p=new Properties();
 		FileInputStream readconfig=new FileInputStream(configFile);
@@ -104,7 +115,9 @@ public class BaseClass {
 
 		loginSheet=p.getProperty("Loginsheet");
 		groupSheet=p.getProperty("Groupsheet");
-
+		employeeSheet=p.getProperty("EmployeeSheet");
+		
+		
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
 		
@@ -116,12 +129,13 @@ public class BaseClass {
 
 		loginData=ExcelData(excelFile, loginSheet);
 		groupData=ExcelData(excelFile, groupSheet);
+		employeeData=ExcelData(excelFile, employeeSheet);		
 		
 		extent = ExtentManager.getReporter(filePath);		
 	}
 
 	@AfterSuite
-	public void afterSuite() {
+	public void afterSuite() throws InterruptedException {	
 		extent.close();
 		System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -219,11 +233,11 @@ public class BaseClass {
 	public static void getAdministrationPage() {
 		
 		AdministrationPage_POM administrationPage = new AdministrationPage_POM(driver);
-		test = extent.startTest("NavigateToAdministrationPage");
+		//test = extent.startTest("NavigateToAdministrationPage");
 		
 		String administratorTab = administrationPage.administratorDropDown().getText();
 		
-		if(administratorTab.contains("Administrator"))
+		try
 		{
 			administrationPage.administratorDropDown().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administrator'"+
@@ -239,12 +253,14 @@ public class BaseClass {
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
 			}
+			//extent.endTest(test);
 			
-		}else{
+		}catch(Exception e){
 			
-			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
+			test.log(LogStatus.FAIL, "Unable to find dropdown for Administration submenu.");
+			//extent.endTest(test);
 		}
-		extent.endTest(test);
+		
 	}
 	
 
@@ -316,20 +332,29 @@ public class BaseClass {
 
 	}
 	
-	public void setExplicitWait(WebElement element) {		
+	public void waitTillElementisInvisible(WebElement element) {	
 		
-		WebDriverWait wait=new WebDriverWait(driver,10);
-		wait.until(ExpectedConditions.invisibilityOf(element));			
-		
+		WebDriverWait wait=new WebDriverWait(driver,5);
+		wait.until(ExpectedConditions.invisibilityOf(element));		
 	}		
 	
-	public static String generateString() 
-	{
-	 
-		String uuid = UUID.randomUUID().toString();
-
-		return uuid;
-	 
-	}
+	public void waitTillElementVisible(WebElement element) {		
+		WebDriverWait wait=new WebDriverWait(driver,5);
+		wait.until(ExpectedConditions.visibilityOf(element));		
+	}	
 	
+	public void waitTillElementClickable(WebElement element) {		
+		WebDriverWait wait=new WebDriverWait(driver,5);
+		wait.until(ExpectedConditions.elementToBeClickable(element));		
+	}	
+	
+	public void javaScriptClick(WebElement element){
+		JavascriptExecutor js=(JavascriptExecutor)driver;		
+		js.executeScript("arguments[0].click();",element);			
+	}
+		
+	public void virtualScrolling() {		
+		JavascriptExecutor js=(JavascriptExecutor)driver;		
+		js.executeScript("window.scrollBy(0,500)");		
+	}
 }

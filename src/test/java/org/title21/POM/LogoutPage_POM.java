@@ -33,10 +33,6 @@ public class LogoutPage_POM extends BaseClass
 		PageFactory.initElements(driver, this);
 	}
 
-//By administratordropdown=By.cssSelector(".dropdown-toggle.t21-nav-bar-dropdown");
-// By logoutlink=By.xpath(".//*[@id='Logout']/a");
- //By logoutbutton=By.xpath("//a[contains(@href,'Logout')]");
-// By modalDialogText=By.cssSelector(".modal-body");
 
 	 public WebElement getAdmindropdown()
 	 {
@@ -75,7 +71,8 @@ public class LogoutPage_POM extends BaseClass
 		sleep(2);
 		getlogoutLink().click();
 		sleep(2);
-		getLogoutButton().click();	
+		getLogoutButton().click();
+		sleep(2);
 		 
 	 }
  
