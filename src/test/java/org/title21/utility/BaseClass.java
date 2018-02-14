@@ -58,6 +58,7 @@ public class BaseClass {
 	protected String filePath;
 	protected static String loginData[][];
 	protected static String groupData[][];
+	protected static String userData[][];
 	protected static String employeeData[][];
 	
 	protected String data[][];
@@ -69,6 +70,7 @@ public class BaseClass {
 	public static String loginSheet="";
 	public static String groupSheet="";
 	public static String employeeSheet="";
+	public static String userSheet="";
 	public static String browser="";
 	public static String baseUrl="";
 	public static String adminUsername="";
@@ -103,7 +105,7 @@ public class BaseClass {
 	public void beforeSuite(String configFile) throws Exception {
 		
 		// loading log4j properties.
-		PropertyConfigurator.configure("log4j.properties");
+		//PropertyConfigurator.configure("log4j.properties");
 		
 		Properties p=new Properties();
 		FileInputStream readconfig=new FileInputStream(configFile);
@@ -115,7 +117,9 @@ public class BaseClass {
 
 		loginSheet=p.getProperty("Loginsheet");
 		groupSheet=p.getProperty("Groupsheet");
+		userSheet=p.getProperty("UserSheet");
 		employeeSheet=p.getProperty("EmployeeSheet");
+		
 		
 		
 		adminUsername=p.getProperty("adminUsername");
@@ -129,7 +133,9 @@ public class BaseClass {
 
 		loginData=ExcelData(excelFile, loginSheet);
 		groupData=ExcelData(excelFile, groupSheet);
-		employeeData=ExcelData(excelFile, employeeSheet);		
+		userData=ExcelData(excelFile, userSheet);
+		employeeData=ExcelData(excelFile, employeeSheet);	
+		
 		
 		extent = ExtentManager.getReporter(filePath);		
 	}

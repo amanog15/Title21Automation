@@ -44,19 +44,19 @@ public class AdministratonPage_Test extends BaseClass {
 			
 			administrationPage.administrationLink().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administration' link."+
-					test.addScreenCapture(captureScreenShot(driver, "administration' link.")));
+					test.addScreenCapture(captureScreenShot(driver, "administration link")));
 			
 			if(administrationPage.verifyAdministrationPagePrescence()) {
 				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence."+
-						test.addScreenCapture(captureScreenShot(driver, "administration Page' Prescence")));
+						test.addScreenCapture(captureScreenShot(driver, "administration Page Prescence")));
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence."+
-						test.addScreenCapture(captureScreenShot(driver, "administration Page' Prescence")));
+						test.addScreenCapture(captureScreenShot(driver, "administration Page Prescence")));
 			}
 			test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
 		}else{
 			
-			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
+			test.log(LogStatus.FAIL, "Unable to find 'administrator' tab");
 			
 		}
 		extent.endTest(test);
