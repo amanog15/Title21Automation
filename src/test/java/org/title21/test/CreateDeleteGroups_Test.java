@@ -41,11 +41,11 @@ public class CreateDeleteGroups_Test extends BaseClass {
 	@Test(testName = "CreateGroup_admin", groups = "CreateGroup", priority = 0)
 	public void CreateGroupInAdmin() 
 	{
+		test = extent.startTest("CreateGroup_admin");
 		number = FunctionUtils.generateRandomNumber();
 		adminCreateGroup = new AdminCreateDeleteGroups_POM(driver);
-		BaseClass.getAdministrationPage();
-		
-		test = extent.startTest("CreateGroup_admin");
+		BaseClass.getAdministrationPage(test);
+				
 		test.log(LogStatus.PASS, "Successfully navigated to Administration Page."+
 				test.addScreenCapture(captureScreenShot(driver, "getAdministrationPage")));
 		
