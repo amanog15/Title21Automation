@@ -9,17 +9,18 @@ import org.openqa.selenium.support.PageFactory;
 import org.title21.utility.BaseClass;
 import org.title21.validation.entities.ErrorMessages;
 
-public class AdminCreateDeleteGroups_POM
+public class AdminCreateDeleteGroups_POM 
 {
 public WebDriver driver;
 public WebElement element;
 BaseClass baseClassObj = new BaseClass();
 
-
 public AdminCreateDeleteGroups_POM(WebDriver driver) {
+
 	this.driver = driver;
 	PageFactory.initElements(driver, this);
 }
+
 @FindBy(xpath="//a[contains(@href,'GetGroupList')]")
 WebElement groupslink;
 

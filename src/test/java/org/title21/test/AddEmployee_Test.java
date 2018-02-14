@@ -15,6 +15,7 @@ import org.title21.dao.AdminData;
 import org.title21.utility.BaseClass;
 import org.title21.utility.FunctionUtils;
 
+import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class AddEmployee_Test extends BaseClass {
@@ -24,7 +25,8 @@ public class AddEmployee_Test extends BaseClass {
 	DashBord_POM dashboardObj;
 	SoftAssert softAssertion=new SoftAssert();
 	String className="";
-	String employeeID="";
+	String employeeFullName="";
+	boolean isValidationMessageProper=true;
 	static Logger log = Logger.getLogger(AddEmployee_Test.class);
 	AdminData adminData=new AdminData();	
 	
@@ -41,24 +43,22 @@ public class AddEmployee_Test extends BaseClass {
 	@Test(testName = "AddEmployee", groups = "Employee", priority = 0)
 	public void createEmployee() throws Exception 
 	{	
-		
-					
-		getAdministrationPage();
-		test = extent.startTest("Add Employee");
+		test = extent.startTest("Add Employee");		
+		getAdministrationPage(test);		
 		
 		addEmployeePOM=new AddEmployee_POM(driver);
 		addEmployeePOM.employees_link().click();
 		
-		log.info("Now clicking on Add new Link");
+		log.info("Now clicking on Add new Link.");
 		addEmployeePOM.addNewLink().click();
 		
 		addEmployeePOM=new AddEmployee_POM(driver);
 		
-		if (addEmployeePOM.getEmployeeFullName().isDisplayed()){
-			test.log(LogStatus.PASS, "Add employee popup opened with General TAB opened"+
+		waitTillElementVisible(addEmployeePOM.getEmployeeFullName());
+				
+		test.log(LogStatus.PASS, "Add employee popup opened with General TAB opened"+
 					test.addScreenCapture(captureScreenShot(driver, "employeepopup")));
-		}
-		
+				
 		log.info("First checking Validation Messages. without entering in any"
 				+ "field, click on Add button.");		
 		
@@ -67,32 +67,59 @@ public class AddEmployee_Test extends BaseClass {
 		log.info("scrolling down to click on Add button.");
 		
 		//addEmployeePOM.getAddBtn().click();	
-		javaScriptClick(addEmployeePOM.getAddBtn());
-		
-		if (addEmployeePOM.verifyAddEmployeeValidationMessages()){
-			test.log(LogStatus.PASS, "All validation messages are present."+
-					test.addScreenCapture(captureScreenShot(driver, "ValidationMessages"))
-					);
-		}
-		else
-		{
-			test.log(LogStatus.FAIL, "All validation messages are not present. see the screenshot"+
+		javaScriptClick(addEmployeePOM.getAddBtn());		
+				
+		if (!addEmployeePOM.verifyLocationValidationMessage()){	
+			test.log(LogStatus.FAIL, "Location validation message is not present. see the screenshot"+
 					test.addScreenCapture(captureScreenShot(driver, "ValidationMessagesFailure"))
 		     );
+			isValidationMessageProper=false;
 		}
 				
+		if (!addEmployeePOM.verifyFullNameValidationMessage()){	
+		test.log(LogStatus.FAIL, "Full name validation message is not present. see the screenshot"+
+				test.addScreenCapture(captureScreenShot(driver, "ValidationMessagesFailure"))
+	     );
+			isValidationMessageProper=false;
+		}
+			
+		if (!addEmployeePOM.verifyEmployeeIDValidationMessage()){	
+			test.log(LogStatus.FAIL, "EmployeeID validation message is not present. see the screenshot"+
+					test.addScreenCapture(captureScreenShot(driver, "ValidationMessagesFailure"))
+		     );
+			isValidationMessageProper=false;
+		}
+		
+		if (!addEmployeePOM.verifyBusinessUnitValidationMessage()){	
+			test.log(LogStatus.FAIL, "BusinessUnit validation message is not present. see the screenshot"+
+					test.addScreenCapture(captureScreenShot(driver, "ValidationMessagesFailure"))
+		     );
+			isValidationMessageProper=false;
+		}
+		
+		if (!addEmployeePOM.verifyDepartmentValidationMessage()){	
+			test.log(LogStatus.FAIL, "Department validation message is not present. see the screenshot"+
+					test.addScreenCapture(captureScreenShot(driver, "ValidationMessagesFailure"))
+		     );
+			isValidationMessageProper=false;
+		}
+		
+		if (isValidationMessageProper){
+			test.log(LogStatus.PASS, "Displays validation messages when no data entered.(General TAB)"+
+					test.addScreenCapture(captureScreenShot(driver, "ValidationMessagesFailure")));			
+		}
+		
 		log.info("Entering data in form.");
 		
 		sleep(2);			
+		
 		addEmployeePOM.getLocationDropdown().selectByValue(employeeData[1][0]);		
 								
-		employeeID=employeeData[1][1]+FunctionUtils.generateRandomNumber();
+		employeeFullName=employeeData[1][1]+FunctionUtils.generateRandomNumber();
 		
-		addEmployeePOM.getEmployeeFullName().sendKeys(employeeID);
+		addEmployeePOM.getEmployeeFullName().sendKeys(employeeFullName);		
 		
-		log.info("String employeeID using getter&Setter so it will be helpful in future implementation.");
-		
-		adminData.setEmployeeID(employeeID);
+		adminData.setEmployeeName(employeeFullName);		
 		
 		addEmployeePOM.getEmployeeID().sendKeys(employeeData[1][2]+FunctionUtils.generateRandomNumber());
 		
@@ -127,17 +154,26 @@ public class AddEmployee_Test extends BaseClass {
 		
 		waitTillElementVisible(addEmployeePOM.getJobCodesTab());
 		
+		test.log(LogStatus.PASS, "User should be navigated to Job Codes Screen "
+				+ "and job codes list should be visible."+
+				test.addScreenCapture(captureScreenShot(driver, "jobcodeList")));
+		
 		waitTillElementVisible(addEmployeePOM.getjobCodeSeniorTechnologist());
 		
 		addEmployeePOM.getjobCodeSeniorTechnologist().click();
 		
 		waitTillElementVisible(addEmployeePOM.getSelectedJobCode());
 		
+		test.log(LogStatus.PASS, "Added job code should be available in job code section."+
+				test.addScreenCapture(captureScreenShot(driver, "SelectedJobCodeList")));
+		
 		addEmployeePOM.getAddBtn().click();	
+		
+		waitTillElementVisible(addEmployeePOM.getCloseButtononSuccessMessage());
 						
 		if (addEmployeePOM.verifySuccessMessage()){
 			
-			test.log(LogStatus.PASS, "Employee created successfully"+
+			test.log(LogStatus.PASS, "Employee created successfully."+
 			test.addScreenCapture(captureScreenShot(driver, "Employee added successfully.")));
 		};
 		

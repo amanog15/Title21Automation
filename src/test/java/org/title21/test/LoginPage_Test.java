@@ -24,11 +24,11 @@ public class LoginPage_Test extends BaseClass {
 		createDirectory(className);
 		
 	}
-	@Test(testName = "login_admin", groups = "Logins", priority = 0)
+	@Test(testName = "login-to-app", groups = "Logins", priority = 0)
 	public void LoginWithInvalidCredentials() throws Exception 
 	{
-		test = extent.startTest(loginData[0][2]);		
-		test.log(LogStatus.PASS, "Opened URL");
+		test = extent.startTest("LoginToApplication.");		
+		test.log(LogStatus.PASS, "Opened URL for Title21 Health Solutions.");
 		login= new LoginPage_POM(driver);
 		login.getLogin_button().click();
 		
@@ -54,7 +54,7 @@ public class LoginPage_Test extends BaseClass {
 		}
 		
 		login.getpassword().sendKeys(loginData[0][1]);
-		test.log(LogStatus.PASS, "Incorrect Password Entered");
+		test.log(LogStatus.PASS, "Displays validation message after incorrect Password Entered.");
 		login.getLogin_button().click();
 		test.log(LogStatus.PASS, "Clicked on Login Button.");
 		
@@ -65,24 +65,14 @@ public class LoginPage_Test extends BaseClass {
 			throw new Exception("Password message not matched.");			
 		};
 		
-		extent.endTest(test);
-	}	
-	
-	@Test(testName = "login_admin", groups = "Logins", priority = 1)
-	public void LoginValidPassword() 
-	{
-		test = extent.startTest(loginData[1][2]);
+		login.getUsername().clear();
+		login.getUsername().sendKeys(loginData[1][0]);
 		login.getpassword().sendKeys(loginData[1][1]);
 		test.log(LogStatus.PASS, "Correct password Entered.");
 		login.getLogin_button().click();
 		test.log(LogStatus.PASS, "Clicked on Login button."+
-		test.addScreenCapture(captureScreenShot(driver, "View after Loggedin.")));		
-		extent.endTest(test);
-	}
-	@Test(testName = "login_admin", groups = "Logins", priority = 2)
-	public void VerifyUserLoggedin() 
-	{
-		test = extent.startTest("Successful Login with valid credentials.");
+		test.addScreenCapture(captureScreenShot(driver, "View after Loggedin.")));
+		
 		login.getLogin_button().click();
 		waitForPageToLoad(driver,4);		
 		test.log(LogStatus.PASS, "Verifying DashBord");
@@ -91,12 +81,29 @@ public class LoginPage_Test extends BaseClass {
 			test.log(LogStatus.PASS, "DashBord is displayed After Login.");
 		};
 		
-		test.log(LogStatus.PASS,"verifying Administrator's Dashboard header text");
+	
 		if (dashboardObj.verifyHeaderStyle()){;
-			test.log(LogStatus.PASS,"Sucessfully displayed Administrator's Dashboard header text");
+			test.log(LogStatus.PASS,"Dashboard header text is displayed means User loggedin successfully.");
      	};
+     	
+		extent.endTest(test);
+	}	
+	
+	/*@Test(testName = "login_admin", groups = "Logins", priority = 1)
+	public void LoginValidPassword() 
+	{
+		test = extent.startTest(loginData[1][2]);
+				
 		extent.endTest(test);
 	}
+	@Test(testName = "login_admin", groups = "Logins", priority = 2)
+	public void VerifyUserLoggedin() 
+	{
+		test = extent.startTest("Successful Login with valid credentials.");
+		
+		extent.endTest(test);
+	}*/
+	
 	@AfterClass
 	public void closeBrowserInstance() 
 	{
