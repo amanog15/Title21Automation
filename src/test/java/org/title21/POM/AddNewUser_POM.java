@@ -1,6 +1,5 @@
 package org.title21.POM;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,11 +10,11 @@ public class AddNewUser_POM {
 
 	public WebDriver driver;
 	public WebElement element;
-	public AddNewUser_POM(WebDriver driver) {
+	public AddNewUser_POM(WebDriver driver)
+	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
 	
 	@FindBy(xpath="//div[@id='set-2']") 
 	WebElement users;  
@@ -46,7 +45,6 @@ public class AddNewUser_POM {
 	WebElement availableButton;
 	
 	//*[@title='Select all']
-	
 	@FindBy(xpath="//*[@id='bootstrap-duallistbox-nonselected-list_dualListItemList[]']")
 	WebElement availableList;
 	 
@@ -59,7 +57,6 @@ public class AddNewUser_POM {
 	@FindBy(xpath="//*[@id='bootstrap-duallistbox-selected-list_dualListItemList[]']")
 	WebElement SelectedList;
 	
-	
 	@FindBy(xpath="//*[@id='default-modal']/div/form/div/div[3]/button[2]")
 	WebElement addButton;
 	
@@ -68,7 +65,6 @@ public class AddNewUser_POM {
 	
     @FindBy(xpath="//a[contains(@href,'tab2')]")
 	WebElement passwordTab;
-	
     
     @FindBy(css="#CheckAuthenticationType")
 	WebElement checkAuthenticationType;
@@ -85,13 +81,11 @@ public class AddNewUser_POM {
     @FindBy(xpath="//input[contains(@name,'User.PasswordExpiresEvery')]")
 	WebElement passwordExpiresEvery;
     
-    
     @FindBy(xpath="//*[text()='Add']")
 	WebElement passwordAddTab;
     
     @FindBy(css=" .btn.t21-btn-default.pull-left")
 	WebElement passwordCancelTab;
-    
     
     @FindBy(xpath="input[contains(@id,'EditPassword')]")
 	WebElement editPassword;
@@ -114,6 +108,46 @@ public class AddNewUser_POM {
     @FindBy(xpath="//button[text()='Close']")
     WebElement confirmCloseButton;
     
+    @FindBy(css=".popover-title")
+    WebElement passwordMust;
+    
+    @FindBy(css=".fa.fa-times")
+    WebElement passwordMustClose;
+    
+    @FindBy(xpath="//*[@id=\"popover530011\"]/div[2]//ol[1]/li[1]")
+   	WebElement tenCharacters;
+    
+    @FindBy(xpath="//*[@id=\"popover530011\"]/div[2]//ol[1]/li[2]")
+   	WebElement strengthLeastOne;
+    
+    @FindBy(xpath="//*[@id=\"popover530011\"]/div[2]//ol[1]/li[3]")
+    WebElement containUserID;
+    
+    public WebElement containUserID_Msg()
+    {
+    	return containUserID;
+    }
+    
+    public WebElement strengthLeastOne_Msg()
+    {
+    	return strengthLeastOne;
+    }
+
+    public WebElement tenCharacters_Msg()
+    {
+    	return tenCharacters;
+    }
+    
+    public WebElement passwordMust_Close() 
+    {
+    	return passwordMustClose;
+    }
+    
+    public WebElement passwordMust_PopUp()
+    {
+    	return passwordMust;
+    }
+    
     public WebElement confirmHeader_Msg()
     {
     	return confirmHeaderMsg;
@@ -126,13 +160,11 @@ public class AddNewUser_POM {
     
     public WebElement user_link()
 	{
-		
 		return users;
 	}
     
     public WebElement addNew_User()
 	{
-		
 		return addNewUser;
 	}
     
@@ -143,13 +175,11 @@ public class AddNewUser_POM {
     
     public WebElement general_tab()
 	{
-		
 		return general;
 	}
     
     public Select location_Dropdown()
 	{
-    	
     		Select locationUserObj = new Select(locationUser);
     		return locationUserObj;		
    	}
@@ -162,65 +192,51 @@ public class AddNewUser_POM {
     
     public WebElement username_textbox()
 	{
-		
 		return userName;
 	}
     
-    
     public WebElement available_Filter()
    	{
-   		
    		return availableFilter;
    	}
     
     public WebElement available_Button()
    	{
-   		
    		return availableButton;
    	}
     
     public WebElement available_List()
    	{
-   		
    		return availableList;
    	}
     
     public WebElement selected_Filter()
    	{
-   		
    		return selectedFilter;
    	}
     
-    
-    
     public WebElement selected_Button()
    	{
-   		
    		return selectedButton;
    	}
     
     public WebElement selected_List()
    	{
-   		
    		return SelectedList;
    	}
     
     public WebElement add_GeneralButton()
    	{
-   		
    		return addButton;
    	}
     
     public WebElement cancel_GeneralButton()
    	{
-   		
    		return cancelButton;
    	}
     
-   
     public WebElement password_tab()
    	{
-   		
    		return passwordTab;
    	}
     
@@ -230,65 +246,53 @@ public class AddNewUser_POM {
    		 	return checkAuthenticationTypeObj;
    	}
     
-    
     public WebElement new_PasswordInput()
    	{
-   		
    		return newPassword;
    	}
     
     public WebElement confirm_PasswordInput()
    	{
-   		
    		return confirmPassword;
    	}
     
     public WebElement check_StrengthButton()
    	{
-   		
    		return checkStrength;
    	}
     
     public WebElement password_ExpiresEveryInput()
    	{
-   		
    		return passwordExpiresEvery;
    	}
     
     public WebElement password_ExpiresCheck()
    	{
-   		
    		return passwordExpiresCheck;
    	}
     
     public WebElement password_ForceChange()
    	{
-   		
    		return passwordForceChange;
    	}
     
     public WebElement user_AccountLocked()
    	{
-   		
    		return userAccountLocked;
    	}
     
-    
     public WebElement user_AccountDisabled()
    	{
-   		
    		return userAccountDisabled;
    	}
     
     public WebElement password_AddTab()
    	{
-   		
    		return passwordAddTab;
    	}
     
     public WebElement password_CancelTab()
    	{
-   		
    		return passwordCancelTab;
    	}
     
@@ -304,13 +308,7 @@ public class AddNewUser_POM {
 		{
 			return false;
 		}
-		
 	}
-    
-    
-    
-    
-      
 }
 
 
