@@ -106,7 +106,7 @@ public class AddNewUser_Test extends BaseClass{
 							
 							if(addNewUserPage.passwordMust_PopUp() != null) 
 							{
-								
+								//not Completed 
 								firstMsgColor = addNewUserPage.tenCharacters_Msg().getCssValue("color");
 								System.out.println(firstMsgColor);
 								secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
