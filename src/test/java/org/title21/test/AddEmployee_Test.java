@@ -1,7 +1,11 @@
 package org.title21.test;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,6 +15,7 @@ import org.title21.POM.AddEmployee_POM;
 import org.title21.POM.DashBord_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
+import org.title21.POM.Table;
 import org.title21.dao.AdminData;
 import org.title21.utility.BaseClass;
 import org.title21.utility.FunctionUtils;
@@ -23,9 +28,11 @@ public class AddEmployee_Test extends BaseClass {
 	LogoutPage_POM logout;
 	AddEmployee_POM addEmployeePOM;
 	DashBord_POM dashboardObj;
+	Table searchTable;
 	SoftAssert softAssertion=new SoftAssert();
 	String className="";
 	String employeeFullName="";
+	Boolean isRecordFound=false;
 	boolean isValidationMessageProper=true;
 	static Logger log = Logger.getLogger(AddEmployee_Test.class);
 	AdminData adminData=new AdminData();	
@@ -62,11 +69,12 @@ public class AddEmployee_Test extends BaseClass {
 		log.info("First checking Validation Messages. without entering in any"
 				+ "field, click on Add button.");		
 		
-		virtualScrolling();
+		verticalScrollingDown();
 		waitTillElementVisible(addEmployeePOM.getAddBtn());
 		log.info("scrolling down to click on Add button.");
 		
 		//addEmployeePOM.getAddBtn().click();	
+		
 		javaScriptClick(addEmployeePOM.getAddBtn());		
 				
 		if (!addEmployeePOM.verifyLocationValidationMessage()){	
@@ -146,7 +154,7 @@ public class AddEmployee_Test extends BaseClass {
 		test.log(LogStatus.PASS, "All employee data has been entered."+
 				test.addScreenCapture(captureScreenShot(driver, "employeeData")));
 		
-		virtualScrolling();
+		verticalScrollingDown();
 		waitTillElementVisible(addEmployeePOM.getAddBtn());
 				
 		//addEmployeePOM.getAddBtn().click();	
@@ -181,9 +189,27 @@ public class AddEmployee_Test extends BaseClass {
 		
 		waitTillElementVisible(addEmployeePOM.getCloseButtononSuccessMessage());
 		
-		addEmployeePOM.getCloseButtononSuccessMessage().click();		
+		addEmployeePOM.getCloseButtononSuccessMessage().click();	
 		
-		sleep(2);
+		waitTillElementVisible(addEmployeePOM.getFilterTextBox());
+		
+		addEmployeePOM.getFilterTextBox().sendKeys(employeeFullName);
+		
+		addEmployeePOM=new AddEmployee_POM(driver);
+		
+		verticalScrollingUp();		
+		
+		javaScriptClick(addEmployeePOM.getGoButton());
+						
+		sleep(3);
+		
+		searchRecordInTable();		
+		
+		addEmployeePOM.addNewLink().click();
+		
+		addEmployeePOM=new AddEmployee_POM(driver);
+		
+		
 		
 		log.info("Now calling logout function.");
 		
@@ -196,13 +222,42 @@ public class AddEmployee_Test extends BaseClass {
 		extent.endTest(test);		
 		
 	}	
-		
+	
+
 	@AfterClass
 	public void closeBrowserInstance()
 	{		
 		driver.close();
 	}
 
-	
+	private void searchRecordInTable() {
+		
+		// TODO Auto-generated method stub
+		searchTable=new Table(driver);
+		List<WebElement> tableCells=searchTable.gettableCells(1);				
+		
+		for (int i=0;i<tableCells.size();i++){
+			if (employeeFullName.equalsIgnoreCase(tableCells.get(i).getText()))
+			{				
+				test.log(LogStatus.PASS, "record found in the Search result."+
+						test.addScreenCapture(captureScreenShot(driver, "foundRecord")));
+				isRecordFound=true;
+				break;
+			}
+		}
+		
+		if (!isRecordFound){
+			test.log(LogStatus.FAIL, "Employee not found in records."+
+				test.addScreenCapture(captureScreenShot(driver, "not found record for employee")));			
+		}
+		
+		log.info("No of Visible rows in table are"+searchTable.getNumberOfVisibleRows());		
+		log.info("No of rows in table are"+searchTable.getNumberOfRows());
+		
+		if (searchTable.getNumberOfVisibleRows()==1){
+			log.info("one record found for the employee.");
+		}
+		
+	}
 	
 }

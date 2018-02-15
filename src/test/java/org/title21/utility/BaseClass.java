@@ -349,8 +349,13 @@ public class BaseClass {
 		js.executeScript("arguments[0].click();",element);			
 	}
 		
-	public void virtualScrolling() {		
+	public void verticalScrollingDown() {		
 		JavascriptExecutor js=(JavascriptExecutor)driver;		
 		js.executeScript("window.scrollBy(0,500)");		
+	}
+	
+	public void verticalScrollingUp(){
+		JavascriptExecutor js=(JavascriptExecutor)driver;		
+		js.executeScript("window.scrollBy(0,-800)");		
 	}
 }

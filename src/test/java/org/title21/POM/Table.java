@@ -30,8 +30,7 @@ public class Table extends BaseClass
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
-	
+		
 	public WebElement getTable()
 	{
 		return table;
@@ -86,7 +85,7 @@ public class Table extends BaseClass
 				i++;
 			}
 		}
-		return i;
+		return i-1;
 	}
 	
 	
