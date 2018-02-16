@@ -1,17 +1,24 @@
 package org.title21.POM;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import org.title21.test.AddEmployee_Test;
 import org.title21.validation.entities.ErrorMessages;
+
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 public class AddEmployee_POM {
 	
 	public WebDriver driver;
 	public WebElement element;
+	static Logger log = Logger.getLogger(AddEmployee_POM.class);
+	
 	public AddEmployee_POM(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -35,8 +42,8 @@ public class AddEmployee_POM {
 	@FindBy(css=".form-control.t21-placeholder")
 	WebElement searchBox;
 
-	@FindBy(xpath="//button[contains(@type,'submit') and contains(@tabindex,'1')]")
-	WebElement goButton;
+	/*@FindBy(xpath="//button[contains(@type,'submit') and contains(@tabindex,'1')]")
+	WebElement goButton;*/
 
 	@FindBy(xpath="//button[contains(@name,'clear')]")
 	WebElement crossButton;
@@ -159,7 +166,12 @@ public class AddEmployee_POM {
 	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.Department')]")
 	WebElement departmentValidationMessage;
 	
+	@FindBy(css=".t21-placeholder")
+	WebElement filterTextBox;
 	
+	@FindBy(xpath="//button[@type='submit'][@tabindex='1']")
+	WebElement goButton;
+		
 	public WebElement administrator_dropdown()
 	{
 		//WebElement element=driver.findElement(administrator);
@@ -381,8 +393,18 @@ public class AddEmployee_POM {
 		
 		return jobCodesTab;
 	}
+		
+	public WebElement getFilterTextBox(){
+				
+		return filterTextBox;
+	}
 	
-	public boolean verifyAddEmployeeValidationMessages(){
+	public WebElement getGoButton(){
+		
+		return goButton;		
+	}
+	
+	public boolean verifyLocationValidationMessage(){
 		
 		element=getlocationValidationMessage();
 		String errorMessage = element.getText();
@@ -390,45 +412,75 @@ public class AddEmployee_POM {
 		
 		if(errorMessage.contains(ErrorMessages.locationValidationMessage))
 		{
-			System.out.println(ErrorMessages.locationValidationMessage);
 			isValidationMessagePresent=true;
-		}
-		
-		/*element=getfullNameValidationMessage();
-		errorMessage = element.getText();
-		
-		if(!errorMessage.contains(ErrorMessages.fullNameValidationMessage))
-		{
-			isValidationMessagePresent=false;			
-		}
-		
-		element=getEmployeeIDValidationMessage();
-		errorMessage = element.getText();
-		
-		if(!errorMessage.contains(ErrorMessages.employeeValidationMessage))
-		{
-			isValidationMessagePresent=false;			
-		}
-		
-		element=getBusinessUnitValidationMessage();
-		errorMessage = element.getText();
-		
-		if(!errorMessage.contains(ErrorMessages.businessUnitValidationMessage))
-		{
-			isValidationMessagePresent=false;			
-		}
-		
-		element=getdepartmentValidationMessage();
-		errorMessage = element.getText();
-		
-		if(!errorMessage.contains(ErrorMessages.departmentValidationMessage))
-		{
-			isValidationMessagePresent=false;			
-		}		
-		
-		*/
+		}else{
+			log.error("Validation message for Location dropdown is not valid.");
+		}	
 		return isValidationMessagePresent;
 	}
+	
+	public boolean verifyFullNameValidationMessage(){
+		
+		element=getfullNameValidationMessage();
+		String errorMessage = element.getText();
+		boolean isValidationMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.fullNameValidationMessage))
+		{
+			isValidationMessagePresent=true;
+		}else{
+			log.error("Validation message for Full Name field is not valid.");
+		}	
+		return isValidationMessagePresent;
+		
+	}
+	
+	public boolean verifyEmployeeIDValidationMessage(){
+		
+		element=getEmployeeIDValidationMessage();
+		String errorMessage = element.getText();
+		boolean isValidationMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.employeeIDValidationMessage))
+		{
+			isValidationMessagePresent=true;
+		}else{
+			log.error("Validation message for EmployeeID field is not valid.");
+		}	
+		return isValidationMessagePresent;
+	}
+	
+	public boolean verifyBusinessUnitValidationMessage(){		
+		element=getBusinessUnitValidationMessage();
+		String errorMessage = element.getText();
+		boolean isValidationMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.businessUnitValidationMessage))
+		{
+			isValidationMessagePresent=true;
+		}else{
+			log.error("Validation message for BusinessUnit field is not valid.");
+		}	
+		
+		return isValidationMessagePresent;
+	}	
+	
+	public boolean verifyDepartmentValidationMessage(){	
+		
+		element=getdepartmentValidationMessage();
+		String errorMessage = element.getText();
+		boolean isValidationMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.departmentValidationMessage))
+		{
+			isValidationMessagePresent=true;
+		}else{
+			log.error("Validation message for Department field is not valid.");
+		}	
+		
+		return isValidationMessagePresent;
+	}	
+		
 	
 	public boolean verifySuccessMessage() {
 		
@@ -438,9 +490,35 @@ public class AddEmployee_POM {
 		
 		if(errorMessage.contains(ErrorMessages.createEmployeeSuccessMessage))
 		{
-			isSuccessMessagePresent=true;
+			isSuccessMessagePresent=true;			
 		}
 		return isSuccessMessagePresent;		
 	}
 	
+	public boolean verifyUniqueEmployeeFullName() {
+		
+		element=getfullNameValidationMessage();
+		String errorMessage = element.getText();
+		boolean isSuccessMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.employeeNameExistsValidationMessage))
+		{
+			isSuccessMessagePresent=true;			
+		}
+		return isSuccessMessagePresent;		
+		
+	}
+		
+	public boolean verifyUniqueEmployeeID() {
+		
+		element=getEmployeeIDValidationMessage();
+		String errorMessage = element.getText();
+		boolean isSuccessMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.employeeIDExistsValidationMessage))
+		{
+			isSuccessMessagePresent=true;			
+		}
+		return isSuccessMessagePresent;		
+	}
 }

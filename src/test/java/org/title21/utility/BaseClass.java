@@ -49,6 +49,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import org.title21.POM.LogoutPage_POM;
+import org.title21.dao.AdminData;
 
 public class BaseClass {
 
@@ -120,8 +121,6 @@ public class BaseClass {
 		userSheet=p.getProperty("UserSheet");
 		employeeSheet=p.getProperty("EmployeeSheet");
 		
-		
-		
 		adminUsername=p.getProperty("adminUsername");
 		adminPassword=p.getProperty("adminPassword");
 		
@@ -137,7 +136,8 @@ public class BaseClass {
 		employeeData=ExcelData(excelFile, employeeSheet);	
 		
 		
-		extent = ExtentManager.getReporter(filePath);		
+		extent = ExtentManager.getReporter(filePath);	
+		
 	}
 
 	@AfterSuite
@@ -156,11 +156,12 @@ public class BaseClass {
 
 		classname = classname.substring(4);
 		imagesDirectory = System.getProperty("user.dir") + "\\extentReports" + "\\" + classname;
+		//imagesDirectory = "c:\\Title21Automation" + "\\extentReports" + "\\" + classname;
 		File file = new File(imagesDirectory);
 		if (!file.exists()) {
 			file.mkdir();
 		} else {
-			System.out.println("Failed to create directory.");
+			System.out.println("Either directory is already prersent or Failed to create directory.");
 		}
 	}
 	
@@ -170,13 +171,12 @@ public class BaseClass {
 			Calendar calander = Calendar.getInstance();
 			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 			File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
+			
 			// String workingDir =
 			// System.getProperty("user.dir")+"\\extentReports";
 			String dest = imagesDirectory + "\\" + screenshotName + "-" + formater.format(calander.getTime()) + ".png";
 			File destination = new File(dest);
-			FileUtils.copyFile(src, destination);
-			System.out.println("ScreenShot Taken");
+			FileUtils.copyFile(src, destination);			
 			return dest;
 		}
 
@@ -236,11 +236,10 @@ public class BaseClass {
 	}
 	
 	
-	public static void getAdministrationPage() {
+	public static void getAdministrationPage(ExtentTest test) {
 		
 		AdministrationPage_POM administrationPage = new AdministrationPage_POM(driver);
-		//test = extent.startTest("NavigateToAdministrationPage");
-		
+				
 		String administratorTab = administrationPage.administratorDropDown().getText();
 		
 		try
@@ -258,13 +257,11 @@ public class BaseClass {
 						test.addScreenCapture(captureScreenShot(driver, "administration Page")));
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
-			}
-			//extent.endTest(test);
+			}			
 			
 		}catch(Exception e){
 			
-			test.log(LogStatus.FAIL, "Unable to find dropdown for Administration submenu.");
-			//extent.endTest(test);
+			test.log(LogStatus.FAIL, "Unable to find dropdown for Administration submenu.");			
 		}
 		
 	}
@@ -359,8 +356,13 @@ public class BaseClass {
 		js.executeScript("arguments[0].click();",element);			
 	}
 		
-	public void virtualScrolling() {		
+	public void verticalScrollingDown() {		
 		JavascriptExecutor js=(JavascriptExecutor)driver;		
 		js.executeScript("window.scrollBy(0,500)");		
+	}
+	
+	public void verticalScrollingUp(){
+		JavascriptExecutor js=(JavascriptExecutor)driver;		
+		js.executeScript("window.scrollBy(0,-800)");		
 	}
 }

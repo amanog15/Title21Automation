@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import org.title21.POM.AddNewUser_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
+import org.title21.dao.AdminData;
 import org.title21.utility.BaseClass;
 import org.title21.utility.FunctionUtils;
 
@@ -20,6 +21,8 @@ public class AddNewUser_Test extends BaseClass{
 	String className="";
 	String number="";
 	boolean UserPresenceAfterSearch = false;
+	
+	AdminData adminData=new AdminData();
 	@BeforeClass
 	public void openURL() 
 	{
@@ -33,11 +36,12 @@ public class AddNewUser_Test extends BaseClass{
 	@Test(testName = "Add New User", groups = "New User", priority = 0)
 	public void AddNewUser() throws Exception
 	{
+		
 		test = extent.startTest("AddNewUser_Test");
 		addNewUserPage= new AddNewUser_POM(driver);
 		number = FunctionUtils.generateRandomNumber();
 		
-		getAdministrationPage();	
+		getAdministrationPage(test);	
 		
 		addNewUserPage.user_link().click();
 		test.log(LogStatus.PASS, "Clicked on 'Users'.");
@@ -62,8 +66,11 @@ public class AddNewUser_Test extends BaseClass{
 				
 				sleep(2);
 				
-				addNewUserPage.userFullName_Dopdown().selectByVisibleText(userData[1][1]);
-				test.log(LogStatus.PASS, "Selected '+userData[1][1]+' as a full name.");
+				addNewUserPage.userFullName_Dopdown().selectByVisibleText(adminData.getEmployeeName());
+				test.log(LogStatus.PASS, "Selected '+adminData.getEmployeeName()+' as a full name.");
+				
+				//adminData.getEmployeeName();
+				//addNewUserPage.username_textbox().sendKeys(adminData.getEmployeeName());//Mart
 				
 				addNewUserPage.username_textbox().sendKeys(userData[1][2]+number);//Mart
 				test.log(LogStatus.PASS, "Selected '+userData[1][2]+number+' as a user name."+
