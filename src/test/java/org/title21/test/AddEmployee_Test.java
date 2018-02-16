@@ -32,6 +32,7 @@ public class AddEmployee_Test extends BaseClass {
 	SoftAssert softAssertion=new SoftAssert();
 	String className="";
 	String employeeFullName="";
+	String employeeID="";
 	Boolean isRecordFound=false;
 	boolean isValidationMessageProper=true;
 	static Logger log = Logger.getLogger(AddEmployee_Test.class);
@@ -127,9 +128,17 @@ public class AddEmployee_Test extends BaseClass {
 		
 		addEmployeePOM.getEmployeeFullName().sendKeys(employeeFullName);		
 		
+		log.info("setting employeeFullName using setters method so it will be helpful afterwards.");
 		adminData.setEmployeeName(employeeFullName);		
 		
-		addEmployeePOM.getEmployeeID().sendKeys(employeeData[1][2]+FunctionUtils.generateRandomNumber());
+		employeeID=employeeData[1][2]+FunctionUtils.generateRandomNumber();
+		
+		//addEmployeePOM.getEmployeeID().sendKeys(employeeData[1][2]+FunctionUtils.generateRandomNumber());
+		
+		addEmployeePOM.getEmployeeID().sendKeys(employeeID);
+		
+		log.info("setting employeeID using setters method so it will be helpful afterwards.");
+		adminData.setEmployeeID(employeeID);		
 		
 		addEmployeePOM.getsupervisorDropdown().selectByVisibleText(employeeData[1][3]);
 		
@@ -205,11 +214,34 @@ public class AddEmployee_Test extends BaseClass {
 		
 		searchRecordInTable();		
 		
-		addEmployeePOM.addNewLink().click();
+		addEmployeePOM.addNewLink().click();			
 		
-		addEmployeePOM=new AddEmployee_POM(driver);
+		waitTillElementVisible(addEmployeePOM.getEmployeeID());
 		
+		addEmployeePOM.getEmployeeID().sendKeys(adminData.getEmployeeID());
 		
+		addEmployeePOM.getEmployeeFullName().sendKeys(adminData.getEmployeeName());			
+		
+		if (addEmployeePOM.verifyUniqueEmployeeID()){
+			
+			test.log(LogStatus.PASS, "If User enters duplicate employeeID then it's showing employeeID already exists"+
+					test.addScreenCapture(captureScreenShot(driver, "employeeID already exists.")));
+		}else{			
+			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID.");
+		}
+			
+		if (addEmployeePOM.verifyUniqueEmployeeFullName()){
+			
+			test.log(LogStatus.PASS, "If User enters duplicate employeeName then it's showing  already exists"+
+			test.addScreenCapture(captureScreenShot(driver, "employeeName already exists.")));
+		}else{			
+			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID."+
+		test.addScreenCapture(captureScreenShot(driver, "employeeID does not exists.")));
+		}
+		
+		addEmployeePOM.cancel_Btn().click();
+		
+		sleep(2);
 		
 		log.info("Now calling logout function.");
 		
@@ -220,7 +252,6 @@ public class AddEmployee_Test extends BaseClass {
 		log.info("logout successfully.");
 		
 		extent.endTest(test);		
-		
 	}	
 	
 

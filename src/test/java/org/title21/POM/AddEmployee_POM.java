@@ -490,10 +490,35 @@ public class AddEmployee_POM {
 		
 		if(errorMessage.contains(ErrorMessages.createEmployeeSuccessMessage))
 		{
-			isSuccessMessagePresent=true;
-			
+			isSuccessMessagePresent=true;			
 		}
 		return isSuccessMessagePresent;		
 	}
 	
+	public boolean verifyUniqueEmployeeFullName() {
+		
+		element=getfullNameValidationMessage();
+		String errorMessage = element.getText();
+		boolean isSuccessMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.employeeNameExistsValidationMessage))
+		{
+			isSuccessMessagePresent=true;			
+		}
+		return isSuccessMessagePresent;		
+		
+	}
+		
+	public boolean verifyUniqueEmployeeID() {
+		
+		element=getEmployeeIDValidationMessage();
+		String errorMessage = element.getText();
+		boolean isSuccessMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.employeeIDExistsValidationMessage))
+		{
+			isSuccessMessagePresent=true;			
+		}
+		return isSuccessMessagePresent;		
+	}
 }
