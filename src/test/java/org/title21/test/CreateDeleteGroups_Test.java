@@ -41,9 +41,10 @@ public class CreateDeleteGroups_Test extends BaseClass {
 	@Test(testName = "CreateGroup_admin", groups = "CreateGroup", priority = 0)
 	public void CreateGroupInAdmin() 
 	{
-		test = extent.startTest("CreateGroup_admin");
 		number = FunctionUtils.generateRandomNumber();
 		adminCreateGroup = new AdminCreateDeleteGroups_POM(driver);
+		
+		test = extent.startTest("CreateDeleteGroup_admin");
 		BaseClass.getAdministrationPage(test);
 				
 		test.log(LogStatus.PASS, "Successfully navigated to Administration Page."+
@@ -89,11 +90,12 @@ public class CreateDeleteGroups_Test extends BaseClass {
 			test.log(LogStatus.PASS, "Verify 'Add Group' pop-up."+
 					test.addScreenCapture(captureScreenShot(driver, "Add Group pop-up")));
 			
-			adminCreateGroup.groupLocationDropDownClick().click();
+		//	adminCreateGroup.groupLocationDropDownClick().click();
 			sleep(2);
 			Select SelectObj = new Select(adminCreateGroup.groupLocationDropDownClick());
-			SelectObj.selectByVisibleText(""+groupData[1][0]+"");
 			
+			System.out.println(groupData[1][0]);
+			SelectObj.selectByVisibleText(groupData[1][0]);
 			
 			adminCreateGroup.addGroupTextBox().sendKeys(groupData[1][1]+number);
 			
