@@ -6,12 +6,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class AddNewUser_POM {
+public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 
 	public WebDriver driver;
 	public WebElement element;
 	public AddNewUser_POM(WebDriver driver)
 	{
+		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
@@ -114,13 +115,16 @@ public class AddNewUser_POM {
     @FindBy(css=".fa.fa-times")
     WebElement passwordMustClose;
     
-    @FindBy(xpath="//*[@id=\"popover530011\"]/div[2]//ol[1]/li[1]")
+  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[1]
+    @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][1]")
    	WebElement tenCharacters;
     
-    @FindBy(xpath="//*[@id=\"popover530011\"]/div[2]//ol[1]/li[2]")
+  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[2]
+    @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][2]")
    	WebElement strengthLeastOne;
     
-    @FindBy(xpath="//*[@id=\"popover530011\"]/div[2]//ol[1]/li[3]")
+  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[3]
+    @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][3]")
     WebElement containUserID;
     
     public WebElement containUserID_Msg()

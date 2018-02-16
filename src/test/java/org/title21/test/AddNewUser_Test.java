@@ -1,5 +1,7 @@
 package org.title21.test;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,7 +19,7 @@ public class AddNewUser_Test extends BaseClass{
 	AddNewUser_POM addNewUserPage;
 	String className="";
 	String number="";
-	
+	boolean UserPresenceAfterSearch = false;
 	@BeforeClass
 	public void openURL() 
 	{
@@ -55,34 +57,34 @@ public class AddNewUser_Test extends BaseClass{
 				test.log(LogStatus.PASS, "Successfully verified 'general' tab.");
 
 				//read data from excel
-				addNewUserPage.location_Dropdown().selectByVisibleText("Dallas");
-				test.log(LogStatus.PASS, "Selected 'Dallas' as a location.");
+				addNewUserPage.location_Dropdown().selectByVisibleText(userData[1][0]);//Dallas
+				test.log(LogStatus.PASS, "Selected '+userData[1][0]+' as a location.");
 				
 				sleep(2);
 				
-				addNewUserPage.userFullName_Dopdown().selectByVisibleText("Martink401");
-				test.log(LogStatus.PASS, "Selected 'Martink401' as a full name.");
+				addNewUserPage.userFullName_Dopdown().selectByVisibleText(userData[1][1]);
+				test.log(LogStatus.PASS, "Selected '+userData[1][1]+' as a full name.");
 				
-				addNewUserPage.username_textbox().sendKeys(userData[0][1]);
-				test.log(LogStatus.PASS, "Selected 'Mart' as a user name."+
+				addNewUserPage.username_textbox().sendKeys(userData[1][2]+number);//Mart
+				test.log(LogStatus.PASS, "Selected '+userData[1][2]+number+' as a user name."+
 				test.addScreenCapture(captureScreenShot(driver, "Add New User")));
 				
 				sleep(2);
-				addNewUserPage.available_Filter().sendKeys("Dallas");
-				test.log(LogStatus.PASS, "Selected 'Dallas' for filter.");
+				addNewUserPage.available_Filter().sendKeys(userData[1][0]);//Dallas
+				test.log(LogStatus.PASS, "Selected '+userData[1][0]+' for filter.");
 				
 				String list = addNewUserPage.available_List().getText();
 				
 				sleep(2);
 				
-				if(list.contains("Dallas"))
+				if(list.contains(userData[1][0]))//Dallas
 				{
 					addNewUserPage.available_Button().click();
 					test.log(LogStatus.PASS, "Clicked 'Available' button.");
 					
 					String selectedList = addNewUserPage.selected_List().getText();
 					
-					if(selectedList.contains("Dallas"))
+					if(selectedList.contains(userData[1][0]))//Dallas
 					{
 						test.log(LogStatus.PASS, "Selected list."+
 						test.addScreenCapture(captureScreenShot(driver, "Selected list")));
@@ -92,21 +94,23 @@ public class AddNewUser_Test extends BaseClass{
 						{
 							test.log(LogStatus.PASS, "Successfully verified 'password' tab.");
 							sleep(3);
-							addNewUserPage.check_AuthenticationType().selectByVisibleText("Title21");
-							test.log(LogStatus.PASS, "Authentication Type:Title21");
+							addNewUserPage.check_AuthenticationType().selectByVisibleText(userData[1][4]);//Title21
+							test.log(LogStatus.PASS, "Authentication Type:+userData[1][4]+");
 							
-							addNewUserPage.new_PasswordInput().sendKeys("1234567890");
-							test.log(LogStatus.PASS, "New Password:1234567890");
+							addNewUserPage.new_PasswordInput().sendKeys(userData[1][5]);
+							test.log(LogStatus.PASS, "New Password:+userData[1][5]+");
 							
 							addNewUserPage.check_StrengthButton().click();
 							test.log(LogStatus.PASS, "Clicked to Strength button");
 							
 							String firstMsgColor = "";
 							String secondLineColor = "";
-							
+							sleep(3);
 							if(addNewUserPage.passwordMust_PopUp() != null) 
 							{
 								//not Completed 
+								addNewUserPage.tenCharacters_Msg().click();
+								
 								firstMsgColor = addNewUserPage.tenCharacters_Msg().getCssValue("color");
 								System.out.println(firstMsgColor);
 								secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
@@ -128,15 +132,22 @@ public class AddNewUser_Test extends BaseClass{
 								test.log(LogStatus.FAIL, "Unable to find 'Password must' pup-up."+
 										test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
 							}
-							addNewUserPage.confirm_PasswordInput().sendKeys("1234567890");
-							test.log(LogStatus.PASS, "Confirm Password:1234567890"+
-							test.addScreenCapture(captureScreenShot(driver, "Selected list")));
+							
+							addNewUserPage.passwordMust_Close().click();
+							
+							addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][5]);
 							
 							addNewUserPage.password_AddTab().click();
-							addNewUserPage.password_AddTab().click();
-							test.log(LogStatus.PASS, "Clicked on 'Add' button.");
-							
+							test.log(LogStatus.PASS, "Confirm Password:+userData[1][5]+"+
+									test.addScreenCapture(captureScreenShot(driver, "Selected list")));
 							sleep(3);
+							
+							if(addNewUserPage.password_AddTab() != null) 
+							{
+								addNewUserPage.password_AddTab().click();
+							}
+							sleep(3);
+							
 							if(addNewUserPage.confirmHeader_Msg() != null)
 							{
 								test.log(LogStatus.PASS, "Successfully verified confirm pop-up"+
@@ -147,6 +158,40 @@ public class AddNewUser_Test extends BaseClass{
 							{
 								test.log(LogStatus.FAIL, "Successfully verified confirm pop-up");
 							}
+							
+							sleep(3);
+							if(addNewUserPage.groupFilterResult() != null)
+							{
+								addNewUserPage.groupFilterResult().click();
+								addNewUserPage.groupFilterResult().sendKeys(userData[1][2]+number);
+								addNewUserPage.groupFilterResutGoButton().click();
+								
+								sleep(2);
+								
+								for(int i=1; i<=10; i++ ) {
+									
+									String groups = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[2]")).getText();
+									sleep(1);
+									if(groups.equalsIgnoreCase(userData[1][2]+number)) {
+										UserPresenceAfterSearch = true;
+										break;
+									}
+								}
+								
+								if(UserPresenceAfterSearch) {
+									test.log(LogStatus.PASS, "Successfully User is created and verified."+
+											test.addScreenCapture(captureScreenShot(driver, "group is created and verified")));
+								}else {
+									test.log(LogStatus.FAIL, "Unable to verify created user."+
+											test.addScreenCapture(captureScreenShot(driver, "Unable to verify created user.")));
+								}
+							}
+							else
+							{
+								test.log(LogStatus.FAIL, "Unable to verify created group."+
+										test.addScreenCapture(captureScreenShot(driver, "Unable to find Filter Result text field.")));
+							}
+							
 						}
 						else
 						{
