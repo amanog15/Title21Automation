@@ -172,8 +172,7 @@ public class BaseClass {
 			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 			File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			
-			// String workingDir =
-			// System.getProperty("user.dir")+"\\extentReports";
+			// String workingDir =// System.getProperty("user.dir")+"\\extentReports";
 			String dest = imagesDirectory + "\\" + screenshotName + "-" + formater.format(calander.getTime()) + ".png";
 			File destination = new File(dest);
 			FileUtils.copyFile(src, destination);			

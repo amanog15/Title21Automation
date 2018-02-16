@@ -218,18 +218,8 @@ public class AddEmployee_Test extends BaseClass {
 		
 		waitTillElementVisible(addEmployeePOM.getEmployeeID());
 		
-		addEmployeePOM.getEmployeeID().sendKeys(adminData.getEmployeeID());
+		addEmployeePOM.getEmployeeFullName().sendKeys(adminData.getEmployeeName()+Keys.TAB);				
 		
-		addEmployeePOM.getEmployeeFullName().sendKeys(adminData.getEmployeeName());			
-		
-		if (addEmployeePOM.verifyUniqueEmployeeID()){
-			
-			test.log(LogStatus.PASS, "If User enters duplicate employeeID then it's showing employeeID already exists"+
-					test.addScreenCapture(captureScreenShot(driver, "employeeID already exists.")));
-		}else{			
-			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID.");
-		}
-			
 		if (addEmployeePOM.verifyUniqueEmployeeFullName()){
 			
 			test.log(LogStatus.PASS, "If User enters duplicate employeeName then it's showing  already exists"+
@@ -238,6 +228,18 @@ public class AddEmployee_Test extends BaseClass {
 			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID."+
 		test.addScreenCapture(captureScreenShot(driver, "employeeID does not exists.")));
 		}
+				
+		addEmployeePOM.getEmployeeID().sendKeys(adminData.getEmployeeID()+Keys.TAB);		
+		
+		if (addEmployeePOM.verifyUniqueEmployeeID()){
+			
+			test.log(LogStatus.PASS, "If User enters duplicate employeeID then it's showing employeeID already exists"+
+					test.addScreenCapture(captureScreenShot(driver, "employeeID already exists.")));
+		}else{			
+			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID.");
+		}
+				
+		
 		
 		addEmployeePOM.cancel_Btn().click();
 		
