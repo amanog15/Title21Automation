@@ -42,8 +42,8 @@ public class AddEmployee_POM {
 	@FindBy(css=".form-control.t21-placeholder")
 	WebElement searchBox;
 
-	@FindBy(xpath="//button[contains(@type,'submit') and contains(@tabindex,'1')]")
-	WebElement goButton;
+	/*@FindBy(xpath="//button[contains(@type,'submit') and contains(@tabindex,'1')]")
+	WebElement goButton;*/
 
 	@FindBy(xpath="//button[contains(@name,'clear')]")
 	WebElement crossButton;
@@ -166,7 +166,12 @@ public class AddEmployee_POM {
 	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'Employee.Department')]")
 	WebElement departmentValidationMessage;
 	
+	@FindBy(css=".t21-placeholder")
+	WebElement filterTextBox;
 	
+	@FindBy(xpath="//button[@type='submit'][@tabindex='1']")
+	WebElement goButton;
+		
 	public WebElement administrator_dropdown()
 	{
 		//WebElement element=driver.findElement(administrator);
@@ -388,13 +393,15 @@ public class AddEmployee_POM {
 		
 		return jobCodesTab;
 	}
+		
+	public WebElement getFilterTextBox(){
+				
+		return filterTextBox;
+	}
 	
-	public void verifyAllValidationMessage(ExtentTest test){
+	public WebElement getGoButton(){
 		
-		if (!verifyLocationValidationMessage()){
-			
-		}
-		
+		return goButton;		
 	}
 	
 	public boolean verifyLocationValidationMessage(){
@@ -483,10 +490,35 @@ public class AddEmployee_POM {
 		
 		if(errorMessage.contains(ErrorMessages.createEmployeeSuccessMessage))
 		{
-			isSuccessMessagePresent=true;
-			
+			isSuccessMessagePresent=true;			
 		}
 		return isSuccessMessagePresent;		
 	}
 	
+	public boolean verifyUniqueEmployeeFullName() {
+		
+		element=getfullNameValidationMessage();
+		String errorMessage = element.getText();
+		boolean isSuccessMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.employeeNameExistsValidationMessage))
+		{
+			isSuccessMessagePresent=true;			
+		}
+		return isSuccessMessagePresent;		
+		
+	}
+		
+	public boolean verifyUniqueEmployeeID() {
+		
+		element=getEmployeeIDValidationMessage();
+		String errorMessage = element.getText();
+		boolean isSuccessMessagePresent=false;		
+		
+		if(errorMessage.contains(ErrorMessages.employeeIDExistsValidationMessage))
+		{
+			isSuccessMessagePresent=true;			
+		}
+		return isSuccessMessagePresent;		
+	}
 }

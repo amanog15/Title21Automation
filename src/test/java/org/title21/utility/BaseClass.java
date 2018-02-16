@@ -49,6 +49,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import org.title21.POM.LogoutPage_POM;
+import org.title21.dao.AdminData;
 
 public class BaseClass {
 
@@ -130,7 +131,8 @@ public class BaseClass {
 		groupData=ExcelData(excelFile, groupSheet);
 		employeeData=ExcelData(excelFile, employeeSheet);	
 		
-		extent = ExtentManager.getReporter(filePath);		
+		extent = ExtentManager.getReporter(filePath);	
+		
 	}
 
 	@AfterSuite
@@ -349,8 +351,13 @@ public class BaseClass {
 		js.executeScript("arguments[0].click();",element);			
 	}
 		
-	public void virtualScrolling() {		
+	public void verticalScrollingDown() {		
 		JavascriptExecutor js=(JavascriptExecutor)driver;		
 		js.executeScript("window.scrollBy(0,500)");		
+	}
+	
+	public void verticalScrollingUp(){
+		JavascriptExecutor js=(JavascriptExecutor)driver;		
+		js.executeScript("window.scrollBy(0,-800)");		
 	}
 }

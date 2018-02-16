@@ -11,7 +11,8 @@ public class ErrorMessages
 	public static final String fullNameValidationMessage="Full Name is required";
 	public static final String employeeIDValidationMessage="Employee ID is required";	
 	public static final String businessUnitValidationMessage="Bussiness Unit is required";
-	public static final String departmentValidationMessage="Department is required";
-	
+	public static final String departmentValidationMessage="Department is required";	
 	public static final String createEmployeeSuccessMessage="added successfully!";
+	public static final String employeeIDExistsValidationMessage="EmployeeID Already Exists";
+	public static final String employeeNameExistsValidationMessage="Full Name already exists";	
 }

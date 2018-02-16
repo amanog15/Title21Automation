@@ -9,11 +9,11 @@ package org.title21.dao;
 
 public class AdminData {
 	
-	private String employeeName;
+	private static String employeeName;
 	
-	private String employeeID;
+	private static String employeeID;
 
-	private String groupName;
+	private static String groupName;
 
 	public String getEmployeeName() {
 		return employeeName;
@@ -38,6 +38,5 @@ public class AdminData {
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-	
-	
+		
 }
