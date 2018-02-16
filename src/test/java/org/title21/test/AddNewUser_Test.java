@@ -59,7 +59,6 @@ public class AddNewUser_Test extends BaseClass{
 			{
 				test.log(LogStatus.PASS, "Successfully verified 'general' tab.");
 
-				//read data from excel
 				addNewUserPage.location_Dropdown().selectByVisibleText(userData[1][0]);//Dallas
 				test.log(LogStatus.PASS, "Selected '+userData[1][0]+' as a location.");
 				
