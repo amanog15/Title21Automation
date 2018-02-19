@@ -31,7 +31,7 @@ public class LogoutPage_Test extends BaseClass {
 	@Test(testName = "logout_admin", groups = "Logout", priority = 0)
 	public void Logout() throws Exception {
 		
-		test = extent.startTest("logoutFunction");
+		test = extent.startTest("logoutfromApplication");
 		test.log(LogStatus.PASS, "Opened URL");
 		login= new LoginPage_POM(driver);
 		login.getUsername().sendKeys("admin");

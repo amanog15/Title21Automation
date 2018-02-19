@@ -22,7 +22,7 @@ public class Table extends BaseClass
 	
 	@FindAll({@FindBy(xpath="//tr")})
 	List<WebElement> tableRows;
-	
+		
 	@FindBy(tagName = "thead")
 	WebElement tableHeader;	
 	
@@ -61,6 +61,7 @@ public class Table extends BaseClass
 		return cells;
 	}
 	
+	
 	public WebElement getTableHeader()
 	{
 		return tableHeader;
@@ -77,6 +78,7 @@ public class Table extends BaseClass
 	public int getNumberOfRows() {
 		return tableRows.size();
 	}
+		
 	
 	public int getNumberOfVisibleRows() {
 		int i = 0;

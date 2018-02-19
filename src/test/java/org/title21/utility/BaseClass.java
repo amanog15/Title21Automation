@@ -82,7 +82,7 @@ public class BaseClass {
 
 	@BeforeMethod
 	public void beforeMethod() {
-		extent = ExtentManager.getReporter(filePath);
+		extent = ExtentManager.getReporter(filePath,baseUrl);
 	}
 
 	@AfterMethod
@@ -136,7 +136,7 @@ public class BaseClass {
 		employeeData=ExcelData(excelFile, employeeSheet);	
 		
 		
-		extent = ExtentManager.getReporter(filePath);	
+		extent = ExtentManager.getReporter(filePath,baseUrl);	
 		
 	}
 
@@ -210,7 +210,7 @@ public class BaseClass {
 	public void getBrowser() {				
 		     
 		if (browser.equalsIgnoreCase("chrome")) {
-			extent = ExtentManager.getReporter(filePath);
+			extent = ExtentManager.getReporter(filePath,baseUrl);
 			System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver();
 			implicitwait(driver);
@@ -219,7 +219,7 @@ public class BaseClass {
 		}
 
 		else if (browser.equalsIgnoreCase("ie")) {
-			extent = ExtentManager.getReporter(filePath);
+			extent = ExtentManager.getReporter(filePath,baseUrl);
 			System.setProperty("webdriver.ie.driver", ".\\drivers\\IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 			implicitwait(driver);
@@ -227,6 +227,7 @@ public class BaseClass {
 		}
 
 		else if (browser.equalsIgnoreCase("firefox")) {
+			extent = ExtentManager.getReporter(filePath,baseUrl);
 			System.setProperty("webdriver.gecko.driver", ".\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver();
 			implicitwait(driver);

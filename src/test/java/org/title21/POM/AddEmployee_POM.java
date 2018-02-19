@@ -1,9 +1,12 @@
 package org.title21.POM;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -98,6 +101,9 @@ public class AddEmployee_POM {
 
 	@FindBy(xpath="//a[contains(text(),'Job Codes')]")
 	WebElement jobCodesTab;
+	
+	@FindAll({@FindBy(xpath="//td[contains(@class,'t21-js-row-link')]/a")})
+	List<WebElement> jobCodesList;
 
 	//@FindBy(xpath="//a[contains(text(),'Human Resources Clerk')]")
 	@FindBy(xpath="//a[contains(text(),'Senior Technologist')]")
@@ -287,19 +293,22 @@ public class AddEmployee_POM {
 	{
 		return jobCodesDropdown;
 	}
+	
+	public List<WebElement> getAllJobCodesList(){
+		
+		return jobCodesList;
+	}
+	
 	public WebElement other_Tab()
-	{
-		//WebElement element=driver.findElement(otherTab);
+	{		
 		return otherTab;
 	}
 	public WebElement trainingLink_Tab()
 	{
-		//WebElement element=driver.findElement(trainingLink);
 		return trainingLink;
 	}
 	public WebElement uponSave_Checkbox()
 	{
-		//WebElement element=driver.findElement(uponSaveCheckbox);
 		return uponSaveCheckbox;
 	}
 	public WebElement employeeSupervisor_RadioBtn()
@@ -521,4 +530,5 @@ public class AddEmployee_POM {
 		}
 		return isSuccessMessagePresent;		
 	}
+		
 }

@@ -176,7 +176,7 @@ public class AddEmployee_Test extends BaseClass {
 				test.addScreenCapture(captureScreenShot(driver, "jobcodeList")));
 		
 		waitTillElementVisible(addEmployeePOM.getjobCodeSeniorTechnologist());
-		
+				
 		addEmployeePOM.getjobCodeSeniorTechnologist().click();
 		
 		waitTillElementVisible(addEmployeePOM.getSelectedJobCode());
@@ -222,7 +222,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		if (addEmployeePOM.verifyUniqueEmployeeFullName()){
 			
-			test.log(LogStatus.PASS, "If User enters duplicate employeeName then it's showing  already exists"+
+			test.log(LogStatus.PASS, "If User enters duplicate employeeName then it's showing already exists"+
 			test.addScreenCapture(captureScreenShot(driver, "employeeName already exists.")));
 		}else{			
 			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID."+
