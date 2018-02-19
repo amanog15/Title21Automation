@@ -1,7 +1,6 @@
 package org.title21.test;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -64,8 +63,8 @@ public class AddNewUser_Test extends BaseClass{
 			{
 				test.log(LogStatus.PASS, "Successfully verified 'general' tab.");
 
-				//read data from excel
-				
+				//read data from excel				
+
 				addNewUserPage.location_Dropdown().selectByVisibleText(userData[1][0]);//Dallas
 				
 				test.log(LogStatus.PASS, "Selected "+userData[1][0]+" as a location.");
@@ -75,7 +74,6 @@ public class AddNewUser_Test extends BaseClass{
 				addNewUserPage.userFullName_Dopdown().selectByVisibleText(adminData.getEmployeeName());
 				test.log(LogStatus.PASS, "Selected "+adminData.getEmployeeName()+" as a full name.");
 				
-				//adminData.getEmployeeName();
 				//addNewUserPage.username_textbox().sendKeys(adminData.getEmployeeName());//Mart
 				
 				addNewUserPage.username_textbox().sendKeys(userData[1][2]+number);//Mart
