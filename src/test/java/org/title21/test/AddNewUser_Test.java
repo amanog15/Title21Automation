@@ -19,6 +19,10 @@ public class AddNewUser_Test extends BaseClass{
 	AddNewUser_POM addNewUserPage;
 	String className="";
 	String number="";
+	String location="";
+	String employeeName="";
+	String username="";
+	
 	boolean UserPresenceAfterSearch = false;
 	
 	AdminData adminData=new AdminData();
@@ -59,23 +63,26 @@ public class AddNewUser_Test extends BaseClass{
 			{
 				test.log(LogStatus.PASS, "Successfully verified 'general' tab.");
 
+				//read data from excel				
+
 				addNewUserPage.location_Dropdown().selectByVisibleText(userData[1][0]);//Dallas
-				test.log(LogStatus.PASS, "Selected '+userData[1][0]+' as a location.");
+				
+				test.log(LogStatus.PASS, "Selected "+userData[1][0]+" as a location.");
 				
 				sleep(2);
 				
 				addNewUserPage.userFullName_Dopdown().selectByVisibleText(adminData.getEmployeeName());
-				test.log(LogStatus.PASS, "Selected '+adminData.getEmployeeName()+' as a full name.");
+				test.log(LogStatus.PASS, "Selected "+adminData.getEmployeeName()+" as a full name.");
 				
 				//addNewUserPage.username_textbox().sendKeys(adminData.getEmployeeName());//Mart
 				
 				addNewUserPage.username_textbox().sendKeys(userData[1][2]+number);//Mart
-				test.log(LogStatus.PASS, "Selected '+userData[1][2]+number+' as a user name."+
+				test.log(LogStatus.PASS, "Selected "+userData[1][2]+number+" as a user name."+
 				test.addScreenCapture(captureScreenShot(driver, "Add New User")));
 				
 				sleep(2);
 				addNewUserPage.available_Filter().sendKeys(userData[1][0]);//Dallas
-				test.log(LogStatus.PASS, "Selected '+userData[1][0]+' for filter.");
+				test.log(LogStatus.PASS, "Selected "+userData[1][0]+" for filter.");
 				
 				String list = addNewUserPage.available_List().getText();
 				
@@ -90,7 +97,7 @@ public class AddNewUser_Test extends BaseClass{
 					
 					if(selectedList.contains(userData[1][0]))//Dallas
 					{
-						test.log(LogStatus.PASS, "Selected list."+
+						test.log(LogStatus.PASS, "Selected Group name from the list."+
 						test.addScreenCapture(captureScreenShot(driver, "Selected list")));
 						addNewUserPage.add_GeneralButton().click();
 						
@@ -99,13 +106,13 @@ public class AddNewUser_Test extends BaseClass{
 							test.log(LogStatus.PASS, "Successfully verified 'password' tab.");
 							sleep(3);
 							addNewUserPage.check_AuthenticationType().selectByVisibleText(userData[1][4]);//Title21
-							test.log(LogStatus.PASS, "Authentication Type:+userData[1][4]+");
+							test.log(LogStatus.PASS, "Authentication Type:"+userData[1][4]+"");
 							
 							addNewUserPage.new_PasswordInput().sendKeys(userData[1][5]);
-							test.log(LogStatus.PASS, "New Password:+userData[1][5]+");
+							test.log(LogStatus.PASS, "New Password:"+userData[1][5]+"");
 							
 							addNewUserPage.check_StrengthButton().click();
-							test.log(LogStatus.PASS, "Clicked to Strength button");
+							test.log(LogStatus.PASS, "Clicked on Strength button");
 							
 							String firstMsgColor = "";
 							String secondLineColor = "";
@@ -116,10 +123,9 @@ public class AddNewUser_Test extends BaseClass{
 								addNewUserPage.tenCharacters_Msg().click();
 								
 								firstMsgColor = addNewUserPage.tenCharacters_Msg().getCssValue("color");
-								System.out.println(firstMsgColor);
-								secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
-								System.out.println(secondLineColor);
 								
+								secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
+																
 								if(firstMsgColor.equals(secondLineColor))
 								{
 									test.log(LogStatus.PASS, "'Contain at least 10 characters.' text is in green color."+
@@ -142,7 +148,7 @@ public class AddNewUser_Test extends BaseClass{
 							addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][5]);
 							
 							addNewUserPage.password_AddTab().click();
-							test.log(LogStatus.PASS, "Confirm Password:+userData[1][5]+"+
+							test.log(LogStatus.PASS, "Confirm Password:"+userData[1][5]+""+
 									test.addScreenCapture(captureScreenShot(driver, "Selected list")));
 							sleep(3);
 							
