@@ -13,7 +13,7 @@ import org.title21.utility.FunctionUtils;
 
 import com.relevantcodes.extentreports.LogStatus;
 
-public class AddNewUser_Test extends BaseClass{
+public class AddNewUser_scenario1_Test extends BaseClass{
 	LoginPage_POM login;
 	LogoutPage_POM logout;
 	AddNewUser_POM addNewUserPage;
@@ -22,6 +22,8 @@ public class AddNewUser_Test extends BaseClass{
 	String location="";
 	String employeeName="";
 	String username="";
+	String firstMsgColor = "";
+	String secondLineColor = "";
 	
 	boolean UserPresenceAfterSearch = false;
 	
@@ -114,14 +116,9 @@ public class AddNewUser_Test extends BaseClass{
 							addNewUserPage.check_StrengthButton().click();
 							test.log(LogStatus.PASS, "Clicked on Strength button");
 							
-							String firstMsgColor = "";
-							String secondLineColor = "";
 							sleep(3);
 							if(addNewUserPage.passwordMust_PopUp() != null) 
 							{
-								//not Completed 
-								addNewUserPage.tenCharacters_Msg().click();
-								
 								firstMsgColor = addNewUserPage.tenCharacters_Msg().getCssValue("color");
 								
 								secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
@@ -133,7 +130,7 @@ public class AddNewUser_Test extends BaseClass{
 								}
 								else
 								{
-									test.log(LogStatus.PASS, "Unable to find 'Contain at least 10 characters.' text is in green color."+
+									test.log(LogStatus.FAIL, "Unable to find 'Contain at least 10 characters.' text is in green color."+
 											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
 								}
 							}
