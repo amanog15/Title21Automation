@@ -33,6 +33,9 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 	@FindBy(xpath="//*[@name='Location']")
 	WebElement locationUser;
 	
+	@FindBy(xpath="//*[@name='GridLocation']")
+	WebElement locationDrodpdownforFilter;
+	
 	@FindBy(css="#User_FullName")
 	WebElement userFullName;
 	
