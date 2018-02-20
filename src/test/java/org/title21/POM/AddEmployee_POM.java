@@ -109,6 +109,9 @@ public class AddEmployee_POM {
 	@FindBy(xpath="//a[contains(text(),'Senior Technologist')]")
 	WebElement jobCodesDropdown;
 		
+	@FindBy(xpath="//a[contains(text(),'VP, Human Resources')]")
+	WebElement jobCodeVPHumanResources;
+	
 	@FindBy(xpath="//a[contains(@href,'#tab3')]")
 	WebElement otherTab;//=By.xpath("//a[contains(@href,'#tab3')]");
 
@@ -312,19 +315,16 @@ public class AddEmployee_POM {
 		return uponSaveCheckbox;
 	}
 	public WebElement employeeSupervisor_RadioBtn()
-	{
-		//WebElement element=driver.findElement(employeeSupervisorradioBtn);
+	{		
 		return employeeSupervisorradioBtn;
 	}
 	public WebElement otherSpecificSupervisor_RadioBtn()
 	{
-		//WebElement element=driver.findElement(otherSpecificSupervisorradioBtn);
 		return otherSpecificSupervisorradioBtn;
 	}
 		
 	public WebElement hire_Date()
 	{
-		//WebElement element=driver.findElement(hireDate);
 		return hireDate;
 	}
 	public WebElement employee_type()
@@ -411,6 +411,11 @@ public class AddEmployee_POM {
 	public WebElement getGoButton(){
 		
 		return goButton;		
+	}
+	
+	public WebElement getJobCodeVPHumanResource(){
+		
+		return jobCodeVPHumanResources;		
 	}
 	
 	public boolean verifyLocationValidationMessage(){
@@ -531,4 +536,9 @@ public class AddEmployee_POM {
 		return isSuccessMessagePresent;		
 	}
 		
+	public void clickOnJobCode(String jobcode){
+		
+		
+	}
+	
 }

@@ -174,10 +174,10 @@ public class AddEmployee_Test extends BaseClass {
 		test.log(LogStatus.PASS, "User should be navigated to Job Codes Screen "
 				+ "and job codes list should be visible."+
 				test.addScreenCapture(captureScreenShot(driver, "jobcodeList")));
-		
-		waitTillElementVisible(addEmployeePOM.getjobCodeSeniorTechnologist());
+			
+		waitTillElementVisible(addEmployeePOM.getJobCodeVPHumanResource());
 				
-		addEmployeePOM.getjobCodeSeniorTechnologist().click();
+		addEmployeePOM.getJobCodeVPHumanResource().click();		
 		
 		waitTillElementVisible(addEmployeePOM.getSelectedJobCode());
 		
