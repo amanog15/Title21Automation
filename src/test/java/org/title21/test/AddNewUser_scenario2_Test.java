@@ -52,13 +52,16 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 		addNewUserPage.user_link().click();
 		test.log(LogStatus.PASS, "Clicked on 'Users'.");
 		
+		sleep(3);
 		if(addNewUserPage.userTable_Verifications() != null)
 		{
 			test.log(LogStatus.PASS, "Successfully verified User records Screen is displayed."+
 					test.addScreenCapture(captureScreenShot(driver, "records Screen")));
 			
 			addNewUserPage.getUserLocation_DropDown().selectByVisibleText(userData[1][0]);
+			test.log(LogStatus.PASS, "Successfully Location: "+userData[1][0]+" is selected.");
 			
+			sleep(3);
 			for(int i=1; i<=5; i++ ) {
 				
 				String userLocation = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[4]")).getText();
@@ -80,13 +83,12 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 			if(addNewUserPage.groupFilterResult() != null)
 			{
 				addNewUserPage.groupFilterResult().click();
-				addNewUserPage.groupFilterResult().sendKeys(number+number);
+				addNewUserPage.groupFilterResult().sendKeys("aaaa"+number);
 				addNewUserPage.groupFilterResutGoButton().click();
-				addNewUserPage.verifyNoGroupFoundText(driver);
 				
 				if(addNewUserPage.verifyNoUserFoundText(driver))
 				{
-					test.log(LogStatus.PASS, "Successfully verified 'No user Found' validation messages."+
+					test.log(LogStatus.PASS, "Successfully verified 'No user Found' validation messages, when entered invalide user name."+
 							test.addScreenCapture(captureScreenShot(driver, "No User Found")));
 				}
 				else
@@ -94,26 +96,23 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 					test.log(LogStatus.FAIL, "Unable to verified 'No user Found' validation messages."+
 							test.addScreenCapture(captureScreenShot(driver, "No User Found")));
 				}
-				
 			}
 			else
 			{
 				test.log(LogStatus.FAIL, "Unable to verified User 'Filter Result' field."+
 						test.addScreenCapture(captureScreenShot(driver, "Filter Result field")));
 			}
-			
 		}
 		else
 		{
 			test.log(LogStatus.FAIL, "Unable to verified User records Screen."+
 					test.addScreenCapture(captureScreenShot(driver, "records Screen")));
 		}
-		
-		//add above code in scenario 1
 		addNewUserPage.addNew_User().click();
 		test.log(LogStatus.PASS, "Successfully click on 'Add New' link.");
 		
 		sleep(3);
+		//waitTillElementVisible(addNewUserPage.AddNewUserPopUpHeader());
 		
 		if(addNewUserPage.verifyAddNewUserPopUpHeader(driver))
 		{
@@ -125,8 +124,8 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 				test.log(LogStatus.PASS, "Successfully verified 'general' tab.");
 
 				addNewUserPage.add_GeneralButton().click();
-				test.log(LogStatus.PASS, "Successfully clicked on 'Add' Button.");
-				
+				test.log(LogStatus.PASS, "Successfully clicked on 'Add' Button."+
+				test.addScreenCapture(captureScreenShot(driver, "Add New User with validation message")));
 				if(addNewUserPage.locationRequired_ErrorMsg() != null)
 				{
 					test.log(LogStatus.PASS, "Successfully verified validation messages 'Location is required'.");
@@ -156,8 +155,8 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 				
 				if(addNewUserPage.pleaseSelectOneGroup_ErrorMsg() != null)
 				{
-					test.log(LogStatus.PASS, "Successfully verified validation messages 'Please select at least one group'."+
-							test.addScreenCapture(captureScreenShot(driver, "Genaral Page validation.")));
+					test.log(LogStatus.PASS, "Successfully verified validation messages 'Please select at least one group'.");
+							
 				}else
 				{
 					test.log(LogStatus.PASS, "Unable to verified validation messages 'Please select at least one group'."+
@@ -170,170 +169,185 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 				
 				sleep(2);
 				
-				addNewUserPage.userFullName_Dopdown().selectByVisibleText(adminData.getEmployeeName());
-				test.log(LogStatus.PASS, "Selected "+adminData.getEmployeeName()+" as a full name.");
-				
-				addNewUserPage.username_textbox().sendKeys(userData[1][2]+number);//Mart
-				test.log(LogStatus.PASS, "Selected "+userData[1][2]+number+" as a user name."+
-				test.addScreenCapture(captureScreenShot(driver, "Add New User")));
-				
-				sleep(2);
-				addNewUserPage.available_Filter().sendKeys(userData[1][0]);//Dallas
-				test.log(LogStatus.PASS, "Selected "+userData[1][0]+" for filter.");
-				
-				String list = addNewUserPage.available_List().getText();
-				
-				sleep(2);
-				
-				if(list.contains(userData[1][0]))//Dallas
+				if(addNewUserPage.alertEMPAssignedMsg(driver))
 				{
-					addNewUserPage.available_Button().click();
-					test.log(LogStatus.PASS, "Clicked 'Available' button.");
+					test.log(LogStatus.FAIL, "All employees (in the Employee List) have already been assigned a user ID"+
+							test.addScreenCapture(captureScreenShot(driver, "Assigned User ID")));
 					
-					String selectedList = addNewUserPage.selected_List().getText();
-					
-					if(selectedList.contains(userData[1][0]))//Dallas
-					{
-						test.log(LogStatus.PASS, "Selected Group name from the list."+
-						test.addScreenCapture(captureScreenShot(driver, "Selected list")));
-						addNewUserPage.add_GeneralButton().click();
-						
-						if(addNewUserPage.password_tab() != null)
-						{
-							test.log(LogStatus.PASS, "Successfully verified 'password' tab.");
-							sleep(3);
-							addNewUserPage.check_AuthenticationType().selectByVisibleText(userData[1][4]);//Title21
-							test.log(LogStatus.PASS, "Authentication Type:"+userData[1][4]+"");
-							
-							addNewUserPage.password_AddTab().click();
-							test.log(LogStatus.PASS, "Clicked on 'Add' button.");
-							
-							if(addNewUserPage.passwordRequired_ErrorMsg() != null)
-							{
-								test.log(LogStatus.PASS, "Successfully verified validation messages 'Password is required'.");
-							}else
-							{
-								test.log(LogStatus.PASS, "Unable to verified validation messages 'Password is required '."+
-										test.addScreenCapture(captureScreenShot(driver, "Password is required ")));
-							}
-							
-							if(addNewUserPage.confirmPasswordRequired_ErrorMsg() != null)
-							{
-								test.log(LogStatus.PASS, "Successfully verified validation messages 'Confirm Password is required'.");
-							}else
-							{
-								test.log(LogStatus.PASS, "Unable to verified validation messages 'Confirm Password is required'."+
-										test.addScreenCapture(captureScreenShot(driver, "Confirm Password is required")));
-							}
-							
-							addNewUserPage.new_PasswordInput().sendKeys(userData[1][6]);
-							test.log(LogStatus.PASS, "Entered short New Password:"+userData[1][6]+"");
-							
-							addNewUserPage.check_StrengthButton().click();
-							test.log(LogStatus.PASS, "Clicked on Strength button");
-							
-						
-							sleep(3);
-							if(addNewUserPage.passwordMust_PopUp() != null) 
-							{
-								
-								firstMsgColor = addNewUserPage.tenCharacters_Msg().getCssValue("color");
-								
-								secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
-																
-								if(!firstMsgColor.equals(secondLineColor))
-								{
-									test.log(LogStatus.PASS, "'Contain at least 10 characters.' text is in Red color."+
-											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
-								}
-								else
-								{
-									test.log(LogStatus.FAIL, "Unable to find 'Contain at least 10 characters.' text is in Red color."+
-											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
-								}
-							}
-							else
-							{
-								test.log(LogStatus.FAIL, "Unable to find 'Password must' pup-up."+
-										test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
-							}
-							
-							addNewUserPage.passwordMust_Close().click();
-							
-							sleep(3);
-							
-							addNewUserPage.new_PasswordInput().sendKeys(userData[1][7]);
-							test.log(LogStatus.PASS, "Entered New Password containt user name:"+userData[1][7]+"");
-							
-							addNewUserPage.check_StrengthButton().click();
-							test.log(LogStatus.PASS, "Clicked on Strength button");
-							
-							sleep(3);
-							if(addNewUserPage.passwordMust_PopUp() != null) 
-							{
-								
-								thirdLinecolor = addNewUserPage.containUserID_Msg().getCssValue("color");
-								
-								secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
-																
-								if(!firstMsgColor.equals(secondLineColor))
-								{
-									test.log(LogStatus.PASS, "'Not contain user ID. ' text is in Red color."+
-											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
-								}
-								else
-								{
-									test.log(LogStatus.FAIL, "Unable to find 'Not contain user ID.' text is in Red color."+
-											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
-								}
-							}
-							else
-							{
-								test.log(LogStatus.FAIL, "Unable to find 'Password must' pup-up."+
-										test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
-							}
-							
-							addNewUserPage.passwordMust_Close().click();
-							
-							addNewUserPage.new_PasswordInput().sendKeys(userData[1][5]);
-							test.log(LogStatus.PASS, "Entered New valid Password:"+userData[1][5]+"");
-							
-							addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][8]);
-							test.log(LogStatus.PASS, "Entered confirm password not same as new password:"+userData[1][8]+"");
-							
-							addNewUserPage.password_AddTab().click();
-							test.log(LogStatus.PASS, "Clicked on 'Add' button.");
-
-							if(addNewUserPage.passwordDoesNotMatch_ErrorMsg() != null)
-							{
-								test.log(LogStatus.PASS, "Successfully verified 'Password does not match' text."+
-										test.addScreenCapture(captureScreenShot(driver, "Password does not match")));
-							}
-							else
-							{
-								test.log(LogStatus.FAIL, "Unable to verified 'Password does not match' text."+
-										test.addScreenCapture(captureScreenShot(driver, "Password does not match")));
-							}
-							
-							addNewUserPage.password_CancelTab().click();
-							sleep(3);
-						}
-						else
-						{
-							test.log(LogStatus.FAIL, "Unable to verified 'password' tab.");
-						}
-						
-					}
-					else
-					{
-						test.log(LogStatus.FAIL, "Unable to select list.");
-					}
+					addNewUserPage.confirmClose_Button().click();
+					sleep(2);
+					addNewUserPage.addNewUserClose_Button().click();
+					sleep(3);
 				}
 				else
 				{
-					test.log(LogStatus.FAIL, "Unable to clicked 'Available' button.");
-					addNewUserPage.cancel_GeneralButton().click();
+					addNewUserPage.userFullName_Dopdown().selectByVisibleText(adminData.getEmployeeName());
+					//addNewUserPage.userFullName_Dopdown().selectByVisibleText("Martink845");
+					test.log(LogStatus.PASS, "Selected "+adminData.getEmployeeName()+" as a full name.");
+					
+					addNewUserPage.username_textbox().sendKeys(userData[1][2]);//Mart
+					test.log(LogStatus.PASS, "Selected "+userData[1][2]+" as a user name."+
+					test.addScreenCapture(captureScreenShot(driver, "Add New User")));
+					
+					sleep(2);
+					addNewUserPage.available_Filter().sendKeys(userData[1][0]);//Dallas
+					test.log(LogStatus.PASS, "Selected "+userData[1][0]+" for filter.");
+					
+					String list = addNewUserPage.available_List().getText();
+					
+					sleep(2);
+					
+					if(list.contains(userData[1][0]))//Dallas
+					{
+						addNewUserPage.available_Button().click();
+						test.log(LogStatus.PASS, "Clicked 'Available' button.");
+						
+						String selectedList = addNewUserPage.selected_List().getText();
+						
+						if(selectedList.contains(userData[1][0]))//Dallas
+						{
+							sleep(3);
+							test.log(LogStatus.PASS, "Selected Group name from the list."+
+							test.addScreenCapture(captureScreenShot(driver, "Selected list")));
+							addNewUserPage.add_GeneralButton().click();
+							
+							if(addNewUserPage.password_tab() != null)
+							{
+								test.log(LogStatus.PASS, "Successfully verified 'password' tab.");
+								sleep(3);
+								addNewUserPage.check_AuthenticationType().selectByVisibleText(userData[1][4]);//Title21
+								test.log(LogStatus.PASS, "Authentication Type:"+userData[1][4]+"");
+								
+								addNewUserPage.password_AddTab().click();
+								test.log(LogStatus.PASS, "Clicked on 'Add' button."+
+								test.addScreenCapture(captureScreenShot(driver, "Add Button")));
+								
+								if(addNewUserPage.passwordRequired_ErrorMsg() != null)
+								{
+									test.log(LogStatus.PASS, "Successfully verified validation messages 'Password is required'.");
+								}else
+								{
+									test.log(LogStatus.PASS, "Unable to verified validation messages 'Password is required '."+
+											test.addScreenCapture(captureScreenShot(driver, "Password is required ")));
+								}
+								
+								sleep(3);
+							//	waitTillElementVisible(addNewUserPage.confirmPasswordRequired_ErrorMsg());
+								if(addNewUserPage.confirmPasswordRequired_ErrorMsg() != null)
+								{
+									test.log(LogStatus.PASS, "Successfully verified validation messages 'Confirm Password is required'.");
+								}else
+								{
+									test.log(LogStatus.PASS, "Unable to verified validation messages 'Confirm Password is required'."+
+											test.addScreenCapture(captureScreenShot(driver, "Confirm Password is required")));
+								}
+								
+								addNewUserPage.new_PasswordInput().sendKeys(userData[1][6]);
+								test.log(LogStatus.PASS, "Entered short New Password:"+userData[1][6]+"");
+								
+								addNewUserPage.check_StrengthButton().click();
+								test.log(LogStatus.PASS, "Clicked on Strength button");
+								
+							
+								sleep(3);
+							//	waitTillElementVisible(addNewUserPage.passwordMust_PopUp());
+								if(addNewUserPage.passwordMust_PopUp() != null) 
+								{
+									
+									firstMsgColor = addNewUserPage.tenCharacters_Msg().getCssValue("color");
+									
+									secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
+																	
+									if(!firstMsgColor.equals(secondLineColor))
+									{
+										test.log(LogStatus.PASS, "'Contain at least 10 characters.' text is in Red color."+
+												test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
+									}
+									else
+									{
+										test.log(LogStatus.FAIL, "Unable to find 'Contain at least 10 characters.' text is in Red color."+
+												test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
+									}
+								}
+								else
+								{
+									test.log(LogStatus.FAIL, "Unable to find 'Password must' pup-up."+
+											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
+								}
+								
+								addNewUserPage.passwordMust_Close().click();
+								
+								sleep(3);
+								addNewUserPage.new_PasswordInput().clear();
+								addNewUserPage.new_PasswordInput().sendKeys(userData[1][7]);
+								test.log(LogStatus.PASS, "Entered New Password containt user name:"+userData[1][7]+"");
+								
+								addNewUserPage.check_StrengthButton().click();
+								test.log(LogStatus.PASS, "Clicked on Strength button");
+								
+								sleep(3);
+							//	waitTillElementVisible(addNewUserPage.passwordMust_PopUp());
+								if(addNewUserPage.passwordMust_PopUp() != null) 
+								{
+									thirdLinecolor = addNewUserPage.containUserID_Msg().getCssValue("color");
+									
+									secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
+																	
+									if(!thirdLinecolor.equals(secondLineColor))
+									{
+										test.log(LogStatus.PASS, "'Not contain user ID. ' text is in Red color."+
+												test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
+									}
+									else
+									{
+										test.log(LogStatus.FAIL, "Unable to find 'Not contain user ID.' text is in Red color."+
+												test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
+									}
+								}
+								else
+								{
+									test.log(LogStatus.FAIL, "Unable to find 'Password must' pup-up."+
+											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
+								}
+								addNewUserPage.passwordMust_Close().click();
+								addNewUserPage.new_PasswordInput().clear();
+								addNewUserPage.new_PasswordInput().sendKeys(userData[1][5]);
+								test.log(LogStatus.PASS, "Entered New valid Password:"+userData[1][5]+"");
+								test.log(LogStatus.PASS, "Entered confirm password not same as new password:"+userData[1][8]+"");
+								addNewUserPage.password_AddTab().click();
+								test.log(LogStatus.PASS, "Clicked on 'Add' button.");
+
+								if(addNewUserPage.passwordDoesNotMatch_ErrorMsg() != null)
+								{
+									test.log(LogStatus.PASS, "Successfully verified 'Password does not match' text."+
+											test.addScreenCapture(captureScreenShot(driver, "Password does not match")));
+								}
+								else
+								{
+									test.log(LogStatus.FAIL, "Unable to verified 'Password does not match' text."+
+											test.addScreenCapture(captureScreenShot(driver, "Password does not match")));
+								}
+								addNewUserPage.password_CancelTab().click();
+								sleep(3);
+							}
+							else
+							{
+								test.log(LogStatus.FAIL, "Unable to verified 'password' tab.");
+							}
+							
+						}
+						else
+						{
+							test.log(LogStatus.FAIL, "Unable to select list.");
+						}
+					}
+					else
+					{
+						test.log(LogStatus.FAIL, "Unable to clicked 'Available' button.");
+						addNewUserPage.cancel_GeneralButton().click();
+					}
 				}
+				
 			}
 			else
 			{

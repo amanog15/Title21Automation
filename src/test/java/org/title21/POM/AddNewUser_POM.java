@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-import freemarker.core.ReturnInstruction.Return;
-
 public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 
 	public WebDriver driver;
@@ -48,7 +46,6 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 	@FindBy(css=".btn.moveall")
 	WebElement availableButton;
 	
-	//*[@title='Select all']
 	@FindBy(xpath="//*[@id='bootstrap-duallistbox-nonselected-list_dualListItemList[]']")
 	WebElement availableList;
 	 
@@ -121,15 +118,12 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
     @FindBy(xpath="//*[contains(text(),'Full Name')]")
     WebElement userTableVerifications;
     
-  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[1]
     @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][1]")
    	WebElement tenCharacters;
     
-  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[2]
     @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][2]")
    	WebElement strengthLeastOne;
     
-  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[3]
     @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][3]")
     WebElement containUserID;
     
@@ -156,6 +150,22 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
     
     @FindBy(xpath="//span[text()='Password does not match']")
     WebElement passwordDoesNotMatch;
+    
+    @FindBy(css=".t21-js-user-message-text")
+    WebElement empAssignedMsg;
+    
+    @FindBy(xpath="//button[text()='×']")
+    WebElement addNewUserCloseButton;
+    
+    public WebElement addNewUserClose_Button()
+    {
+    	return addNewUserCloseButton;
+    }
+    
+    public WebElement empAssigned_Msg()
+    {
+    	return empAssignedMsg;
+    }
     
     public WebElement passwordDoesNotMatch_ErrorMsg() 
     {
@@ -416,9 +426,28 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 		{
 			return false;
 		}
-		
 	}
     
+    public boolean alertEMPAssignedMsg(WebDriver driver){
+		
+  		String alertEMPAssignedMsgText="";
+  		
+  		try 
+  		{
+  			alertEMPAssignedMsgText = empAssigned_Msg().getText();
+  			
+  		}catch(NoSuchElementException e) {
+  			
+  		}
+  		if(alertEMPAssignedMsgText.contains("All employees (in the Employee List) have already been assigned a user ID"))
+  		{
+  			return true;
+  		}
+  		else
+  		{
+  			return false;
+  		}
+  	}
 }
 
 
