@@ -164,10 +164,13 @@ public class AddEmployee_Test extends BaseClass {
 				test.addScreenCapture(captureScreenShot(driver, "employeeData")));
 		
 		verticalScrollingDown();
+		
 		waitTillElementVisible(addEmployeePOM.getAddBtn());
 				
 		//addEmployeePOM.getAddBtn().click();	
 		javaScriptClick(addEmployeePOM.getAddBtn());
+		
+		addEmployeePOM=new AddEmployee_POM(driver);
 		
 		waitTillElementVisible(addEmployeePOM.getJobCodesTab());
 		
@@ -218,7 +221,11 @@ public class AddEmployee_Test extends BaseClass {
 		
 		waitTillElementVisible(addEmployeePOM.getEmployeeID());
 		
-		addEmployeePOM.getEmployeeFullName().sendKeys(adminData.getEmployeeName()+Keys.TAB);				
+		addEmployeePOM.getEmployeeFullName().sendKeys(adminData.getEmployeeName());
+		
+		sleep(1);
+		
+		addEmployeePOM.getEmployeeFullName().sendKeys(Keys.TAB);							
 		
 		if (addEmployeePOM.verifyUniqueEmployeeFullName()){
 			
@@ -229,7 +236,11 @@ public class AddEmployee_Test extends BaseClass {
 		test.addScreenCapture(captureScreenShot(driver, "employeeID does not exists.")));
 		}
 				
-		addEmployeePOM.getEmployeeID().sendKeys(adminData.getEmployeeID()+Keys.TAB);		
+		addEmployeePOM.getEmployeeID().sendKeys(adminData.getEmployeeID());		
+		
+		sleep(1);
+		
+		addEmployeePOM.getEmployeeID().sendKeys(Keys.TAB);
 		
 		if (addEmployeePOM.verifyUniqueEmployeeID()){
 			

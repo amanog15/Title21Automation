@@ -76,8 +76,7 @@ public class AddNewUser_Test extends BaseClass{
 				
 				addNewUserPage.userFullName_Dopdown().selectByVisibleText(adminData.getEmployeeName());
 				test.log(LogStatus.PASS, "Selected "+adminData.getEmployeeName()+" as a full name.");
-				
-				
+								
 				addNewUserPage.username_textbox().sendKeys(userData[1][2]+number);//Mart
 				test.log(LogStatus.PASS, "Selected "+userData[1][2]+number+" as a user name."+
 				test.addScreenCapture(captureScreenShot(driver, "Add New User")));

@@ -106,7 +106,7 @@ public class BaseClass {
 	public void beforeSuite(String configFile) throws Exception {
 		
 		// loading log4j properties.
-		//PropertyConfigurator.configure("log4j.properties");
+		PropertyConfigurator.configure("log4j.properties");
 		
 		Properties p=new Properties();
 		FileInputStream readconfig=new FileInputStream(configFile);
