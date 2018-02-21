@@ -133,8 +133,7 @@ public class BaseClass {
 		loginData=ExcelData(excelFile, loginSheet);
 		groupData=ExcelData(excelFile, groupSheet);
 		userData=ExcelData(excelFile, userSheet);
-		employeeData=ExcelData(excelFile, employeeSheet);	
-		
+		employeeData=ExcelData(excelFile, employeeSheet);		
 		
 		extent = ExtentManager.getReporter(filePath,baseUrl);	
 		
