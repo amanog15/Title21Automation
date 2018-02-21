@@ -243,16 +243,16 @@ public class BaseClass {
 		
 		try
 		{
+			test.log(LogStatus.PASS, "1. Click on Administrator Dropdown at the top."+
+					test.addScreenCapture(captureScreenShot(driver, "administration link.")));
 			administrationPage.administratorDropDown().click();
-			test.log(LogStatus.PASS, "Successfully click on 'administrator'"+
-					test.addScreenCapture(captureScreenShot(driver, "administrator")));
-			
+						
 			administrationPage.administrationLink().click();
-			test.log(LogStatus.PASS, "Successfully click on 'administration' link."+
+			test.log(LogStatus.PASS, "1a) Successfully click on 'administration' link."+
 					test.addScreenCapture(captureScreenShot(driver, "administration link.")));
 			
 			if(administrationPage.verifyAdministrationPagePrescence()) {
-				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence."+
+				test.log(LogStatus.PASS, "1b) Successfully verify 'administration Page' Prescence."+
 						test.addScreenCapture(captureScreenShot(driver, "administration Page")));
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");

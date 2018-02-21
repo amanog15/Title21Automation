@@ -31,25 +31,26 @@ public class LogoutPage_Test extends BaseClass {
 	@Test(testName = "logout_admin", groups = "Logout", priority = 0)
 	public void Logout() throws Exception {
 		
-		test = extent.startTest("logoutfromApplication");
-		test.log(LogStatus.PASS, "Opened URL");
+		test = extent.startTest("TestCase_WIA_Logout");
+		test.log(LogStatus.PASS, "1. Begin Login to the web interface as the Admin.");
 		login= new LoginPage_POM(driver);
 		login.getUsername().sendKeys("admin");
-		test.log(LogStatus.PASS, "Username Entered");
+		test.log(LogStatus.PASS, "1b) Username Entered");
 		login.getLogin_button().click();
-		test.log(LogStatus.PASS, "Clicked on Login button after entering Username.");
+		test.log(LogStatus.PASS, "1c) Clicked on Login button after entering Username.");
 		login.getpassword().sendKeys("administrator");
-		test.log(LogStatus.PASS, "Password Entered");
+		test.log(LogStatus.PASS, "1d) Password Entered");
 		login.getLogin_button().click();
 		logout=new LogoutPage_POM(driver);
-		logout.getAdmindropdown().click();	
-		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
+		logout.getAdmindropdown().click();
+		test.log(LogStatus.PASS, "2. Click on Administrator Dropdown at the top");
 		logout.getlogoutLink().click();
 		
-		test.log(LogStatus.PASS, "Clicked on logout link"+
+		test.log(LogStatus.PASS, "3. Click on Log out link."+
 		test.addScreenCapture(captureScreenShot(driver, "clickonLogoutlink")));	
 		
 		sleep(2);
+		test.log(LogStatus.INFO,"ER 1 – User should be able to navigate Confirm Log out pop up Screen.");
 		
 		if (logout.verifyMessageonModalDialog(driver)){
 			test.log(LogStatus.PASS, "Message on Logout alert verified."+
@@ -57,7 +58,7 @@ public class LogoutPage_Test extends BaseClass {
 		};
 		
 		logout.getLogoutButton().click();
-		test.log(LogStatus.PASS, "Clicked on logout button"+
+		test.log(LogStatus.PASS, "5. Click on Log out button in Confirmation Log out screen"+ 
 		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));
 		extent.endTest(test);
 	}

@@ -51,7 +51,8 @@ public class AddEmployee_Test extends BaseClass {
 	@Test(testName = "AddEmployee", groups = "Employee", priority = 0)
 	public void createEmployee() throws Exception 
 	{	
-		test = extent.startTest("Add Employee");		
+		test = extent.startTest("TestCase-WIA-Add Employee");	
+		test.log(LogStatus.INFO, "ER", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase-WIA-Add Employee.doc'>TestCaseDocument</a>");
 		getAdministrationPage(test);		
 		
 		addEmployeePOM=new AddEmployee_POM(driver);

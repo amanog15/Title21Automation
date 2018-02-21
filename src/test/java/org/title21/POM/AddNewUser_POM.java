@@ -1,5 +1,6 @@
 package org.title21.POM;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,8 +34,6 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 	@FindBy(xpath="//*[@name='Location']")
 	WebElement locationUser;
 	
-	
-	
 	@FindBy(css="#User_FullName")
 	WebElement userFullName;
 	
@@ -47,7 +46,6 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 	@FindBy(css=".btn.moveall")
 	WebElement availableButton;
 	
-	//*[@title='Select all']
 	@FindBy(xpath="//*[@id='bootstrap-duallistbox-nonselected-list_dualListItemList[]']")
 	WebElement availableList;
 	 
@@ -117,17 +115,105 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
     @FindBy(css=".fa.fa-times")
     WebElement passwordMustClose;
     
-  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[1]
+    @FindBy(xpath="//*[contains(text(),'Full Name')]")
+    WebElement userTableVerifications;
+    
     @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][1]")
    	WebElement tenCharacters;
     
-  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[2]
     @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][2]")
    	WebElement strengthLeastOne;
     
-  //*[@id=\"popover530011\"]/div[2]//ol[1]/li[3]
     @FindBy(xpath="//*[contains(@class,'t21-pswd-criteria')][3]")
     WebElement containUserID;
+    
+    @FindBy(xpath="//*[text()='No user found']")
+    WebElement noUserFoundResultText;
+    
+    @FindBy(xpath="//*[text()='Location is required']")
+    WebElement locationRequired;
+    
+    @FindBy(xpath="//span[text()='Full Name is required']")
+    WebElement fullNameRequired;
+    
+    @FindBy(xpath="//span[text()='User Name is required']")
+    WebElement userNameRequired;
+    
+    @FindBy(xpath="//span[text()='Please select at least one group']")
+    WebElement pleaseSelectOneGroup;
+    
+    @FindBy(xpath="//span[text()='Password is required']")
+    WebElement passwordRequired;
+    
+    @FindBy(xpath="//span[text()='Confirm Password is required']")
+    WebElement confirmPasswordRequired;
+    
+    @FindBy(xpath="//span[text()='Password does not match']")
+    WebElement passwordDoesNotMatch;
+    
+    @FindBy(css=".t21-js-user-message-text")
+    WebElement empAssignedMsg;
+    
+    @FindBy(xpath="//button[text()='×']")
+    WebElement addNewUserCloseButton;
+    
+    public WebElement addNewUserClose_Button()
+    {
+    	return addNewUserCloseButton;
+    }
+    
+    public WebElement empAssigned_Msg()
+    {
+    	return empAssignedMsg;
+    }
+    
+    public WebElement passwordDoesNotMatch_ErrorMsg() 
+    {
+    	return passwordDoesNotMatch;
+    }
+    
+    public WebElement confirmPasswordRequired_ErrorMsg()
+    {
+    	return confirmPasswordRequired;
+    }
+    
+    public WebElement passwordRequired_ErrorMsg()
+    {
+		return passwordRequired;
+    }
+    
+    public WebElement pleaseSelectOneGroup_ErrorMsg()
+    {
+    	return pleaseSelectOneGroup;
+    }
+    
+    public WebElement userNameRequired_ErrorMsg()
+    {
+    	return userNameRequired;
+    }
+    
+    public WebElement fullNameRequired_ErrorMsg()
+    {
+    	return fullNameRequired;
+    }
+    
+    public WebElement locationRequired_ErrorMsg()
+    {
+    	return locationRequired;
+    }
+    
+    public WebElement userTable_Verifications()
+    {
+    	return userTableVerifications;
+    }
+    
+    @FindBy(css="#GridLocation")
+	WebElement userLocationDropDown;
+    
+    public Select getUserLocation_DropDown(){
+		Select selectObj = new Select(userLocationDropDown);
+		return selectObj;
+	}
     
     public WebElement containUserID_Msg()
     {
@@ -186,8 +272,8 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
     
     public Select location_Dropdown()
 	{
-    	Select locationUserObj = new Select(locationUser);
-    	return locationUserObj;		
+    		Select locationUserObj = new Select(locationUser);
+    		return locationUserObj;		
    	}
     
     public Select userFullName_Dopdown()
@@ -245,7 +331,7 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
    	{
    		return passwordTab;
    	}
-        
+    
     public Select check_AuthenticationType()
    	{
     	Select checkAuthenticationTypeObj = new Select(checkAuthenticationType);
@@ -302,6 +388,11 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
    		return passwordCancelTab;
    	}
     
+    public WebElement noUserFoundResultText()
+    {
+    	return noUserFoundResultText;
+    }
+    
     public boolean verifyAddNewUserPopUpHeader(WebDriver driver){
 		
 		String alertHeaderText = AddNewUserPopUpHeader().getText();
@@ -315,6 +406,48 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 			return false;
 		}
 	}
+    
+    public boolean verifyNoUserFoundText(WebDriver driver){
+		
+		String NoUserFoundResultText="";
+		
+		try 
+		{
+			NoUserFoundResultText = noUserFoundResultText().getText();
+			
+		}catch(NoSuchElementException e) {
+			
+		}
+		if(NoUserFoundResultText.equalsIgnoreCase("No user found"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+    
+    public boolean alertEMPAssignedMsg(WebDriver driver){
+		
+  		String alertEMPAssignedMsgText="";
+  		
+  		try 
+  		{
+  			alertEMPAssignedMsgText = empAssigned_Msg().getText();
+  			
+  		}catch(NoSuchElementException e) {
+  			
+  		}
+  		if(alertEMPAssignedMsgText.contains("All employees (in the Employee List) have already been assigned a user ID"))
+  		{
+  			return true;
+  		}
+  		else
+  		{
+  			return false;
+  		}
+  	}
 }
 
 
