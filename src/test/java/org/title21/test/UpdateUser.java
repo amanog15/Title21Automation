@@ -86,8 +86,7 @@ public class UpdateUser extends BaseClass{
 		for (int i=0;i<tableCells.size();i++){
 			if (employeeFullName.equalsIgnoreCase(tableCells.get(i).getText()))
 			{				
-				test.log(LogStatus.FAIL, "Expected location is not present in rowNum: "+i);
-				isRecordFound=false;
+				
 			}
 		}
 			

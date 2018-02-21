@@ -19,10 +19,14 @@ public class UpdateUser_POM extends AddNewUser_POM {
 
 	@FindBy(xpath="//*[@name='GridLocation']")
 	WebElement locationDrodpdownforFilter;
+		
 	
 	public Select getLocationforFilter(){
 	
 		Select selectObj=new Select(locationDrodpdownforFilter);
 		return selectObj;
 	}
+	
+		
+	//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[2]
 }

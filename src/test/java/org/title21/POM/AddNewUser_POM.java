@@ -33,8 +33,7 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 	@FindBy(xpath="//*[@name='Location']")
 	WebElement locationUser;
 	
-	@FindBy(xpath="//*[@name='GridLocation']")
-	WebElement locationDrodpdownforFilter;
+	
 	
 	@FindBy(css="#User_FullName")
 	WebElement userFullName;
@@ -187,8 +186,8 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
     
     public Select location_Dropdown()
 	{
-    		Select locationUserObj = new Select(locationUser);
-    		return locationUserObj;		
+    	Select locationUserObj = new Select(locationUser);
+    	return locationUserObj;		
    	}
     
     public Select userFullName_Dopdown()
@@ -246,7 +245,7 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
    	{
    		return passwordTab;
    	}
-    
+        
     public Select check_AuthenticationType()
    	{
     	Select checkAuthenticationTypeObj = new Select(checkAuthenticationType);

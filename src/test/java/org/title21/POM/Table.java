@@ -71,7 +71,6 @@ public class Table extends BaseClass
 	}
 	
 	
-	
 	public WebElement getTableHeader()
 	{
 		return tableHeader;
