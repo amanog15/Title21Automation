@@ -13,7 +13,7 @@ import org.title21.utility.FunctionUtils;
 
 import com.relevantcodes.extentreports.LogStatus;
 
-public class AddNewUser_scenario2_Test extends BaseClass{
+public class CreateNewUser_Test extends BaseClass{
 	LoginPage_POM login;
 	LogoutPage_POM logout;
 	AddNewUser_POM addNewUserPage;
@@ -39,27 +39,27 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 		login.loginFunction();
 	}
 	
-	@Test(testName = "Add New User", groups = "New User", priority = 0)
+	@Test(testName = "Create New User", groups = "New User", priority = 0)
 	public void AddNewUser() throws Exception
 	{
 		
-		test = extent.startTest("AddNewUser_Test");
+		test = extent.startTest("Create New User");
 		addNewUserPage= new AddNewUser_POM(driver);
 		number = FunctionUtils.generateRandomNumber();
 		
 		getAdministrationPage(test);	
 		
 		addNewUserPage.user_link().click();
-		test.log(LogStatus.PASS, "Clicked on 'Users'.");
+		test.log(LogStatus.PASS, "3.Click on Users link ");
 		
 		sleep(3);
 		if(addNewUserPage.userTable_Verifications() != null)
 		{
-			test.log(LogStatus.PASS, "Successfully verified User records Screen is displayed."+
-					test.addScreenCapture(captureScreenShot(driver, "records Screen")));
+			test.log(LogStatus.PASS, "<b>ER 1- User records Screen is displayed.<b>"+
+					test.addScreenCapture(captureScreenShot(driver, "User records Screen")));
 			
 			addNewUserPage.getUserLocation_DropDown().selectByVisibleText(userData[1][0]);
-			test.log(LogStatus.PASS, "Successfully Location: "+userData[1][0]+" is selected.");
+			test.log(LogStatus.PASS, "4.Click on location drop-down and select the specific location (for ex. "+userData[1][0]+").");
 			
 			sleep(3);
 			for(int i=1; i<=5; i++ ) {
@@ -73,27 +73,29 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 			}
 			
 			if(UserPresenceAfterSearch) {
-				test.log(LogStatus.PASS, "Only Employees of selected location: "+userData[1][0]+" are displayed."+
-						test.addScreenCapture(captureScreenShot(driver, "group is created and verified")));
+				test.log(LogStatus.PASS, "<b>ER 2- Only Employees of selected location are displayed.<b>"+
+						test.addScreenCapture(captureScreenShot(driver, "Employees of selected location")));
 			}else {
-				test.log(LogStatus.FAIL, "Unable to verified Employees of selected location: "+userData[1][0]+"."+
-						test.addScreenCapture(captureScreenShot(driver, "Employee Details table")));
+				test.log(LogStatus.FAIL, "Unable to verified ER 2 – Only Employees of selected location are displayed."+
+						test.addScreenCapture(captureScreenShot(driver, "Employees of selected location")));
 			}
 			
 			if(addNewUserPage.groupFilterResult() != null)
 			{
+				test.log(LogStatus.PASS, "5.Enter the invalid data in user's field and click on GO button.");
+				
 				addNewUserPage.groupFilterResult().click();
 				addNewUserPage.groupFilterResult().sendKeys("aaaa"+number);
 				addNewUserPage.groupFilterResutGoButton().click();
 				
 				if(addNewUserPage.verifyNoUserFoundText(driver))
 				{
-					test.log(LogStatus.PASS, "Successfully verified 'No user Found' validation messages, when entered invalide user name."+
+					test.log(LogStatus.PASS, "<b>ER 3- It should show validation messages as 'No User Found'.<b>"+
 							test.addScreenCapture(captureScreenShot(driver, "No User Found")));
 				}
 				else
 				{
-					test.log(LogStatus.FAIL, "Unable to verified 'No user Found' validation messages."+
+					test.log(LogStatus.FAIL, "Unable to verified ER 3– It should show validation messages as 'No User Found'."+
 							test.addScreenCapture(captureScreenShot(driver, "No User Found")));
 				}
 			}
@@ -109,26 +111,27 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 					test.addScreenCapture(captureScreenShot(driver, "records Screen")));
 		}
 		addNewUserPage.addNew_User().click();
-		test.log(LogStatus.PASS, "Successfully click on 'Add New' link.");
+		test.log(LogStatus.PASS, "6.Click on 'Add New' button.");
 		
 		sleep(3);
 		//waitTillElementVisible(addNewUserPage.AddNewUserPopUpHeader());
 		
 		if(addNewUserPage.verifyAddNewUserPopUpHeader(driver))
 		{
-			test.log(LogStatus.PASS, "Successfully verified 'Add New User' pop-up header."+
+			test.log(LogStatus.PASS, "<b>ER 4- Add new user popup screen appears.<b>"+
 					test.addScreenCapture(captureScreenShot(driver, "Add New User")));
 			
 			if(addNewUserPage.general_tab() != null) 
 			{
-				test.log(LogStatus.PASS, "Successfully verified 'general' tab.");
-
 				addNewUserPage.add_GeneralButton().click();
-				test.log(LogStatus.PASS, "Successfully clicked on 'Add' Button."+
-				test.addScreenCapture(captureScreenShot(driver, "Add New User with validation message")));
+				addNewUserPage.add_GeneralButton().click();
+				test.log(LogStatus.PASS, "7.Click on Add Button.");
+				
+				test.log(LogStatus.PASS, "<b>ER 5- It displays validation messages as<b>");
+				
 				if(addNewUserPage.locationRequired_ErrorMsg() != null)
 				{
-					test.log(LogStatus.PASS, "Successfully verified validation messages 'Location is required'.");
+					test.log(LogStatus.PASS, "<b>'Location is required'.<b>");
 				}else
 				{
 					test.log(LogStatus.PASS, "Unable to verified validation messages 'Location is required'."+
@@ -137,7 +140,7 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 				
 				if(addNewUserPage.fullNameRequired_ErrorMsg() != null)
 				{
-					test.log(LogStatus.PASS, "Successfully verified validation messages 'Full Name is required'.");
+					test.log(LogStatus.PASS, "<b>'Full Name is required'<b>");
 				}else
 				{
 					test.log(LogStatus.PASS, "Unable to verified validation messages 'Full Name is required'."+
@@ -146,17 +149,17 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 				
 				if(addNewUserPage.userNameRequired_ErrorMsg() != null)
 				{
-					test.log(LogStatus.PASS, "Successfully verified validation messages 'User Name is required'.");
+					test.log(LogStatus.PASS, "<b>'User Name is required'<b>");
 				}else
 				{
 					test.log(LogStatus.PASS, "Unable to verified validation messages 'User Name is required'."+
 							test.addScreenCapture(captureScreenShot(driver, "User Name is required")));
 				}
-				
+				sleep(3);
 				if(addNewUserPage.pleaseSelectOneGroup_ErrorMsg() != null)
 				{
-					test.log(LogStatus.PASS, "Successfully verified validation messages 'Please select at least one group'.");
-							
+					test.log(LogStatus.PASS, "<b>'Please select at least one group'.<b>"+
+					test.addScreenCapture(captureScreenShot(driver, "Validation msg")));	
 				}else
 				{
 					test.log(LogStatus.PASS, "Unable to verified validation messages 'Please select at least one group'."+
@@ -165,13 +168,13 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 				
 				addNewUserPage.location_Dropdown().selectByVisibleText(userData[1][0]);//Dallas
 				
-				test.log(LogStatus.PASS, "Selected "+userData[1][0]+" as a location.");
+				test.log(LogStatus.PASS, "8.Select one location.(for eg: "+userData[1][0]+").");
 				
 				sleep(2);
 				
 				if(addNewUserPage.alertEMPAssignedMsg(driver))
 				{
-					test.log(LogStatus.FAIL, "All employees (in the Employee List) have already been assigned a user ID"+
+					test.log(LogStatus.FAIL, "It displayed validation message as “All employees have already been assigned a user ID”."+
 							test.addScreenCapture(captureScreenShot(driver, "Assigned User ID")));
 					
 					addNewUserPage.confirmClose_Button().click();
@@ -181,17 +184,18 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 				}
 				else
 				{
-					addNewUserPage.userFullName_Dopdown().selectByVisibleText(adminData.getEmployeeName());
-					//addNewUserPage.userFullName_Dopdown().selectByVisibleText("Martink845");
-					test.log(LogStatus.PASS, "Selected "+adminData.getEmployeeName()+" as a full name.");
+					test.log(LogStatus.PASS, "<b>ER 6- 'list of employees' in full name field and 'groups' associated with that location should get listed.<b>"+
+							test.addScreenCapture(captureScreenShot(driver, "Location Details")));
+					
+					addNewUserPage.userFullName_Dropdown().selectByVisibleText(adminData.getEmployeeName());
+					//addNewUserPage.userFullName_Dropdown().selectByVisibleText("Martink845");
+					test.log(LogStatus.PASS, "9.Select one employee.");
 					
 					addNewUserPage.username_textbox().sendKeys(userData[1][2]);//Mart
-					test.log(LogStatus.PASS, "Selected "+userData[1][2]+" as a user name."+
-					test.addScreenCapture(captureScreenShot(driver, "Add New User")));
+					test.log(LogStatus.PASS, "10.Enter username. ");
 					
 					sleep(2);
 					addNewUserPage.available_Filter().sendKeys(userData[1][0]);//Dallas
-					test.log(LogStatus.PASS, "Selected "+userData[1][0]+" for filter.");
 					
 					String list = addNewUserPage.available_List().getText();
 					
@@ -200,31 +204,30 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 					if(list.contains(userData[1][0]))//Dallas
 					{
 						addNewUserPage.available_Button().click();
-						test.log(LogStatus.PASS, "Clicked 'Available' button.");
+						test.log(LogStatus.PASS, "11.Add one group by clicking on the arrow.");
 						
 						String selectedList = addNewUserPage.selected_List().getText();
 						
 						if(selectedList.contains(userData[1][0]))//Dallas
 						{
 							sleep(3);
-							test.log(LogStatus.PASS, "Selected Group name from the list."+
-							test.addScreenCapture(captureScreenShot(driver, "Selected list")));
 							addNewUserPage.add_GeneralButton().click();
+							test.log(LogStatus.PASS, "12.Click on add button.");
 							
+							sleep(3);
 							if(addNewUserPage.password_tab() != null)
 							{
-								test.log(LogStatus.PASS, "Successfully verified 'password' tab.");
+								test.log(LogStatus.PASS, "<b>ER 7- It should Navigate to 'Password Tab'.<b>"+
+										test.addScreenCapture(captureScreenShot(driver, "password tab")));
 								sleep(3);
-								addNewUserPage.check_AuthenticationType().selectByVisibleText(userData[1][4]);//Title21
-								test.log(LogStatus.PASS, "Authentication Type:"+userData[1][4]+"");
 								
 								addNewUserPage.password_AddTab().click();
-								test.log(LogStatus.PASS, "Clicked on 'Add' button."+
-								test.addScreenCapture(captureScreenShot(driver, "Add Button")));
+								test.log(LogStatus.PASS, "13.Click on Add Button without entering a 'new password' and 'confirm password'.");
+								test.log(LogStatus.PASS, "<b>ER 8- It should display validation messages as<b>");
 								
 								if(addNewUserPage.passwordRequired_ErrorMsg() != null)
 								{
-									test.log(LogStatus.PASS, "Successfully verified validation messages 'Password is required'.");
+									test.log(LogStatus.PASS, "<b>'Password is required'<b>");
 								}else
 								{
 									test.log(LogStatus.PASS, "Unable to verified validation messages 'Password is required '."+
@@ -235,19 +238,22 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 							//	waitTillElementVisible(addNewUserPage.confirmPasswordRequired_ErrorMsg());
 								if(addNewUserPage.confirmPasswordRequired_ErrorMsg() != null)
 								{
-									test.log(LogStatus.PASS, "Successfully verified validation messages 'Confirm Password is required'.");
+									test.log(LogStatus.PASS, "<b>'Confirm Password is required'.<b>"+
+											test.addScreenCapture(captureScreenShot(driver, "validation messages")));
 								}else
 								{
 									test.log(LogStatus.PASS, "Unable to verified validation messages 'Confirm Password is required'."+
-											test.addScreenCapture(captureScreenShot(driver, "Confirm Password is required")));
+											test.addScreenCapture(captureScreenShot(driver, "Password validation messages")));
 								}
 								
+								addNewUserPage.check_AuthenticationType().selectByVisibleText(userData[1][4]);//Title21
+								test.log(LogStatus.PASS, "14.Select authentication type as Title21.");
+								
 								addNewUserPage.new_PasswordInput().sendKeys(userData[1][6]);
-								test.log(LogStatus.PASS, "Entered short New Password:"+userData[1][6]+"");
+								test.log(LogStatus.PASS, "15.Enter password less than 10 characters.");
 								
 								addNewUserPage.check_StrengthButton().click();
-								test.log(LogStatus.PASS, "Clicked on Strength button");
-								
+								test.log(LogStatus.PASS, "16.Click on check strength.");
 							
 								sleep(3);
 							//	waitTillElementVisible(addNewUserPage.passwordMust_PopUp());
@@ -260,12 +266,12 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 																	
 									if(!firstMsgColor.equals(secondLineColor))
 									{
-										test.log(LogStatus.PASS, "'Contain at least 10 characters.' text is in Red color."+
+										test.log(LogStatus.PASS, "<b>ER 9- It should display validation messages as 'password contain at least 10 characters'.<b>"+
 												test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
 									}
 									else
 									{
-										test.log(LogStatus.FAIL, "Unable to find 'Contain at least 10 characters.' text is in Red color."+
+										test.log(LogStatus.FAIL, "Unable to find ER 9 – It should display validation messages as “password contain at least 10 characters”."+
 												test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
 									}
 								}
@@ -280,55 +286,106 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 								sleep(3);
 								addNewUserPage.new_PasswordInput().clear();
 								addNewUserPage.new_PasswordInput().sendKeys(userData[1][7]);
-								test.log(LogStatus.PASS, "Entered New Password containt user name:"+userData[1][7]+"");
+								addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][7]);
+								test.log(LogStatus.PASS, "17.Enter password contains user Id.");
 								
-								addNewUserPage.check_StrengthButton().click();
-								test.log(LogStatus.PASS, "Clicked on Strength button");
+								addNewUserPage.password_AddTab().click();
 								
 								sleep(3);
 							//	waitTillElementVisible(addNewUserPage.passwordMust_PopUp());
-								if(addNewUserPage.passwordMust_PopUp() != null) 
+								if(addNewUserPage.passwordCannotContainUserId_ErrorMsg() != null) 
 								{
-									thirdLinecolor = addNewUserPage.containUserID_Msg().getCssValue("color");
-									
-									secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
-																	
-									if(!thirdLinecolor.equals(secondLineColor))
-									{
-										test.log(LogStatus.PASS, "'Not contain user ID. ' text is in Red color."+
-												test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
-									}
-									else
-									{
-										test.log(LogStatus.FAIL, "Unable to find 'Not contain user ID.' text is in Red color."+
-												test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
-									}
+									sleep(3);
+									test.log(LogStatus.PASS, "<b>ER 10- It should display validation messages as 'Password cannot contain User Id'.<b>"+
+											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
 								}
 								else
 								{
 									test.log(LogStatus.FAIL, "Unable to find 'Password must' pup-up."+
 											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
 								}
-								addNewUserPage.passwordMust_Close().click();
-								addNewUserPage.new_PasswordInput().clear();
+								
 								addNewUserPage.new_PasswordInput().sendKeys(userData[1][5]);
-								test.log(LogStatus.PASS, "Entered New valid Password:"+userData[1][5]+"");
-								test.log(LogStatus.PASS, "Entered confirm password not same as new password:"+userData[1][8]+"");
+								test.log(LogStatus.PASS, "19.Enter valid password ");
+								addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][8]);
+								test.log(LogStatus.PASS, "20.Enter invalid data in confirm password field.");
 								addNewUserPage.password_AddTab().click();
-								test.log(LogStatus.PASS, "Clicked on 'Add' button.");
 
 								if(addNewUserPage.passwordDoesNotMatch_ErrorMsg() != null)
 								{
-									test.log(LogStatus.PASS, "Successfully verified 'Password does not match' text."+
+									test.log(LogStatus.PASS, "<b>ER 11- It should display validation messages as 'Password does not match'.<b>"+
 											test.addScreenCapture(captureScreenShot(driver, "Password does not match")));
 								}
 								else
 								{
-									test.log(LogStatus.FAIL, "Unable to verified 'Password does not match' text."+
+									test.log(LogStatus.FAIL, "Unable to verified ER 11– It should display validation messages as 'Password does not match'."+
 											test.addScreenCapture(captureScreenShot(driver, "Password does not match")));
 								}
-								addNewUserPage.password_CancelTab().click();
+								
+								addNewUserPage.new_PasswordInput().sendKeys(userData[1][5]);
+								sleep(2);
+								addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][5]);
+								
+								test.log(LogStatus.PASS, "21.Enter valid password and confirm password ");
+								sleep(2);
+								addNewUserPage.password_AddTab().click();
+								test.log(LogStatus.PASS, "22.Click on add button");
+								
 								sleep(3);
+								
+								if(addNewUserPage.password_AddTab() != null) 
+								{
+									addNewUserPage.password_AddTab().click();
+								}
+								sleep(3);
+								
+								if(addNewUserPage.confirmHeader_Msg() != null)
+								{
+									test.log(LogStatus.PASS, "<b>ER 12- A message confirming user is successfully added is displayed.<b>"+
+											test.addScreenCapture(captureScreenShot(driver, "Confirmed pop-up")));
+									addNewUserPage.confirmClose_Button().click();
+								}
+								else
+								{
+									test.log(LogStatus.FAIL, "Successfully verified confirm pop-up");
+								}
+								
+								sleep(3);
+								if(addNewUserPage.groupFilterResult() != null)
+								{
+									test.log(LogStatus.PASS, "23.Enter the created users in user's field and click on GO button.");
+									
+									addNewUserPage.groupFilterResult().clear();
+									addNewUserPage.groupFilterResult().sendKeys(userData[1][2]);
+									addNewUserPage.groupFilterResutGoButton().click();
+									
+									sleep(2);
+									
+									for(int i=1; i<=10; i++ ) {
+										
+										String groups = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[2]")).getText();
+										sleep(1);
+										if(groups.equalsIgnoreCase(userData[1][2])) {
+											UserPresenceAfterSearch = true;
+											break;
+										}
+									}
+									
+									if(UserPresenceAfterSearch) {
+										test.log(LogStatus.PASS, "<b>ER 13- It should show newly created user name.<b>"+
+												test.addScreenCapture(captureScreenShot(driver, "newly created user name")));
+									}else {
+										test.log(LogStatus.FAIL, "Unable to verify created user."+
+												test.addScreenCapture(captureScreenShot(driver, "newly created user name.")));
+									}
+								}
+								else
+								{
+									test.log(LogStatus.FAIL, "Unable to verify created group."+
+											test.addScreenCapture(captureScreenShot(driver, "Unable to find Filter Result text field.")));
+								}
+								
+								
 							}
 							else
 							{
@@ -355,7 +412,7 @@ public class AddNewUser_scenario2_Test extends BaseClass{
 			}
 			
 		}else {
-			test.log(LogStatus.FAIL, "Unable to verified 'Add New User' pop-up header."+
+			test.log(LogStatus.FAIL, "Unable to verified ER 4 – Add new user popup screen appears. "+
 					test.addScreenCapture(captureScreenShot(driver, "Add New User")));
 		}
 		

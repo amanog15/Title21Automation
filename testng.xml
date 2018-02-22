@@ -8,7 +8,7 @@
 			<!-- <class name="org.title21.test.LoginPage_Test"/>
 			<class name="org.title21.test.LogoutPage_Test"/>	 -->		
 			<!-- <class name="org.title21.test.AddEmployee_Test"/> -->
-			<class name="org.title21.test.AddNewUser_scenario1_Test"/>			
+			<class name="org.title21.test.AddNewUser_scenario2_Test"/>			
 
 		</classes>
 	</test>
