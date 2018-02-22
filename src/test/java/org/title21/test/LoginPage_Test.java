@@ -25,17 +25,18 @@ public class LoginPage_Test extends BaseClass {
 		
 	}
 	@Test(testName = "login-to-app", groups = "Logins", priority = 0)
-	public void LoginWithInvalidCredentials() throws Exception 
+	public void LoginToApp() throws Exception 
 	{
-		test = extent.startTest("TestCase-WIA-Login restrictions");		
+		test = extent.startTest("Login authentication");	
+		
 		test.log(LogStatus.PASS, "1. Enter the URL in the browser to bring up the web interface login page.");
 		login= new LoginPage_POM(driver);
 		login.getLogin_button().click();
-		
 		sleep(2);
 		
-		if (login.verifyUserIDValidationMessage(driver)){
-			test.log(LogStatus.PASS, "2. Click on Log in button without a user name."+
+		if (login.verifyUserIDValidationMessage()){
+			test.log(LogStatus.PASS, "2. Click on Log in button without a user name."+"<br/>"
+		     +"<b>ER1: User is informed of missing User Name <b>"+
 			test.addScreenCapture(captureScreenShot(driver, "withBlankUsername")));
 		}
 		
@@ -48,18 +49,19 @@ public class LoginPage_Test extends BaseClass {
 		login.getLogin_button().click();
 		sleep(2);
 		
-		if (login.verifyPasswordValidationMessage(driver)){
-			test.log(LogStatus.PASS, "4. Click on Log in button without password"+
+		if (login.verifyPasswordValidationMessage()){
+			test.log(LogStatus.PASS, "4. Click on Log in button without password"+"<br/>"+
+					"<b>ER2: User is informed of missing Password.<b>"+		
 			test.addScreenCapture(captureScreenShot(driver, "MessageWithblankPassword")));
 		}
 		
-		login.getpassword().sendKeys(loginData[0][1]);
-		test.log(LogStatus.PASS, "ER2: User is informed of missing Password.");
+		login.getpassword().sendKeys(loginData[0][1]);		
 		login.getLogin_button().click();
-		test.log(LogStatus.PASS, "Clicked on Login Button.");
+		test.log(LogStatus.PASS, "4a. Clicked on Login Button.");
 		
-		if (login.verifyPasswordErrorMessage(driver)){			
-			test.log(LogStatus.PASS, "5. Enter an incorrect password, and click on Log in button."+
+		if (login.verifyPasswordErrorMessage()){			
+			test.log(LogStatus.PASS, "5. Enter an incorrect password, and click on Log in button."+"<br/>"
+			+"<b>ER3: Password entered is cleared and user is informed of invalid credentials<b>"+		
 			test.addScreenCapture(captureScreenShot(driver, "PasswordErrorMessageSuccess")));
 		}else{			
 			throw new Exception("Password message not matched.");			
@@ -77,31 +79,16 @@ public class LoginPage_Test extends BaseClass {
 		waitForPageToLoad(driver,4);		
 		test.log(LogStatus.PASS, "6b) Verifying DashBord after user loggedin.");
 		dashboardObj = new DashBord_POM(driver); 
-		if (dashboardObj.verifyDashboardPrescence()){;
-			test.log(LogStatus.PASS, "6c DashBord is displayed After Login.");
+		
+		if (dashboardObj.verifyDashboardPrescence()){
+			test.log(LogStatus.PASS, "6c DashBord is displayed After Login."
+		+"<br/>"+"<b>ER4: User is successfully logged in and the home screen or dashboard is displayed.<b>"+
+					test.addScreenCapture(captureScreenShot(driver, "displayingDashboard")));
 		};
-			
-		if (dashboardObj.verifyHeaderStyle()){;
-			test.log(LogStatus.PASS,"6d) Dashboard header text is displayed means User loggedin successfully.");
-     	};
-     	
+		     	
 		extent.endTest(test);
 	}	
 	
-	/*@Test(testName = "login_admin", groups = "Logins", priority = 1)
-	public void LoginValidPassword() 
-	{
-		test = extent.startTest(loginData[1][2]);
-				
-		extent.endTest(test);
-	}
-	@Test(testName = "login_admin", groups = "Logins", priority = 2)
-	public void VerifyUserLoggedin() 
-	{
-		test = extent.startTest("Successful Login with valid credentials.");
-		
-		extent.endTest(test);
-	}*/
 	
 	@AfterClass
 	public void closeBrowserInstance() 

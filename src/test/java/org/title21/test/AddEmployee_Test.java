@@ -169,11 +169,11 @@ public class AddEmployee_Test extends BaseClass {
 		waitTillElementVisible(addEmployeePOM.getAddBtn());
 				
 		//addEmployeePOM.getAddBtn().click();	
-		javaScriptClick(addEmployeePOM.getAddBtn());
-		
-		addEmployeePOM=new AddEmployee_POM(driver);
+		javaScriptClick(addEmployeePOM.getAddBtn());		
 		
 		waitTillElementVisible(addEmployeePOM.getJobCodesTab());
+		
+		//addEmployeePOM=new AddEmployee_POM(driver);
 		
 		test.log(LogStatus.PASS, "User should be navigated to Job Codes Screen "
 				+ "and job codes list should be visible."+

@@ -68,7 +68,7 @@ public class LoginPage_POM extends BaseClass
 		return passwordValidationMessage;
 	}
 		
-	public boolean verifyPasswordValidationMessage(WebDriver driver){
+	public boolean verifyPasswordValidationMessage(){
 		
 		element=getPasswordValidationMessage();
 		String errorMessage = element.getText();		
@@ -84,7 +84,7 @@ public class LoginPage_POM extends BaseClass
 		
 	}
 	
-	public boolean verifyUserIDValidationMessage(WebDriver driver){
+	public boolean verifyUserIDValidationMessage(){
 		
 		element=getUserIDValidationMessage();
 		String errorMessage = element.getText();		
@@ -100,7 +100,7 @@ public class LoginPage_POM extends BaseClass
 		
 	}
 	
-	public boolean verifyPasswordErrorMessage(WebDriver driver)
+	public boolean verifyPasswordErrorMessage()
 	{
 		element=getPasswordErrorMessage();
 		String errorMessage = element.getText();		
@@ -116,7 +116,8 @@ public class LoginPage_POM extends BaseClass
 				
 	}
 
-	public void loginFunction(){		
+	public void loginFunction(){
+		
 		getUsername().sendKeys(adminUsername);
 		getLogin_button().click();
 		getpassword().sendKeys(adminPassword);

@@ -1,5 +1,9 @@
 package org.title21.utility;
 
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,6 +12,9 @@ import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
+
 import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -31,6 +38,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -164,6 +172,44 @@ public class BaseClass {
 		}
 	}
 	
+	/*	
+	 * This function will ta	ke full screenshot of the application.
+	 * 
+	 
+	public static String captureScreenShot(WebDriver driver, String screenshotName) {
+		try {
+			Calendar calander = Calendar.getInstance();
+			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
+			
+			Robot robot = new Robot();
+			String format = ".jpg";
+            String fileName = screenshotName+ "-" + formater.format(calander.getTime())+ format;			
+						
+			//File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+			BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
+			ImageIO.write(screenFullImage, format, new File(fileName));
+			String dest = imagesDirectory + "\\";
+			
+			String src=System.getProperty("user.dir");			
+			
+			 
+			File destination = new File(dest);
+			FileUtils.moveFile(src\fileName, destination);*/
+			
+			/*
+			FileUtils.copyFile(source, destination);		
+			 * 	
+			
+			return dest;
+		}
+*/
+		/*catch (Exception e) {
+			System.out.println("Exception while taking screenshot" + e.getMessage());
+			return e.getMessage();
+		}
+	}*/
+		
 
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
@@ -243,19 +289,22 @@ public class BaseClass {
 		
 		try
 		{
-			test.log(LogStatus.PASS, "1. Click on Administrator Dropdown at the top."+
-					test.addScreenCapture(captureScreenShot(driver, "administration link.")));
+			//test.log(LogStatus.PASS, "1. Click on Administrator Dropdown at the top."+
+				//	test.addScreenCapture(captureScreenShot(driver, "administration link.")));
+			
 			administrationPage.administratorDropDown().click();
-						
 			administrationPage.administrationLink().click();
-			test.log(LogStatus.PASS, "1a) Successfully click on 'administration' link."+
-					test.addScreenCapture(captureScreenShot(driver, "administration link.")));
+			
+			//test.log(LogStatus.PASS, "1a) Successfully click on 'administration' link."+
+				//	test.addScreenCapture(captureScreenShot(driver, "administration link.")));
 			
 			if(administrationPage.verifyAdministrationPagePrescence()) {
-				test.log(LogStatus.PASS, "1b) Successfully verify 'administration Page' Prescence."+
-						test.addScreenCapture(captureScreenShot(driver, "administration Page")));
+				Reporter.log("Administration Page Prescence verified.");
+			//	test.log(LogStatus.PASS, "1b) Successfully verify 'administration Page' Prescence."+
+				//		test.addScreenCapture(captureScreenShot(driver, "administration Page")));
 			}else {
-				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
+				//test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
+				Reporter.log("Unable to verify 'administration Page' Prescence.");
 			}			
 			
 		}catch(Exception e){
