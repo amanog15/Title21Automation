@@ -44,27 +44,26 @@ public class CreateDeleteGroups_Test extends BaseClass {
 		number = FunctionUtils.generateRandomNumber();
 		adminCreateGroup = new AdminCreateDeleteGroups_POM(driver);
 		
-		test = extent.startTest("CreateDeleteGroup_admin");
+		test = extent.startTest("CreateDeleteGroups_Test");
+		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		BaseClass.getAdministrationPage(test);
-				
-		test.log(LogStatus.PASS, "Successfully navigated to Administration Page."+
-				test.addScreenCapture(captureScreenShot(driver, "getAdministrationPage")));
 		
 		String GroupsTab = adminCreateGroup.groupsTab().getText();
 		
 		if(GroupsTab.contains("Groups"))
 		{
 			adminCreateGroup.groupsTab().click();
-			test.log(LogStatus.PASS, "Successfully click on 'Groups tab'");
+			test.log(LogStatus.PASS, "3.Click on 'Groups' tab from the administration list.");
+			test.log(LogStatus.PASS, "<b>ER 1- List of Groups with '(+) Add New' link in the Web interface.<b>"+
+					test.addScreenCapture(captureScreenShot(driver, "Groups")));
+			
 			adminCreateGroup.groupAddNewLink().click();
-			test.log(LogStatus.PASS, "Successfully click on 'Add New' link.");
+			test.log(LogStatus.PASS, "4.Click on '+ Add New' link.");
 			adminCreateGroup.verifyAddGroupPopUp(driver);
-			test.log(LogStatus.PASS, "Verify 'Add Group' pop-up.");
-			test.log(LogStatus.PASS, "Successfully verified 'Add Group' Pop-Up."+
-					test.addScreenCapture(captureScreenShot(driver, "Add Group")));
+			
 			sleep(2);
 			
-			adminCreateGroup.addGroupCancelButton().click();
+		/*	adminCreateGroup.addGroupCancelButton().click();
 			test.log(LogStatus.PASS, "Successfully clicked on 'Cancel' button"+
 					test.addScreenCapture(captureScreenShot(driver, "Cancel button")));
 			
@@ -88,21 +87,19 @@ public class CreateDeleteGroups_Test extends BaseClass {
 			sleep(2);
 			adminCreateGroup.verifyAddGroupPopUp(driver);
 			test.log(LogStatus.PASS, "Verify 'Add Group' pop-up."+
-					test.addScreenCapture(captureScreenShot(driver, "Add Group pop-up")));
+					test.addScreenCapture(captureScreenShot(driver, "Add Group pop-up")));*/
 			
-		//	adminCreateGroup.groupLocationDropDownClick().click();
 			sleep(2);
-			Select SelectObj = new Select(adminCreateGroup.groupLocationDropDownClick());
 			
-			System.out.println(groupData[1][0]);
-			SelectObj.selectByVisibleText(groupData[1][0]);
+			adminCreateGroup.groupLocationDropDownClick().deselectByVisibleText(groupData[1][0]);
 			
 			adminCreateGroup.addGroupTextBox().sendKeys(groupData[1][1]+number);
+			sleep(2);
+			test.log(LogStatus.PASS, "<b>ER 2- User select Location with new Group name.<b>"+
+					test.addScreenCapture(captureScreenShot(driver, "Add Group")));
 			
 			adminCreateGroup.addGroupTextBox().click();
-			
-			test.log(LogStatus.PASS, "Selected Location:"+groupData[1][0]+" and Group: "+groupData[1][1]+number+""+
-					test.addScreenCapture(captureScreenShot(driver, "Location & Group")));
+			test.log(LogStatus.PASS, "5.Click on 'Add' button");
 			
 			try{
 				driver.findElement(By.cssSelector("#Group_Groups-error")); 
@@ -122,12 +119,50 @@ public class CreateDeleteGroups_Test extends BaseClass {
 			else 
 			{
 				adminCreateGroup.addGroupAddButton().click();
-				test.log(LogStatus.PASS, "Successfully click on Add button.");
+				sleep(3);
+				test.log(LogStatus.PASS, "6.Again click on '+ Add New' link.");
+				adminCreateGroup.verifyAddGroupPopUp(driver);
+				test.log(LogStatus.PASS, "7.Select same Location with Group name which is previously created.");
+				
+				adminCreateGroup.groupLocationDropDownClick().deselectByVisibleText(groupData[1][0]);
+				
+				adminCreateGroup.addGroupTextBox().sendKeys(groupData[1][1]+number);
+				sleep(2);
+				
+				adminCreateGroup.addGroupAddButton().click();
+				test.log(LogStatus.PASS, "8.Click on 'Add' button");
+				sleep(2);
+				
+				try{
+					driver.findElement(By.cssSelector("#Group_Groups-error")); 
+					GroupPresence = true;
+					
+				}catch(NoSuchElementException e) {
+					
+					GroupPresence = false;
+				}
+				
+				if(GroupPresence) {
+					
+					test.log(LogStatus.PASS, "<b>ER 3- Validation massege 'already created group cant select'.<b>"+
+							test.addScreenCapture(captureScreenShot(driver, "Group is already created.")));
+					adminCreateGroup.addGroupCancelButton().click();
+				}
+				else
+				{
+					test.log(LogStatus.FAIL, "Unable to find ER 3- validation massege already created group can't select."+
+							test.addScreenCapture(captureScreenShot(driver, "Group is already created.")));
+					adminCreateGroup.addGroupAddButton().click();
+				}
+				
 				sleep(2);
 				if(adminCreateGroup.verifyAlerPopUp(driver)) 
 				{
-					test.log(LogStatus.PASS, "Successfully close alert PopUp."+
-							test.addScreenCapture(captureScreenShot(driver, "Successfully close alert PopUp.")));
+					test.log(LogStatus.PASS, "ER 4- Verify Message with Group 'Test1234' added successfully with Close button."+
+							test.addScreenCapture(captureScreenShot(driver, "Close alert PopUp.")));
+					
+					test.log(LogStatus.PASS, "9.Click on 'Close' button. And user should navigate to previous screen (ER 1).");
+					
 					adminCreateGroup.alertCloseButton().click();
 					
 				}else {
@@ -135,6 +170,8 @@ public class CreateDeleteGroups_Test extends BaseClass {
 							test.addScreenCapture(captureScreenShot(driver, "Unable to close alert PopUp.")));
 				}
 				sleep(2);
+				test.log(LogStatus.PASS, "10.Filter the results with newly created group in 'filter results' text field.");
+				
 				if(adminCreateGroup.groupFilterResult() != null)
 				{
 					adminCreateGroup.groupFilterResult().click();
@@ -154,8 +191,8 @@ public class CreateDeleteGroups_Test extends BaseClass {
 					}
 					
 					if(GroupPresenceAfterSearch) {
-						test.log(LogStatus.PASS, "Successfully group is created and verified."+
-								test.addScreenCapture(captureScreenShot(driver, "group is created and verified")));
+						test.log(LogStatus.PASS, "ER 5- Search newly created group 'Test1234'."+
+								test.addScreenCapture(captureScreenShot(driver, "created group")));
 					}else {
 						test.log(LogStatus.FAIL, "Unable to verify created group."+
 								test.addScreenCapture(captureScreenShot(driver, "Unable to verify created group.")));

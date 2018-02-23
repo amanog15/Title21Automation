@@ -47,7 +47,6 @@ public class UpdateUser extends BaseClass{
 		login.loginFunction();
 	}
 	
-	
 	@Test(testName = "UpdateUser", groups = "Update User", priority = 0)
 	public void UpdateUser() throws Exception
 	{		
@@ -69,30 +68,99 @@ public class UpdateUser extends BaseClass{
 		updateUserPage.groupFilterResult().sendKeys(adminData.getEmployeeName());
 		updateUserPage.groupFilterResutGoButton().click();
 		log.info("Searching latest generated user.");
-				
-		clickOnEditButton(adminData.getEmployeeName());
 		
-		test.log(LogStatus.PASS, "");
+		verifyLocationInTable();
+		
+		clickOnEditButton(adminData.getEmployeeName());
+		test.log(LogStatus.PASS, "Successfully clicked on 'Edit Button' for "+adminData.getEmployeeName()+".");
+		
+		if(updateUserPage.general_tab() != null) 
+		{
+			test.log(LogStatus.PASS, "Successfully verified 'general' tab.");
+
+			
+			if(!updateUserPage.locationDropDown_click().isEnabled())
+			{
+				test.log(LogStatus.PASS, "location field is disabled.");
+			}
+			else
+			{
+				test.log(LogStatus.FAIL, "Unable to find location field is disabled."+
+				test.addScreenCapture(captureScreenShot(driver, "location field")));
+			}
+			
+			if(!updateUserPage.userFullNameDropDown_click().isEnabled())
+			{
+				test.log(LogStatus.PASS, "full name field is disabled.");
+			}
+			else
+			{
+				test.log(LogStatus.FAIL, "Unable to find full name field is disabled."+
+				test.addScreenCapture(captureScreenShot(driver, "full name field")));
+			}
+			
+			if(!updateUserPage.username_textbox().isEnabled())
+			{
+				test.log(LogStatus.PASS, "username field is disabled.");
+			}
+			else
+			{
+				test.log(LogStatus.FAIL, "Unable to find username field is disabled."+
+				test.addScreenCapture(captureScreenShot(driver, "username field")));
+			}
+			
+				String list = updateUserPage.available_List().getText();
+				
+				sleep(2);
+				
+				if(!list.isEmpty())
+				{
+					updateUserPage.available_Button().click();
+					
+					sleep(2);
+					
+					String selectedList = updateUserPage.selected_List().getText();
+					
+					if(!selectedList.isEmpty())
+					{
+						updateUserPage.UpdateUserConfirm_Button().click();
+					}
+					else
+					{
+						test.log(LogStatus.FAIL, "Unable to find selected element."+
+								test.addScreenCapture(captureScreenShot(driver, "selected element")));
+					}
+				}
+				else
+				{
+					test.log(LogStatus.FAIL, "Unable to clicked 'Available' button.");
+					updateUserPage.cancel_GeneralButton().click();
+				}
+		}
+		else
+		{
+			test.log(LogStatus.FAIL, "Unable to verified 'general' tab");
+		}
 		
 		sleep(3);
 	}
 	
 	private void clickOnEditButton(String employeeFullName) {
 		
-		// TODO Auto-generated method stub
 		searchTable=new Table(driver);
 		List<WebElement> tableCells=searchTable.gettableCells(1);				
 		
 		for (int i=0;i<tableCells.size();i++){
 			if (employeeFullName.equalsIgnoreCase(tableCells.get(i).getText()))
 			{				
-				
+				WebElement delete = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]//span[@title='Edit User']"));
+				test.log(LogStatus.PASS, "Clicked to remove group: "+groupData[1][1]+number+".");
+				delete.click();
+				break;
 			}
 		}
-			
 	}
-
-
+	
 	private void verifyLocationInTable() {
 		
 		// TODO Auto-generated method stub

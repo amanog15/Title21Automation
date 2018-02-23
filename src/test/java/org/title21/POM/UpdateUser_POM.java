@@ -20,6 +20,21 @@ public class UpdateUser_POM extends AddNewUser_POM {
 	@FindBy(xpath="//*[@name='GridLocation']")
 	WebElement locationDrodpdownforFilter;
 		
+	@FindBy(css=".t21-margin-top-0>label")
+	WebElement editPassword;
+	
+	@FindBy(xpath="//button[text()='Confirm']")
+	WebElement UpdateUserConfirmButton;
+	
+	public WebElement UpdateUserConfirm_Button()
+	{
+		return UpdateUserConfirmButton;
+	}
+	
+	public WebElement editPassword_checkBox() 
+	{
+		return editPassword;
+	}
 	
 	public Select getLocationforFilter(){
 	
@@ -27,6 +42,5 @@ public class UpdateUser_POM extends AddNewUser_POM {
 		return selectObj;
 	}
 	
-		
 	//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[2]
 }

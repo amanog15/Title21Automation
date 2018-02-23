@@ -18,6 +18,7 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 		PageFactory.initElements(driver, this);
 	}
 	
+	
 	@FindBy(xpath="//div[@id='set-2']") 
 	WebElement users;  
 	
@@ -157,6 +158,14 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
     @FindBy(xpath="//button[text()='×']")
     WebElement addNewUserCloseButton;
     
+    @FindBy(xpath="//span[text()='Password cannot contain UserId']")
+    WebElement passwordCannotContainUserId;
+    
+    public WebElement passwordCannotContainUserId_ErrorMsg()
+    {
+    	return passwordCannotContainUserId;
+    }
+    
     public WebElement addNewUserClose_Button()
     {
     	return addNewUserCloseButton;
@@ -276,11 +285,21 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
     		return locationUserObj;		
    	}
     
-    public Select userFullName_Dopdown()
+    public WebElement locationDropDown_click()
+    {
+		return locationUser;
+    }
+    
+    public Select userFullName_Dropdown()
    	{
     	Select userFullNameObj = new Select(userFullName);
    		return userFullNameObj;
    	}
+    
+    public WebElement userFullNameDropDown_click()
+    {
+    	return userFullName;
+    }
     
     public WebElement username_textbox()
 	{
