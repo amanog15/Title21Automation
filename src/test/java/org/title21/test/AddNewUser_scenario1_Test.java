@@ -40,9 +40,10 @@ public class AddNewUser_scenario1_Test extends BaseClass{
 	
 	@Test(testName = "Add New User", groups = "New User", priority = 0)
 	public void AddNewUser() throws Exception
-	{
-		
-		test = extent.startTest("AddNewUser_Test(Positive Test)");
+	{		
+
+		test = extent.startTest("AddNewUser_Test");
+
 		addNewUserPage= new AddNewUser_POM(driver);
 		number = FunctionUtils.generateRandomNumber();
 		
