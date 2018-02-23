@@ -64,7 +64,7 @@ WebElement alertCloseButton;
 @FindBy(xpath="//h4[text()='Message']")
 WebElement alertMsgPopUp;
 
-@FindBy(css="#Group_Groups-error")
+@FindBy(xpath="This name already exists. Please enter another name.")
 WebElement alreadyGroupCreatedErrorMsg;
 
 @FindBy(xpath="//input[@value='Yes']")
@@ -258,16 +258,15 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 	
 	public boolean verifyalreadyGroupCreatedErrorMsg1(WebDriver driver){
 		
+		String errorMessage="";
 		try 
 		{
-			driver.findElement(By.cssSelector("#Group_Groups-error")); 
+			baseClassObj.waitForPageToLoad(driver, 10);
+			errorMessage = alreadyGroupCreatedErrorMsg().getText();
 			
 		}catch(NoSuchElementException e) {
 			
 		}
-		
-		baseClassObj.waitForPageToLoad(driver, 10);
-		String errorMessage = alreadyGroupCreatedErrorMsg().getText();		
 		if(errorMessage.contains(ErrorMessages.groupnamealreadyexist))
 		{
 			return true;
