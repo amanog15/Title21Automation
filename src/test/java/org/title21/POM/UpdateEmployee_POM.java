@@ -27,8 +27,7 @@ public class UpdateEmployee_POM extends AddEmployee_POM
 	WebElement Employeefilterresult;
 
 	@FindBy(xpath="//button[@type='submit'][@tabindex='1']")
-	WebElement Employeefilterresutgobutton;
-	
+	WebElement Employeefilterresutgobutton;	
 	
 	@FindBy(css="input[value='001099']")
 	WebElement jobCodeRadio;
@@ -201,6 +200,7 @@ public class UpdateEmployee_POM extends AddEmployee_POM
 			}
 			
 		}
+	 
 	 public boolean  getEmployeeCity(String EmployeeCity){
 			
 		 String	 getEmployeeCity="";

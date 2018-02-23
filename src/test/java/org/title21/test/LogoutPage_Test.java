@@ -56,6 +56,10 @@ public class LogoutPage_Test extends BaseClass {
 			test.addScreenCapture(captureScreenShot(driver, "Logout Alert")));
 		};
 		
+		logout=new LogoutPage_POM(driver);
+		logout.getAdmindropdown().click();
+		logout.getlogoutLink().click();
+		
 		logout.getCancelButton().click();
 		sleep(2);
 		

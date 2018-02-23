@@ -91,6 +91,7 @@ public class UpdateEmployee_Test extends BaseClass {
 				} else {
 					test.log(LogStatus.FAIL, "Unable displayed employee as per given information"
 							+ test.addScreenCapture(captureScreenShot(driver, "Unable to verify Employee")));
+					
 				}
 
 			}
@@ -192,7 +193,7 @@ public class UpdateEmployee_Test extends BaseClass {
 
 		WebElement oCheckBox = driver.findElement(By.cssSelector("input[value='001099']"));
 		oCheckBox.click();
-		test.log(LogStatus.PASS, "job code  selected successfully."
+		test.log(LogStatus.PASS, "job code selected successfully."
 				+ test.addScreenCapture(captureScreenShot(driver, "job_code_selected_successfully.")));
 		sleep(2);
 		emp.EditJobTele().click();
@@ -243,7 +244,6 @@ public class UpdateEmployee_Test extends BaseClass {
 		}
 		if (emp.getEmployeeState(EmployeeState)) {
 			test.log(LogStatus.PASS, "EmployeeState updated successfully");
-
 		}
 
 		if (emp.getEmpStringloyeePostalCode(EmpStringloyeePostalCode)) {
@@ -277,13 +277,13 @@ public class UpdateEmployee_Test extends BaseClass {
 		}
 
 		waitTillElementVisible(emp.getAddBtn());
-
+        
 		// addEmployeePOM.getAddBtn().click();
 		javaScriptClick(emp.getAddBtn());
 		sleep(2);
 		waitTillElementVisible(emp.getCloseButtononSuccessMessage());
 		emp.getCloseButtononSuccessMessage().click();
-
+		sleep(3);
 		log.info("Now calling logout function.");
 
 		logout = new LogoutPage_POM(driver);
