@@ -18,6 +18,7 @@ public class AddNewUser_POM extends AdminCreateDeleteGroups_POM {
 		PageFactory.initElements(driver, this);
 	}
 	
+	
 	@FindBy(xpath="//div[@id='set-2']") 
 	WebElement users;  
 	
