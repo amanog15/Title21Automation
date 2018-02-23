@@ -55,11 +55,8 @@ public class LogoutPage_Test extends BaseClass {
 			test.log(LogStatus.PASS, "<br><b>ER1: User should be able to navigate Confirm Log out pop up Screen.</b><br>"+
 			test.addScreenCapture(captureScreenShot(driver, "Logout Alert")));
 		};
-		
-		logout=new LogoutPage_POM(driver);
-		logout.getAdmindropdown().click();
-		logout.getlogoutLink().click();
-		
+				
+		waitTillElementVisible(logout.getCancelButton());
 		logout.getCancelButton().click();
 		sleep(2);
 		
@@ -68,7 +65,11 @@ public class LogoutPage_Test extends BaseClass {
 					"<br/>"+"<b>ER2: User should not Log out.<b>"+
 					test.addScreenCapture(captureScreenShot(driver, "Usernotloggedout.")));
 		}
-				
+		
+		logout.getAdmindropdown().click();
+		logout.getlogoutLink().click();
+		
+		waitTillElementVisible(logout.getLogoutButton());
 		logout.getLogoutButton().click();
 		sleep(3);
 		

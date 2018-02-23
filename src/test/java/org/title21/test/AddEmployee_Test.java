@@ -51,23 +51,28 @@ public class AddEmployee_Test extends BaseClass {
 	@Test(testName = "AddEmployee", groups = "Employee", priority = 0)
 	public void createEmployee() throws Exception 
 	{	
-		test = extent.startTest("TestCase-WIA-Add Employee");	
-		test.log(LogStatus.INFO, "ER", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase-WIA-Add Employee.doc'>TestCaseDocument</a>");
+		test = extent.startTest("Add Employee");	
+		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase-WIA-Add Employee.doc'>TestCaseDocument</a>");
+		test.log(LogStatus.PASS,"1.	Login to the web interface.");
 		getAdministrationPage(test);		
+		
+		test.log(LogStatus.PASS,"<b>ER1: Administration Screen is displayed.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "AdministrationScreen")));
 		
 		addEmployeePOM=new AddEmployee_POM(driver);
 		addEmployeePOM.employees_link().click();
 		
+		test.log(LogStatus.PASS,"3. Select Employee link.<br/>"
+				+ "<b>ER2: Employee records are listed.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "EmployeeRecordsareListed")));
+		
 		log.info("Now clicking on Add new Link.");
 		addEmployeePOM.addNewLink().click();
-		
+		test.log(LogStatus.PASS,"4.	Click on Add new Link.");
 		addEmployeePOM=new AddEmployee_POM(driver);
 		
 		waitTillElementVisible(addEmployeePOM.getEmployeeFullName());
-				
-		test.log(LogStatus.PASS, "Add employee popup opened with General TAB opened"+
-					test.addScreenCapture(captureScreenShot(driver, "employeepopup")));
-				
+						
 		log.info("First checking Validation Messages. without entering in any"
 				+ "field, click on Add button.");		
 		
@@ -77,7 +82,11 @@ public class AddEmployee_Test extends BaseClass {
 		
 		//addEmployeePOM.getAddBtn().click();	
 		
-		javaScriptClick(addEmployeePOM.getAddBtn());		
+		javaScriptClick(addEmployeePOM.getAddBtn());
+		
+		test.log(LogStatus.PASS,"ER3: It displays validation messages as Location is required, Full Name is required,"+
+				"Employee ID is required Bussiness Unit is required Department is required."+
+				test.addScreenCapture(captureScreenShot(driver, "ValidationMessages")));
 				
 		if (!addEmployeePOM.verifyLocationValidationMessage()){	
 			test.log(LogStatus.FAIL, "Location validation message is not present. see the screenshot"+

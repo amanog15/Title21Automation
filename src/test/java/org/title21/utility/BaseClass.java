@@ -173,43 +173,40 @@ public class BaseClass {
 	}
 	
 	/*	
-	 * This function will ta	ke full screenshot of the application.
+	 * This function will take full screenshot of the application.
 	 * 
-	 
-	public static String captureScreenShot(WebDriver driver, String screenshotName) {
+	 */
+	
+	/*public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
 			Calendar calander = Calendar.getInstance();
 			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 			
 			Robot robot = new Robot();
-			String format = ".jpg";
-            String fileName = screenshotName+ "-" + formater.format(calander.getTime())+ format;			
-						
-			//File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			String format = "jpg";
+            String fileName = screenshotName+ "-" + formater.format(calander.getTime());
+                        			
 			Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 			BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
 			ImageIO.write(screenFullImage, format, new File(fileName));
 			String dest = imagesDirectory + "\\";
 			
-			String src=System.getProperty("user.dir");			
-			
-			 
+			String sourceDirectory=System.getProperty("user.dir");			
+			File src=new File(sourceDirectory+"\\"+fileName);			 
 			File destination = new File(dest);
-			FileUtils.moveFile(src\fileName, destination);*/
 			
-			/*
-			FileUtils.copyFile(source, destination);		
-			 * 	
+			FileUtils.copyFile(src, destination);
 			
+			FileUtils.deleteQuietly(src);   		
 			return dest;
 		}
-*/
-		/*catch (Exception e) {
+
+		catch (Exception e) {
 			System.out.println("Exception while taking screenshot" + e.getMessage());
 			return e.getMessage();
 		}
-	}*/
-		
+	}
+		*/
 
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
