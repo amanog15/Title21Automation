@@ -1,5 +1,9 @@
 package org.title21.utility;
 
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,6 +12,9 @@ import java.util.Calendar;
 import java.util.Formatter;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
+
 import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -31,6 +38,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -82,7 +90,7 @@ public class BaseClass {
 
 	@BeforeMethod
 	public void beforeMethod() {
-		extent = ExtentManager.getReporter(filePath);
+		extent = ExtentManager.getReporter(filePath,baseUrl);
 	}
 
 	@AfterMethod
@@ -106,7 +114,7 @@ public class BaseClass {
 	public void beforeSuite(String configFile) throws Exception {
 		
 		// loading log4j properties.
-		//PropertyConfigurator.configure("log4j.properties");
+		PropertyConfigurator.configure("log4j.properties");
 		
 		Properties p=new Properties();
 		FileInputStream readconfig=new FileInputStream(configFile);
@@ -133,10 +141,9 @@ public class BaseClass {
 		loginData=ExcelData(excelFile, loginSheet);
 		groupData=ExcelData(excelFile, groupSheet);
 		userData=ExcelData(excelFile, userSheet);
-		employeeData=ExcelData(excelFile, employeeSheet);	
+		employeeData=ExcelData(excelFile, employeeSheet);		
 		
-		
-		extent = ExtentManager.getReporter(filePath);	
+		extent = ExtentManager.getReporter(filePath,baseUrl);	
 		
 	}
 
@@ -165,6 +172,44 @@ public class BaseClass {
 		}
 	}
 	
+	/*	
+	 * This function will ta	ke full screenshot of the application.
+	 * 
+	 
+	public static String captureScreenShot(WebDriver driver, String screenshotName) {
+		try {
+			Calendar calander = Calendar.getInstance();
+			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
+			
+			Robot robot = new Robot();
+			String format = ".jpg";
+            String fileName = screenshotName+ "-" + formater.format(calander.getTime())+ format;			
+						
+			//File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+			BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
+			ImageIO.write(screenFullImage, format, new File(fileName));
+			String dest = imagesDirectory + "\\";
+			
+			String src=System.getProperty("user.dir");			
+			
+			 
+			File destination = new File(dest);
+			FileUtils.moveFile(src\fileName, destination);*/
+			
+			/*
+			FileUtils.copyFile(source, destination);		
+			 * 	
+			
+			return dest;
+		}
+*/
+		/*catch (Exception e) {
+			System.out.println("Exception while taking screenshot" + e.getMessage());
+			return e.getMessage();
+		}
+	}*/
+		
 
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
@@ -210,7 +255,7 @@ public class BaseClass {
 	public void getBrowser() {				
 		     
 		if (browser.equalsIgnoreCase("chrome")) {
-			extent = ExtentManager.getReporter(filePath);
+			extent = ExtentManager.getReporter(filePath,baseUrl);
 			System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver();
 			implicitwait(driver);
@@ -219,7 +264,7 @@ public class BaseClass {
 		}
 
 		else if (browser.equalsIgnoreCase("ie")) {
-			extent = ExtentManager.getReporter(filePath);
+			extent = ExtentManager.getReporter(filePath,baseUrl);
 			System.setProperty("webdriver.ie.driver", ".\\drivers\\IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 			implicitwait(driver);
@@ -227,6 +272,7 @@ public class BaseClass {
 		}
 
 		else if (browser.equalsIgnoreCase("firefox")) {
+			extent = ExtentManager.getReporter(filePath,baseUrl);
 			System.setProperty("webdriver.gecko.driver", ".\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver();
 			implicitwait(driver);
@@ -242,20 +288,18 @@ public class BaseClass {
 		String administratorTab = administrationPage.administratorDropDown().getText();
 		
 		try
-		{
+		{		
+			
 			administrationPage.administratorDropDown().click();
-			test.log(LogStatus.PASS, "Successfully click on 'administrator'"+
-					test.addScreenCapture(captureScreenShot(driver, "administrator")));
-			
 			administrationPage.administrationLink().click();
-			test.log(LogStatus.PASS, "Successfully click on 'administration' link."+
-					test.addScreenCapture(captureScreenShot(driver, "administration link.")));
-			
-			if(administrationPage.verifyAdministrationPagePrescence()) {
-				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence."+
-						test.addScreenCapture(captureScreenShot(driver, "administration Page")));
+						
+			if(administrationPage.verifyAdministrationPagePrescence()) {				
+				test.log(LogStatus.PASS, "2) Click on Administration link from the top right menu.");
+			//	test.log(LogStatus.PASS, "1b) Successfully verify 'administration Page' Prescence."+
+			//		test.addScreenCapture(captureScreenShot(driver, "administration Page")));
 			}else {
-				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
+				//test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
+				Reporter.log("Unable to verify 'administration Page' Prescence.");
 			}			
 			
 		}catch(Exception e){

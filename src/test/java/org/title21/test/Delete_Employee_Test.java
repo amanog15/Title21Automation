@@ -34,8 +34,7 @@ public class Delete_Employee_Test  extends BaseClass {
 	String className="";
 	String employeeID="";
 	boolean EmployeePresenceAfterSearch = false;
-	static Logger log = Logger.getLogger(Delete_Employee_Test.class);
-	
+	static Logger log = Logger.getLogger(Delete_Employee_Test.class);	
 	
 	@BeforeClass
 	public void openURL() 
@@ -54,7 +53,7 @@ public class Delete_Employee_Test  extends BaseClass {
 		emp=new Delete_Employee_POM (driver);
 		sleep(1);
     	AdminData adminData=new AdminData();
-		System.out.print(adminData.getEmployeeName());
+		
 		if(emp.EmployeeFilterResult() != null)
 		{
 		   emp.EmployeeFilterResult().sendKeys(adminData.getEmployeeName());//Remove Employee
@@ -82,69 +81,59 @@ public class Delete_Employee_Test  extends BaseClass {
 			
 		}
 		
-		for(int i=1; i<=10; i++) 
-		{
+		for(int i=1; i<=10; i++)		{
 			
 			WebElement employee = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[1]"));
-			String empName= employee.getText();
+			String empName= employee.getText();	
 			
 			if(empName.equalsIgnoreCase(adminData.getEmployeeName())) {
 				
 				WebElement delete = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]//span[@title='Remove Employee']"));
-				test.log(LogStatus.PASS, "Clicked to remove employee");
+				test.log(LogStatus.PASS, "Clicked on Delete button to delete employee");
 				delete.click();
 				break;
 			}
 		}
-		if(emp.verifyDeleteEmployeePopUp()) 
-			
-		test.log(LogStatus.PASS, "Verified Delete Employee Pop-Up."+
-				test.addScreenCapture(captureScreenShot(driver, "Verified Delete Employee Pop-Up.")));
-		sleep(5);
-		emp.deleteEmployeePopUpYesButton().click();
-		sleep(2);
-		emp.verifyDeleteEmployeecConfirmPopUpText();
-		sleep(2);
-		test.log(LogStatus.PASS, "Verified Delete Employee Confirm Pop-Up"+
-				test.addScreenCapture(captureScreenShot(driver, "Verified Delete Employee Confirm Pop-Up.")));
-		emp.ConfirmPopUpCloseButton().click();
+				
+		waitTillElementVisible(emp.deleteEmployeePopUpHeaderText());
 		
-		
-		if(emp.verifyDeleteEmployeePopUp()) 					{
+		if(emp.verifyDeleteEmployeePopUp())		{
 			
 			test.log(LogStatus.PASS, "Verified Delete Employee Pop-Up."+
 					test.addScreenCapture(captureScreenShot(driver, "Verified Delete Employee Pop-Up.")));
 			
 			emp.deleteEmployeePopUpYesButton().click();
+			log.info("clicked on Yes button on delete popup");
 			sleep(2);
 			emp.verifyDeleteEmployeecConfirmPopUpText();
+			
 			sleep(2);
 			test.log(LogStatus.PASS, "Verified Delete Employee Confirm Pop-Up"+
 					test.addScreenCapture(captureScreenShot(driver, "Verified Delete Employee Confirm Pop-Up.")));
 			emp.ConfirmPopUpCloseButton().click();
-			sleep(2);
-			System.out.print("1 step");
-			if(emp.EmployeeFilterResult() != null)
-			{
+			log.info("Click on close button on popup");
+			sleep(2);			
+			
+			waitTillElementVisible(emp.EmployeeFilterResult());
+			
 				emp.EmployeeFilterResult().clear();
 				emp.EmployeeFilterResult().sendKeys(adminData.getEmployeeName());
 				sleep(3);
 				emp.EmployeeFilterResutGoButton().click();
+				log.info("Clicked on Go button in the employee filter.");
+				sleep(5);				
 				
-				sleep(2);
-				driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-				if(emp.verifyNoEmployeeFoundText(driver))
+				if(emp.verifyNoEmployeeFoundText())
 				{
 					test.log(LogStatus.PASS, "Successfully deleted Employee and verified."+
 							test.addScreenCapture(captureScreenShot(driver, "Unable to verify created Employee")));
+					log.info("text verified successfully.");
 				}else {
 					test.log(LogStatus.FAIL, "Successfully deleted Employee and verified."+
 							test.addScreenCapture(captureScreenShot(driver, "Unable to verify created Employee")));
-					
-				}
+					log.info("unable to verify created employee");				
 			}
 		}
-			sleep(6);
 			
 			log.info("Now calling logout function.");
 			
@@ -159,10 +148,9 @@ public class Delete_Employee_Test  extends BaseClass {
 }
 	@AfterClass
 	public void closeBrowserInstance()
-	{	
-		
-		driver.close();
-	}
+		{				
+			driver.close();
+		}
 	}
 	
 

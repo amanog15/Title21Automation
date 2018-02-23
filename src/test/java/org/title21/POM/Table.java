@@ -20,11 +20,20 @@ public class Table extends BaseClass
 	@FindBy(xpath="//ancestor::table")
 	WebElement table;
 	
-	@FindAll({@FindBy(xpath="//tr")})
-	List<WebElement> tableRows;
-	
+	//@FindAll({@FindBy(xpath="//tr")})
+	//List<WebElement> tableRows;
+		
+	@FindBy(xpath="//*[contains(@class,'t21-js-clickable-rows')]/tr")
+	List<WebElement> tableRows; 
+		
 	@FindBy(tagName = "thead")
 	WebElement tableHeader;	
+	
+	@FindBy(xpath="//span[contains(@class,'pagination-label') and contains(text(),'Previous')]")
+	WebElement previous;
+	
+	@FindBy(xpath="//span[contains(@class,'pagination-label') and contains(text(),'Next')]")
+	WebElement next;
 	
 	public Table(WebDriver driver) {
 		this.driver = driver;
@@ -61,6 +70,7 @@ public class Table extends BaseClass
 		return cells;
 	}
 	
+	
 	public WebElement getTableHeader()
 	{
 		return tableHeader;
@@ -77,6 +87,7 @@ public class Table extends BaseClass
 	public int getNumberOfRows() {
 		return tableRows.size();
 	}
+		
 	
 	public int getNumberOfVisibleRows() {
 		int i = 0;

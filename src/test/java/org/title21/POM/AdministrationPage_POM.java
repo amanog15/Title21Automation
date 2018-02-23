@@ -45,8 +45,8 @@ public AdministrationPage_POM(WebDriver driver) {
  
  /*
 	 * 
-	 * This method verify text on Administration 
-	 * @param WebDriver obj
+	 * This method verify text on Administration
+	 * 
 	 */
 	
 	public boolean verifyAdministrationPagePrescence(){
