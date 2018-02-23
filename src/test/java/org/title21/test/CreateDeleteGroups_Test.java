@@ -175,7 +175,7 @@ public class CreateDeleteGroups_Test extends BaseClass {
 						sleep(2);
 						adminCreateGroup.verifyDeleteGroupcConfirmPopUpText();
 						sleep(2);
-						test.log(LogStatus.PASS, "<b>ER 7- Delete group massege with ''"+groupData[1][1]+number+"' deleted successfully' with 'Close' button<b>"+
+						test.log(LogStatus.PASS, "<b>ER 7- Group gets deleted and the successful message is displayed.<b>"+
 								test.addScreenCapture(captureScreenShot(driver, "Verified Delete Group Confirm Pop-Up.")));
 						
 						test.log(LogStatus.PASS, "13.Click on 'Close' button.");
