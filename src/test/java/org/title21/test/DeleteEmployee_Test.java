@@ -25,7 +25,7 @@ import org.title21.utility.FunctionUtils;
 import com.relevantcodes.extentreports.LogStatus;
 
 
-public class Delete_Employee_Test  extends BaseClass {
+public class DeleteEmployee_Test  extends BaseClass {
 	LoginPage_POM login; 
 	LogoutPage_POM logout;
 	Delete_Employee_POM emp;
@@ -34,7 +34,7 @@ public class Delete_Employee_Test  extends BaseClass {
 	String className="";
 	String employeeID="";
 	boolean EmployeePresenceAfterSearch = false;
-	static Logger log = Logger.getLogger(Delete_Employee_Test.class);	
+	static Logger log = Logger.getLogger(DeleteEmployee_Test.class);	
 	
 	@BeforeClass
 	public void openURL() 
