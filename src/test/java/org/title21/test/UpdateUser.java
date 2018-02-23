@@ -142,11 +142,6 @@ public class UpdateUser extends BaseClass{
 			test.log(LogStatus.FAIL, "Unable to verified 'general' tab");
 		}
 		
-		
-		
-		
-		
-		
 		sleep(3);
 	}
 	
@@ -165,7 +160,7 @@ public class UpdateUser extends BaseClass{
 			}
 		}
 	}
-
+	
 	private void verifyLocationInTable() {
 		
 		// TODO Auto-generated method stub

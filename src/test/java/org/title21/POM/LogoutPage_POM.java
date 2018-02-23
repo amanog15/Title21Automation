@@ -27,12 +27,14 @@ public class LogoutPage_POM extends BaseClass
 	
 	@FindBy (css=".modal-body")
 	WebElement modalDialogText;
-
+	
+	@FindBy(xpath="//span[contains(text(),'Cancel')]")
+	WebElement CancelButton;
+	
 	public LogoutPage_POM(WebDriver driver) {	
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
 	}
-
 
 	 public WebElement getAdmindropdown()
 	 {
@@ -54,6 +56,11 @@ public class LogoutPage_POM extends BaseClass
 		  return modalDialogText;
 	 }
    
+	 public WebElement getCancelButton(){
+		 
+		 return CancelButton;
+	 }
+	 
 	 public boolean verifyMessageonModalDialog(WebDriver driver){
 	 
 		 String confirmationText=getLogoutConfirmationMessage().getText();

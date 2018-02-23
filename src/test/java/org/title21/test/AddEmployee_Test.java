@@ -51,7 +51,8 @@ public class AddEmployee_Test extends BaseClass {
 	@Test(testName = "AddEmployee", groups = "Employee", priority = 0)
 	public void createEmployee() throws Exception 
 	{	
-		test = extent.startTest("Add Employee");		
+		test = extent.startTest("TestCase-WIA-Add Employee");	
+		test.log(LogStatus.INFO, "ER", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase-WIA-Add Employee.doc'>TestCaseDocument</a>");
 		getAdministrationPage(test);		
 		
 		addEmployeePOM=new AddEmployee_POM(driver);
@@ -164,20 +165,23 @@ public class AddEmployee_Test extends BaseClass {
 				test.addScreenCapture(captureScreenShot(driver, "employeeData")));
 		
 		verticalScrollingDown();
+		
 		waitTillElementVisible(addEmployeePOM.getAddBtn());
 				
 		//addEmployeePOM.getAddBtn().click();	
-		javaScriptClick(addEmployeePOM.getAddBtn());
+		javaScriptClick(addEmployeePOM.getAddBtn());		
 		
 		waitTillElementVisible(addEmployeePOM.getJobCodesTab());
+		
+		//addEmployeePOM=new AddEmployee_POM(driver);
 		
 		test.log(LogStatus.PASS, "User should be navigated to Job Codes Screen "
 				+ "and job codes list should be visible."+
 				test.addScreenCapture(captureScreenShot(driver, "jobcodeList")));
-		
-		waitTillElementVisible(addEmployeePOM.getjobCodeSeniorTechnologist());
-		
-		addEmployeePOM.getjobCodeSeniorTechnologist().click();
+			
+		waitTillElementVisible(addEmployeePOM.getJobCodeVPHumanResource());
+				
+		addEmployeePOM.getJobCodeVPHumanResource().click();		
 		
 		waitTillElementVisible(addEmployeePOM.getSelectedJobCode());
 		
@@ -218,18 +222,26 @@ public class AddEmployee_Test extends BaseClass {
 		
 		waitTillElementVisible(addEmployeePOM.getEmployeeID());
 		
-		addEmployeePOM.getEmployeeFullName().sendKeys(adminData.getEmployeeName()+Keys.TAB);				
+		addEmployeePOM.getEmployeeFullName().sendKeys(adminData.getEmployeeName());
+		
+		sleep(1);
+		
+		addEmployeePOM.getEmployeeFullName().sendKeys(Keys.TAB);							
 		
 		if (addEmployeePOM.verifyUniqueEmployeeFullName()){
 			
-			test.log(LogStatus.PASS, "If User enters duplicate employeeName then it's showing  already exists"+
+			test.log(LogStatus.PASS, "If User enters duplicate employeeName then it's showing already exists"+
 			test.addScreenCapture(captureScreenShot(driver, "employeeName already exists.")));
 		}else{			
 			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID."+
 		test.addScreenCapture(captureScreenShot(driver, "employeeID does not exists.")));
 		}
 				
-		addEmployeePOM.getEmployeeID().sendKeys(adminData.getEmployeeID()+Keys.TAB);		
+		addEmployeePOM.getEmployeeID().sendKeys(adminData.getEmployeeID());		
+		
+		sleep(1);
+		
+		addEmployeePOM.getEmployeeID().sendKeys(Keys.TAB);
 		
 		if (addEmployeePOM.verifyUniqueEmployeeID()){
 			

@@ -3,6 +3,7 @@
 <suite name="DDFSuite">	
 	<parameter name="configFile" value="config.properties"/>
 	<test name="TestDDF">
+
 		<classes>			
 					
 			<!-- <class name="org.title21.test.LoginPage_Test"/>
