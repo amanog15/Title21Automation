@@ -46,7 +46,7 @@ public class CreateNewUser_Test extends BaseClass{
 		test = extent.startTest("Create New User");
 		addNewUserPage= new AddNewUser_POM(driver);
 		number = FunctionUtils.generateRandomNumber();
-		
+		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		getAdministrationPage(test);	
 		
 		addNewUserPage.user_link().click();

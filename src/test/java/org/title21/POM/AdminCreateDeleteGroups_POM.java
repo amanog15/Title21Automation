@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.title21.utility.BaseClass;
 import org.title21.validation.entities.ErrorMessages;
 
@@ -78,6 +79,10 @@ WebElement deleteGroupPopUpHeaderText;
 @FindBy(xpath="//*[text()='Message']")
 WebElement deleteGroupConfirmPopUpHeaderText;
  
+ public Select groupLocationDropDownClick(){
+	Select selectObj = new Select(grouplocationdropdownclick);
+	return selectObj;
+ }
  public WebElement groupsTab()
  {
 	 //element=driver.findElement(groupslink);
@@ -92,12 +97,6 @@ WebElement deleteGroupConfirmPopUpHeaderText;
  {
 	 //element=driver.findElement(addgroupheaderlable); 
 	 return addgroupheaderlable;
- }
- 
- public WebElement groupLocationDropDownClick()
- {
-	// element=driver.findElement(grouplocationdropdownclick); 
-	 return grouplocationdropdownclick;
  }
  
  public WebElement groupLocationDropDownValue()
