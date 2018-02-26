@@ -36,7 +36,6 @@ public class CreateDeleteGroups_Test extends BaseClass {
 		
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
-	
 	@Test(testName = "CreateGroup_admin", groups = "CreateGroup", priority = 0)
 	public void CreateGroupInAdmin() 
 	{
@@ -211,7 +210,6 @@ public class CreateDeleteGroups_Test extends BaseClass {
 										GroupPresenceAfterSearch = false;
 									}
 								}
-								
 								if(GroupPresenceAfterSearch) {
 									test.log(LogStatus.FAIL, "Unable to delete existing group: "+groupData[1][1]+number+" "+
 											test.addScreenCapture(captureScreenShot(driver, "Unable to delete existing group")));
@@ -258,5 +256,4 @@ public class CreateDeleteGroups_Test extends BaseClass {
 	{
 		driver.close();
 	}
-
 }

@@ -114,8 +114,6 @@ public class CreateNewUser_Test extends BaseClass{
 		test.log(LogStatus.PASS, "6.Click on 'Add New' button.");
 		
 		sleep(3);
-		//waitTillElementVisible(addNewUserPage.AddNewUserPopUpHeader());
-		
 		if(addNewUserPage.verifyAddNewUserPopUpHeader(driver))
 		{
 			test.log(LogStatus.PASS, "<b>ER 4- Add new user popup screen appears.<b>"+
@@ -188,10 +186,10 @@ public class CreateNewUser_Test extends BaseClass{
 							test.addScreenCapture(captureScreenShot(driver, "Location Details")));
 					
 					addNewUserPage.userFullName_Dropdown().selectByVisibleText(adminData.getEmployeeName());
-					//addNewUserPage.userFullName_Dropdown().selectByVisibleText("Martink845");
+					//addNewUserPage.userFullName_Dropdown().selectByVisibleText("Martink696");
 					test.log(LogStatus.PASS, "9.Select one employee.");
 					
-					addNewUserPage.username_textbox().sendKeys(userData[1][2]);//Mart
+					addNewUserPage.username_textbox().sendKeys(userData[1][2]+number);//Mart
 					test.log(LogStatus.PASS, "10.Enter username. ");
 					
 					sleep(2);
@@ -200,7 +198,6 @@ public class CreateNewUser_Test extends BaseClass{
 					String list = addNewUserPage.available_List().getText();
 					
 					sleep(2);
-					
 					if(list.contains(userData[1][0]))//Dallas
 					{
 						addNewUserPage.available_Button().click();
@@ -235,7 +232,6 @@ public class CreateNewUser_Test extends BaseClass{
 								}
 								
 								sleep(3);
-							//	waitTillElementVisible(addNewUserPage.confirmPasswordRequired_ErrorMsg());
 								if(addNewUserPage.confirmPasswordRequired_ErrorMsg() != null)
 								{
 									test.log(LogStatus.PASS, "<b>'Confirm Password is required'.<b>"+
@@ -256,10 +252,8 @@ public class CreateNewUser_Test extends BaseClass{
 								test.log(LogStatus.PASS, "16.Click on check strength.");
 							
 								sleep(3);
-							//	waitTillElementVisible(addNewUserPage.passwordMust_PopUp());
 								if(addNewUserPage.passwordMust_PopUp() != null) 
 								{
-									
 									firstMsgColor = addNewUserPage.tenCharacters_Msg().getCssValue("color");
 									
 									secondLineColor = addNewUserPage.strengthLeastOne_Msg().getCssValue("color");
@@ -288,11 +282,10 @@ public class CreateNewUser_Test extends BaseClass{
 								addNewUserPage.new_PasswordInput().sendKeys(userData[1][7]);
 								addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][7]);
 								test.log(LogStatus.PASS, "17.Enter password contains user Id.");
-								
+								sleep(2);
 								addNewUserPage.password_AddTab().click();
 								
 								sleep(3);
-							//	waitTillElementVisible(addNewUserPage.passwordMust_PopUp());
 								if(addNewUserPage.passwordCannotContainUserId_ErrorMsg() != null) 
 								{
 									sleep(3);
@@ -304,13 +297,16 @@ public class CreateNewUser_Test extends BaseClass{
 									test.log(LogStatus.FAIL, "Unable to find 'Password must' pup-up."+
 											test.addScreenCapture(captureScreenShot(driver, "Pop Up")));
 								}
-								
+								sleep(2);
+								addNewUserPage.new_PasswordInput().clear();
 								addNewUserPage.new_PasswordInput().sendKeys(userData[1][5]);
 								test.log(LogStatus.PASS, "19.Enter valid password ");
+								addNewUserPage.confirm_PasswordInput().clear();
 								addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][8]);
 								test.log(LogStatus.PASS, "20.Enter invalid data in confirm password field.");
+								sleep(2);
 								addNewUserPage.password_AddTab().click();
-
+								sleep(3);
 								if(addNewUserPage.passwordDoesNotMatch_ErrorMsg() != null)
 								{
 									test.log(LogStatus.PASS, "<b>ER 11- It should display validation messages as 'Password does not match'.<b>"+
@@ -321,7 +317,7 @@ public class CreateNewUser_Test extends BaseClass{
 									test.log(LogStatus.FAIL, "Unable to verified ER 11– It should display validation messages as 'Password does not match'."+
 											test.addScreenCapture(captureScreenShot(driver, "Password does not match")));
 								}
-								
+								sleep(3);
 								addNewUserPage.new_PasswordInput().sendKeys(userData[1][5]);
 								sleep(2);
 								addNewUserPage.confirm_PasswordInput().sendKeys(userData[1][5]);
@@ -356,7 +352,7 @@ public class CreateNewUser_Test extends BaseClass{
 									test.log(LogStatus.PASS, "23.Enter the created users in user's field and click on GO button.");
 									
 									addNewUserPage.groupFilterResult().clear();
-									addNewUserPage.groupFilterResult().sendKeys(userData[1][2]);
+									addNewUserPage.groupFilterResult().sendKeys(userData[1][2]+number);
 									addNewUserPage.groupFilterResutGoButton().click();
 									
 									sleep(2);
@@ -365,7 +361,7 @@ public class CreateNewUser_Test extends BaseClass{
 										
 										String groups = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[2]")).getText();
 										sleep(1);
-										if(groups.equalsIgnoreCase(userData[1][2])) {
+										if(groups.equalsIgnoreCase(userData[1][2]+number)) {
 											UserPresenceAfterSearch = true;
 											break;
 										}
@@ -415,7 +411,6 @@ public class CreateNewUser_Test extends BaseClass{
 			test.log(LogStatus.FAIL, "Unable to verified ER 4 – Add new user popup screen appears. "+
 					test.addScreenCapture(captureScreenShot(driver, "Add New User")));
 		}
-		
 		extent.endTest(test);
 	}
 	
