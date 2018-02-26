@@ -399,7 +399,6 @@ public class BaseClass {
 		}
 	}
 		
-	
 	public void verticalScrollingUp(){
 		JavascriptExecutor js=(JavascriptExecutor)driver;	
 		for (int i=0;i<2;i++){
