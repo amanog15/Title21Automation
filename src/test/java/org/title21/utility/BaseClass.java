@@ -291,7 +291,7 @@ public class BaseClass {
 			administrationPage.administrationLink().click();
 						
 			if(administrationPage.verifyAdministrationPagePrescence()) {				
-				test.log(LogStatus.PASS, "2) Click on Administration link from the top right menu.");
+				test.log(LogStatus.PASS, "2.Click on Administration link from the top right menu.");
 			//	test.log(LogStatus.PASS, "1b) Successfully verify 'administration Page' Prescence."+
 			//		test.addScreenCapture(captureScreenShot(driver, "administration Page")));
 			}else {
