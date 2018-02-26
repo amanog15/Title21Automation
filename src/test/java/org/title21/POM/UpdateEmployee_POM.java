@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.title21.dao.AdminData;
 import org.title21.test.UpdateEmployee_Test;
 import org.title21.utility.BaseClass;
@@ -27,10 +28,17 @@ public class UpdateEmployee_POM extends AddEmployee_POM
 	WebElement Employeefilterresult;
 
 	@FindBy(xpath="//button[@type='submit'][@tabindex='1']")
-	WebElement Employeefilterresutgobutton;	
+	WebElement Employeefilterresutgobutton;
+	
 	
 	@FindBy(css="input[value='001099']")
 	WebElement jobCodeRadio;
+	
+	@FindBy(xpath=".//*[@id='t21-workarea']/div/div/div[2]/div[2]/div/h5")
+	WebElement noemployeemsg;
+	
+	@FindBy(xpath=".//*[@id='GridLocation']")
+	WebElement GridLocation;
 	
 	@FindBy(css=".t21-js-user-message-text")
 	WebElement successMessageText;	
@@ -56,10 +64,16 @@ public class UpdateEmployee_POM extends AddEmployee_POM
 	@FindBy(xpath="//tbody[@class='t21-js-clickable-rows']/tr[\"+1+\"]//span[@title='Edit Employee']")
 	WebElement Edit;
 	
+	
 	public WebElement  EditJobTele()
 	 {
 		 //element=driver.findElement(Employeefilterresult); 
 		 return EditTelerecruiter;
+	 }
+	public WebElement  getnoemployeemsg()
+	 {
+		 //element=driver.findElement(Employeefilterresult); 
+		 return noemployeemsg;
 	 }
 	public WebElement  EmployeeEdit()
 	 {
@@ -181,6 +195,27 @@ public class UpdateEmployee_POM extends AddEmployee_POM
 			}
 			
 		}
+	 public boolean NoEmpMsg(){
+			
+		 String	noempmsg="";
+			
+			try 
+			{
+				noempmsg =getnoemployeemsg().getText();
+				
+			}catch(NoSuchElementException e) {
+				
+			}
+			if(noempmsg.equalsIgnoreCase("No employee found"))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			
+		}
 	 public boolean  EditAddressField(String AddressField){
 			
 		 String	 EditAddressField="";
@@ -201,6 +236,13 @@ public class UpdateEmployee_POM extends AddEmployee_POM
 			
 		}
 	 
+	 
+	 public Select getGridLocation()
+		{		
+			Select selectgrid=new Select(GridLocation);
+			return selectgrid;		
+		}
+		
 	 public boolean  getEmployeeCity(String EmployeeCity){
 			
 		 String	 getEmployeeCity="";
