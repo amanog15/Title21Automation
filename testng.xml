@@ -8,8 +8,12 @@
 			<!-- <class name="org.title21.test.LoginPage_Test"/>
 			<class name="org.title21.test.LogoutPage_Test"/>	 -->		
 			<!-- <class name="org.title21.test.AddEmployee_Test"/> -->
-			<class name="org.title21.test.CreateNewUser_Test"/>	
+			<class name="org.title21.test.UpdateEmployee_Test"/>
+			<!-- <class name="org.title21.test.CreateNewUser_Test"/>	
+			<class name="org.title21.test.UpdateEmployee_Test"/>		
+			<class name="org.title21.test.DeleteEmployee_Test"/>
 
+			
 		</classes>
 	</test>
 </suite>
