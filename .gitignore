@@ -2,6 +2,7 @@
 /target/
 /Reports/
 /extentReports/
+/extentReports/index.html
 /test-output/
 /build_artifacts/
 /.settings

@@ -22,7 +22,7 @@ import org.title21.utility.FunctionUtils;
 
 import com.relevantcodes.extentreports.LogStatus;
 
-public class UpdateUser extends BaseClass{
+public class UpdateUser_Test extends BaseClass{
 	LoginPage_POM login;
 	LogoutPage_POM logout;
 	UpdateUser_POM updateUserPage;
@@ -32,7 +32,7 @@ public class UpdateUser extends BaseClass{
 	String employeeName="";
 	String username="";
 	Table searchTable;
-	static Logger log = Logger.getLogger(UpdateUser.class);
+	static Logger log = Logger.getLogger(UpdateUser_Test.class);
 	boolean UserPresenceAfterSearch = false;
 	private boolean isRecordFound=true;
 	AdminData adminData=new AdminData();
@@ -47,41 +47,51 @@ public class UpdateUser extends BaseClass{
 		login.loginFunction();
 	}
 	
-	@Test(testName = "UpdateUser", groups = "Update User", priority = 0)
+	@Test(testName = "UpdateUser_Test", groups = "Update User", priority = 0)
 	public void UpdateUser() throws Exception
 	{		
 		test = extent.startTest("UpdateUser");
+		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		updateUserPage= new UpdateUser_POM(driver);		
 		
 		getAdministrationPage(test);	
 		
+		test.log(LogStatus.PASS, "3.Click on Users link ");
 		updateUserPage.user_link().click();
-		log.info("Clicked on Users section.");
-		test.log(LogStatus.PASS, "User records Screen is displayed");
-				
+		
+		test.log(LogStatus.PASS, "<b>ER 1- User records Screen is displayed.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "User records Screen")));
+			
+		test.log(LogStatus.PASS, "4.Click on location drop-down and select the specific location (for eg. "+userData[1][0]+").");
 		updateUserPage.getLocationforFilter().selectByVisibleText(userData[1][0]);
 		sleep(2);
 				
 		verifyLocationInTable();		
+		test.log(LogStatus.PASS, "<b>ER 2- Only users of selected location are displayed.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "Selected Location")));
 		
+		test.log(LogStatus.PASS, "5.Click on search filter and enter the user's name");
 		updateUserPage.groupFilterResult().click();
 		updateUserPage.groupFilterResult().sendKeys(adminData.getEmployeeName());
-		updateUserPage.groupFilterResutGoButton().click();
-		log.info("Searching latest generated user.");
 		
+		test.log(LogStatus.PASS, "6.Click on Go button");
+		updateUserPage.groupFilterResutGoButton().click();
+		
+		test.log(LogStatus.PASS, "<b>ER 3- User Record as per search is displayed.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "Record as per search")));
 		verifyLocationInTable();
 		
+		
+		test.log(LogStatus.PASS, "7.Click on Edit button.");
 		clickOnEditButton(adminData.getEmployeeName());
-		test.log(LogStatus.PASS, "Successfully clicked on 'Edit Button' for "+adminData.getEmployeeName()+".");
 		
 		if(updateUserPage.general_tab() != null) 
 		{
-			test.log(LogStatus.PASS, "Successfully verified 'general' tab.");
-
-			
+			test.log(LogStatus.PASS, "<b>ER 4- Update user screen is displayed.<b>"+
+					test.addScreenCapture(captureScreenShot(driver, "Record as per search")));
 			if(!updateUserPage.locationDropDown_click().isEnabled())
 			{
-				test.log(LogStatus.PASS, "location field is disabled.");
+				test.log(LogStatus.PASS, "<b>ER 5- location,<b>");
 			}
 			else
 			{
@@ -91,7 +101,7 @@ public class UpdateUser extends BaseClass{
 			
 			if(!updateUserPage.userFullNameDropDown_click().isEnabled())
 			{
-				test.log(LogStatus.PASS, "full name field is disabled.");
+				test.log(LogStatus.PASS, "<b>full name,<b>");
 			}
 			else
 			{
@@ -101,7 +111,8 @@ public class UpdateUser extends BaseClass{
 			
 			if(!updateUserPage.username_textbox().isEnabled())
 			{
-				test.log(LogStatus.PASS, "username field is disabled.");
+				test.log(LogStatus.PASS, "<b>and username field are disabled.<b>"+
+						test.addScreenCapture(captureScreenShot(driver, "field are disabled")));
 			}
 			else
 			{
@@ -115,14 +126,17 @@ public class UpdateUser extends BaseClass{
 				
 				if(!list.isEmpty())
 				{
+					test.log(LogStatus.PASS, "8.Add one group.");
 					updateUserPage.available_Button().click();
 					
 					sleep(2);
 					
 					String selectedList = updateUserPage.selected_List().getText();
 					
+					
 					if(!selectedList.isEmpty())
 					{
+						test.log(LogStatus.PASS, "9.Click on confirm");
 						updateUserPage.UpdateUserConfirm_Button().click();
 					}
 					else
@@ -130,6 +144,41 @@ public class UpdateUser extends BaseClass{
 						test.log(LogStatus.FAIL, "Unable to find selected element."+
 								test.addScreenCapture(captureScreenShot(driver, "selected element")));
 					}
+					
+					if(updateUserPage.userUpdatedSuccessfully_Text() != null)
+					{
+						test.log(LogStatus.PASS, "<b>ER 6- A message confirming successful update is displayed.<b>"+
+								test.addScreenCapture(captureScreenShot(driver, "successful update")));
+						
+						test.log(LogStatus.PASS, "10.Click on close button");
+						updateUserPage.confirmClose_Button().click();
+					}
+					else
+					{
+						test.log(LogStatus.FAIL, "<b>Unable to find ER 6- A message confirming successful update is displayed.<b>"+
+								test.addScreenCapture(captureScreenShot(driver, "successful update")));
+					}
+					
+					test.log(LogStatus.PASS, "11.Again click on edit button.");
+					clickOnEditButton(adminData.getEmployeeName());
+					
+					sleep(2);
+					
+					
+					test.log(LogStatus.PASS, "11.Again click on edit button.");
+					updateUserPage.password_tab().click();
+					
+					updateUserPage.password_Tab().click();
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				}
 				else
 				{
