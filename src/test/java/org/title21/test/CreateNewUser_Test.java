@@ -44,6 +44,7 @@ public class CreateNewUser_Test extends BaseClass{
 	{
 		
 		test = extent.startTest("Create New User");
+		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase_WIA_Create New User.doc'>TestCaseDocument</a>");
 		addNewUserPage= new AddNewUser_POM(driver);
 		number = FunctionUtils.generateRandomNumber();
 		test.log(LogStatus.PASS, "1.Login as a web interface.");

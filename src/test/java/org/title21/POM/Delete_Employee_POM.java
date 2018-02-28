@@ -27,39 +27,52 @@ public class Delete_Employee_POM
 	@FindBy(xpath="//button[@type='submit'][@tabindex='1']")
 	WebElement Employeefilterresutgobutton;
 	
-	@FindBy(xpath="//input[@value='Yes']")
-	WebElement deleteEmployeePopUpYesButton;
+   @FindBy(xpath="//input[@value='Yes']")
+   WebElement deleteEmployeePopUpYesButton;
 
-	@FindBy(xpath="//button[text()='Close']")
-    WebElement ConfirmPopUpCloseButton;
+   
 	
-	@FindBy(xpath="//*[text()='Message']")
-	WebElement deleteEmployeeConfirmPopUpHeaderText;
-
-	@FindBy(xpath="//h5[ starts-with(@class,'t21-padding') and contains (text(),'No employee found')]")
-	WebElement noEmployeefoundresulttext;
-
-	@FindBy(xpath="//*[text()='Can't delete this system account.']")
-	WebElement ownuserdeletepopup;
+@FindBy(css=".btn.t21-btn-default.pull-left")
+WebElement deleteEmployeePopUpNoButton;
+   
+@FindBy(xpath="//button[text()='Close']")
+WebElement ConfirmPopUpCloseButton;
 	
-	@FindBy(xpath="//div[contains(@class,'user-message-text')]")
-	WebElement confirmationDeleteMessage;		
+@FindBy(xpath="//*[text()='Message']")
+WebElement deleteEmployeeConfirmPopUpHeaderText;
+
+@FindBy(xpath="//*[text()='No Employee found']")
+WebElement noEmployeefoundresulttext;
+
+
+@FindBy(xpath="//*[text()='Can't delete this system account.']")
+WebElement ownuserdeletepopup;
 
 	public WebElement  EmployeeFilterResult()
 	 {
+		 //element=driver.findElement(Employeefilterresult); 
 		 return Employeefilterresult;
 	 }
-	 
+	public WebElement  noemployeebutton()
+	 {
+		 //element=driver.findElement(Employeefilterresult); 
+		 return  deleteEmployeePopUpNoButton;
+	 } 
+	
+	
 	 public WebElement  EmployeeFilterResutGoButton()
 	 {
-		return Employeefilterresutgobutton;
+		 //element=driver.findElement(Employeefilterresutgobutton); 
+		 return Employeefilterresutgobutton;
 	 }
 	 public WebElement deleteEmployeePopUpHeaderText()
 	 {
-		return deleteEmployeePopUpHeaderText;
+		// element=driver.findElement(deleteEmployeePopUpHeaderText);
+		 return deleteEmployeePopUpHeaderText;
 	 }
 	 public WebElement deleteEmployeePopUpYesButton()
-	 {		
+	 {
+		 //element=driver.findElement(Employeeslink);
 		 return deleteEmployeePopUpYesButton;
 	 }
 	 public boolean verifyDeleteEmployeePopUp(){
@@ -79,10 +92,9 @@ public class Delete_Employee_POM
 	
 	 public boolean verifyDeleteEmployeecConfirmPopUpText(){
 			
-			//String DeleteEmployeeHeaderText = deleteEmployeeConfirmPopUpHeaderText.getText();
-			String deleteEmployeeMessageText=confirmationDeleteMessage.getText();
+			String DeleteEmployeeHeaderText = deleteEmployeeConfirmPopUpHeaderText.getText();
 			
-			if(deleteEmployeeMessageText.equalsIgnoreCase("deleted successfully"))
+			if(DeleteEmployeeHeaderText.equalsIgnoreCase("Message"))
 			{
 				return true;
 			}
@@ -99,13 +111,20 @@ public class Delete_Employee_POM
 	 
 	 public WebElement noEmployeeFoundResultText()
 	 {
+		 //element=driver.findElement(noEmployeefoundresulttext);
 		 return noEmployeefoundresulttext;
 	 }
-	 
-	 public boolean verifyNoEmployeeFoundText(){
+	 public boolean verifyNoEmployeeFoundText(WebDriver driver){
 			
-			String NoEmployeeFoundResultText="";			
-			NoEmployeeFoundResultText = noEmployeeFoundResultText().getText();			
+			String NoEmployeeFoundResultText="";
+			
+			try 
+			{
+				NoEmployeeFoundResultText = noEmployeeFoundResultText().getText();
+				
+			}catch(NoSuchElementException e) {
+				
+			}
 			if(NoEmployeeFoundResultText.equalsIgnoreCase("No Employee found"))
 			{
 				return true;
@@ -118,11 +137,15 @@ public class Delete_Employee_POM
 		}
 	 public boolean verifydeleteownuser(WebDriver driver){
 			
-			String Delete_system_user="";		
+			String Delete_system_user="";
 			
-			Delete_system_user = ownuserdeletepopup.getText();
+			try 
+			{
+				Delete_system_user = ownuserdeletepopup.getText();
 				
-			
+			}catch(NoSuchElementException e) {
+				
+			}
 			if(Delete_system_user.equalsIgnoreCase("Can't delete this system account."))
 			{
 				return true;

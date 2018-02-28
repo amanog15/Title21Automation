@@ -24,133 +24,110 @@ import org.title21.utility.FunctionUtils;
 
 import com.relevantcodes.extentreports.LogStatus;
 
-
-public class DeleteEmployee_Test  extends BaseClass {
-	LoginPage_POM login; 
+public class DeleteEmployee_Test extends BaseClass {
+	LoginPage_POM login;
 	LogoutPage_POM logout;
 	Delete_Employee_POM emp;
 	DashBord_POM dashboardObj;
-	SoftAssert softAssertion=new SoftAssert();
-	String className="";
-	String employeeID="";
+	AdminData adminData;
+	SoftAssert softAssertion = new SoftAssert();
+	String className = "";
+	String employeeID = "";
 	boolean EmployeePresenceAfterSearch = false;
-	static Logger log = Logger.getLogger(DeleteEmployee_Test.class);	
-	
+	static Logger log = Logger.getLogger(DeleteEmployee_Test.class);
+
 	@BeforeClass
-	public void openURL() 
-	{
+	public void openURL() {
 		getBrowser();
 		className = this.getClass().getName();
 		createDirectory(className);
-		login=new LoginPage_POM(driver);
+		login = new LoginPage_POM(driver);
 		login.loginFunction();
 	}
-	
+
 	@Test(testName = "delete_employee ", groups = "delete_Employee", priority = 0)
-	public void Edit_general_Employee() throws Exception {
-		test = extent.startTest("Delete Employee");
-		getAdministrationPage(test);
-		emp=new Delete_Employee_POM (driver);
-		sleep(1);
-    	AdminData adminData=new AdminData();
+	public void Delete_Employee() throws Exception {
 		
-		if(emp.EmployeeFilterResult() != null)
-		{
-		   emp.EmployeeFilterResult().sendKeys(adminData.getEmployeeName());//Remove Employee
-			sleep(2);
-			emp.EmployeeFilterResutGoButton().click();
-			for(int i=1; i<=10; i++ ) {
-				sleep(1);
-				String Employees = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[1]")).getText();
-				sleep(1);
-				if(Employees.equalsIgnoreCase(adminData.getEmployeeName()))
-				{
-				EmployeePresenceAfterSearch = true;
-					break;
-				}
-				
-				if(EmployeePresenceAfterSearch) {
-					test.log(LogStatus.PASS, "Employee verified."+
-							test.addScreenCapture(captureScreenShot(driver, "Employee verified")));
-				}else {
-					test.log(LogStatus.FAIL, "Unable to verify Employee"+
-							test.addScreenCapture(captureScreenShot(driver, "Unable to verify Employee")));
-				}
-				
-			}
+		test = extent.startTest("Delete Employee");
+		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase-WIA-Delete Employee record.doc'>TestCaseDocument</a>");
+		test.log(LogStatus.PASS, "1 Login to the web interface.");
+		getAdministrationPage(test);
+		emp = new Delete_Employee_POM(driver);
+		adminData = new AdminData();
+		test.log(LogStatus.PASS, " 3. Click on employee link." + "<br/>" + "<b>ER1: Employee records are listed. <b>"
+				+ test.addScreenCapture(captureScreenShot(driver, "employeelist")));
+		emp.EmployeeFilterResult().sendKeys(adminData.getEmployeeName());
+		sleep(2);
+		emp.EmployeeFilterResutGoButton().click();
+		sleep(2);
+		
+		if (clickonDelete()){
+			waitTillElementVisible(emp.noemployeebutton());
+			test.log(LogStatus.PASS,
+					" 4.Click on Remove Employee Button." + "<br/>"
+							+ "<b>ER2: Delete Employee popup is displayed. <b>"
+							+ test.addScreenCapture(captureScreenShot(driver, "delete_popup")));
 			
 		}
-		
-		for(int i=1; i<=10; i++)		{
-			
-			WebElement employee = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[1]"));
-			String empName= employee.getText();	
-			
-			if(empName.equalsIgnoreCase(adminData.getEmployeeName())) {
 				
-				WebElement delete = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]//span[@title='Remove Employee']"));
-				test.log(LogStatus.PASS, "Clicked on Delete button to delete employee");
+		emp.noemployeebutton().click();
+		test.log(LogStatus.PASS, " 5.Click on No Button." + "<br/>" + "<b>ER 3: The employee should not get deleted.<b>"
+				+ test.addScreenCapture(captureScreenShot(driver, "NoButtonOnConfirmationPopup")));
+		
+		waitTillElementVisible(emp.EmployeeFilterResult());
+		sleep(4);
+		if (clickonDelete()){
+			
+			waitTillElementVisible(emp.deleteEmployeePopUpYesButton());
+			emp.deleteEmployeePopUpYesButton().click();
+			sleep(2);
+			test.log(LogStatus.PASS,
+					" 6.Click on Yes Button." + "<br/>"
+							+ "<b>ER4: Employee should get deleted and show a confirmation message.<b>"
+							+ test.addScreenCapture(captureScreenShot(driver, "yes_button_delete_confirm")));
+			waitTillElementVisible(emp.ConfirmPopUpCloseButton());
+			emp.ConfirmPopUpCloseButton().click();			
+		}
+		
+		sleep(3);
+		
+		log.info("Now calling logout function.");
+
+		logout = new LogoutPage_POM(driver);
+
+		logout.logoutFunction();
+
+		log.info("logout successfully.");
+		extent.endTest(test);
+
+	}
+
+	@AfterClass
+	public void closeBrowserInstance() {
+
+		driver.close();
+	}
+	
+	public boolean clickonDelete(){
+		
+		adminData = new AdminData();
+		boolean isRecordFound=false;
+		for (int i = 1; i <= 10; i++) {
+
+			WebElement employee = driver
+					.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr[" + i + "]/td[1]"));
+			String empName = employee.getText();
+
+			if (empName.equalsIgnoreCase(adminData.getEmployeeName())) {
+				
+				WebElement delete = driver.findElement(By.xpath(
+						"//tbody[@class='t21-js-clickable-rows']/tr[" + i + "]//span[@title='Remove Employee']"));
 				delete.click();
+				
+				isRecordFound=true;
 				break;
 			}
 		}
-				
-		waitTillElementVisible(emp.deleteEmployeePopUpHeaderText());
-		
-		if(emp.verifyDeleteEmployeePopUp())		{
-			
-			test.log(LogStatus.PASS, "Verified Delete Employee Pop-Up."+
-					test.addScreenCapture(captureScreenShot(driver, "Verified Delete Employee Pop-Up.")));
-			
-			emp.deleteEmployeePopUpYesButton().click();
-			log.info("clicked on Yes button on delete popup");
-			sleep(2);
-			emp.verifyDeleteEmployeecConfirmPopUpText();
-			
-			sleep(2);
-			test.log(LogStatus.PASS, "Verified Delete Employee Confirm Pop-Up"+
-					test.addScreenCapture(captureScreenShot(driver, "Verified Delete Employee Confirm Pop-Up.")));
-			emp.ConfirmPopUpCloseButton().click();
-			log.info("Click on close button on popup");
-			sleep(2);			
-			
-			waitTillElementVisible(emp.EmployeeFilterResult());
-			
-				emp.EmployeeFilterResult().clear();
-				emp.EmployeeFilterResult().sendKeys(adminData.getEmployeeName());
-				sleep(3);
-				emp.EmployeeFilterResutGoButton().click();
-				log.info("Clicked on Go button in the employee filter.");
-				sleep(5);				
-				
-				if(emp.verifyNoEmployeeFoundText())
-				{
-					test.log(LogStatus.PASS, "Successfully deleted Employee and verified."+
-							test.addScreenCapture(captureScreenShot(driver, "Unable to verify created Employee")));
-					log.info("text verified successfully.");
-				}else {
-					test.log(LogStatus.FAIL, "Successfully deleted Employee and verified."+
-							test.addScreenCapture(captureScreenShot(driver, "Unable to verify created Employee")));
-					log.info("unable to verify created employee");				
-			}
-		}
-			
-			log.info("Now calling logout function.");
-			
-			logout=new LogoutPage_POM(driver);
-				
-			logout.logoutFunction();
-			
-			log.info("logout successfully.");
-			extent.endTest(test);
-		 
-        
-}
-	@AfterClass
-	public void closeBrowserInstance()
-		{				
-			driver.close();
-		}
+		return isRecordFound;
 	}
-	
-
+}
