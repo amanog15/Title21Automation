@@ -83,9 +83,9 @@ public class AddEmployee_Test extends BaseClass {
 		//addEmployeePOM.getAddBtn().click();	
 		
 		javaScriptClick(addEmployeePOM.getAddBtn());
-		
-		test.log(LogStatus.PASS,"ER3: It displays validation messages as Location is required, Full Name is required,"+
-				"Employee ID is required Bussiness Unit is required Department is required."+
+		test.log(LogStatus.PASS,"5.	Click on Add Button without entering data in it.");
+		test.log(LogStatus.PASS,"ER3: It displays validation messages as 'Location is required', 'Full Name is required',"+
+				"'Employee ID is required', 'Business Unit is required', 'Department is required'."+
 				test.addScreenCapture(captureScreenShot(driver, "ValidationMessages")));
 				
 		if (!addEmployeePOM.verifyLocationValidationMessage()){	
@@ -132,14 +132,18 @@ public class AddEmployee_Test extends BaseClass {
 		
 		sleep(2);			
 		
-		addEmployeePOM.getLocationDropdown().selectByValue(employeeData[1][0]);		
+		addEmployeePOM.getLocationDropdown().selectByValue(employeeData[1][0]);	
+		
+		test.log(LogStatus.PASS, "6. Select location from Location dropdown.");
 								
 		employeeFullName=employeeData[1][1]+FunctionUtils.generateRandomNumber();
 		
-		addEmployeePOM.getEmployeeFullName().sendKeys(employeeFullName);		
-		
+		addEmployeePOM.getEmployeeFullName().sendKeys(employeeFullName);
+				
 		log.info("setting employeeFullName using setters method so it will be helpful afterwards.");
-		adminData.setEmployeeName(employeeFullName);		
+		adminData.setEmployeeName(employeeFullName);
+		
+		test.log(LogStatus.PASS, "7. Enter the text data in full name field.");
 		
 		employeeID=employeeData[1][2]+FunctionUtils.generateRandomNumber();
 		
@@ -148,13 +152,24 @@ public class AddEmployee_Test extends BaseClass {
 		addEmployeePOM.getEmployeeID().sendKeys(employeeID);
 		
 		log.info("setting employeeID using setters method so it will be helpful afterwards.");
-		adminData.setEmployeeID(employeeID);		
+		adminData.setEmployeeID(employeeID);
+		
+		test.log(LogStatus.PASS, "8. Enter the data in the Employee ID field.");
 		
 		addEmployeePOM.getsupervisorDropdown().selectByVisibleText(employeeData[1][3]);
+				
+		test.log(LogStatus.PASS, "9. Click on supervisor dropdown field.");
 		
 		addEmployeePOM.getbusinessUnitDropdown().selectByIndex(1);
 		
+		test.log(LogStatus.PASS, "10. Select the Business Unit dropdown.");
+		
+		test.log(LogStatus.PASS, "11. Select department from Department dropdown.");
+				
 		addEmployeePOM.getDepartmentDropdown().selectByVisibleText(employeeData[1][5]);	
+		
+		test.log(LogStatus.PASS, "<b>ER4: – User should be able to add data for all mandatory fields.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "EnterMandatoryFields")));			
 		
 		addEmployeePOM.getAddressField().sendKeys(employeeData[1][6]);
 		
@@ -170,34 +185,44 @@ public class AddEmployee_Test extends BaseClass {
 		
 		addEmployeePOM.getEmployeeemail().sendKeys(employeeData[1][12]);
 		
-		test.log(LogStatus.PASS, "All employee data has been entered."+
+		test.log(LogStatus.PASS, "12. Enter the data in other non-mandatory fields, (Address, City, State, Postal Code, Country, Phone, Email etc.).");
+		
+		test.log(LogStatus.PASS, "<b>ER5: User should able to add data for other Fields.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "employeeData")));
 		
 		verticalScrollingDown();
 		
 		waitTillElementVisible(addEmployeePOM.getAddBtn());
-				
+		
+		test.log(LogStatus.PASS, "13. After entering all data in different fields from the General tab,"
+		+"click on add button from the same screen."); 
+						
 		//addEmployeePOM.getAddBtn().click();	
 		javaScriptClick(addEmployeePOM.getAddBtn());		
 		
 		waitTillElementVisible(addEmployeePOM.getJobCodesTab());
 		
+		
 		//addEmployeePOM=new AddEmployee_POM(driver);
 		
-		test.log(LogStatus.PASS, "User should be navigated to Job Codes Screen "
-				+ "and job codes list should be visible."+
+		test.log(LogStatus.PASS, "<b>ER6: User should be navigated to Job Codes Screen "
+				+ "and job codes list should be visible.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "jobcodeList")));
 			
 		waitTillElementVisible(addEmployeePOM.getJobCodeVPHumanResource());
 				
-		addEmployeePOM.getJobCodeVPHumanResource().click();		
+		addEmployeePOM.getJobCodeVPHumanResource().click();	
+		
+		test.log(LogStatus.PASS, "14. Select Job codes dropdown."); 
 		
 		waitTillElementVisible(addEmployeePOM.getSelectedJobCode());
 		
-		test.log(LogStatus.PASS, "Added job code should be available in job code section."+
+		test.log(LogStatus.PASS, "ER7: It should be visible in 'selected job codes' section.  "+
 				test.addScreenCapture(captureScreenShot(driver, "SelectedJobCodeList")));
 		
 		addEmployeePOM.getAddBtn().click();	
+		
+		test.log(LogStatus.PASS, "15. Click on add button from job code screen after selecting job codes.");
 		
 		waitTillElementVisible(addEmployeePOM.getCloseButtononSuccessMessage());
 						
@@ -211,25 +236,39 @@ public class AddEmployee_Test extends BaseClass {
 		
 		waitTillElementVisible(addEmployeePOM.getCloseButtononSuccessMessage());
 		
+		test.log(LogStatus.PASS, "<b>ER8: The employee should get added successfully and A message confirming successfully added should get displayed.<b>");
+		
 		addEmployeePOM.getCloseButtononSuccessMessage().click();	
 		
-		waitTillElementVisible(addEmployeePOM.getFilterTextBox());
+		waitTillElementVisible(addEmployeePOM.getFilterTextBox());		
+		
+		test.log(LogStatus.PASS, "16. Go to employee list and click on search filter");
 		
 		addEmployeePOM.getFilterTextBox().sendKeys(employeeFullName);
+		
+		test.log(LogStatus.PASS, "17. Enter the added employee name.");
 		
 		addEmployeePOM=new AddEmployee_POM(driver);
 		
 		verticalScrollingUp();		
 		
+		test.log(LogStatus.PASS, "18. Click on go button.");
+		
 		javaScriptClick(addEmployeePOM.getGoButton());
 						
 		sleep(3);
 		
-		searchRecordInTable();		
+		searchRecordInTable();
 		
-		addEmployeePOM.addNewLink().click();			
+		test.log(LogStatus.PASS, "<b>ER9: The created employee record is displayed.<b>");
+		
+		addEmployeePOM.addNewLink().click();	
+		
+		test.log(LogStatus.PASS, "19. Click on add new link.");
 		
 		waitTillElementVisible(addEmployeePOM.getEmployeeID());
+		
+		test.log(LogStatus.PASS, "20. Enter already existing 'Full Name'");
 		
 		addEmployeePOM.getEmployeeFullName().sendKeys(adminData.getEmployeeName());
 		
@@ -239,13 +278,15 @@ public class AddEmployee_Test extends BaseClass {
 		
 		if (addEmployeePOM.verifyUniqueEmployeeFullName()){
 			
-			test.log(LogStatus.PASS, "If User enters duplicate employeeName then it's showing already exists"+
+			test.log(LogStatus.PASS, "<b> ER10: A validation message 'Full Name already exists' should be displayed.<b>"+
 			test.addScreenCapture(captureScreenShot(driver, "employeeName already exists.")));
 		}else{			
-			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID."+
-		test.addScreenCapture(captureScreenShot(driver, "employeeID does not exists.")));
+			test.log(LogStatus.FAIL,"Not checking for duplicate employeeFullName"+
+		test.addScreenCapture(captureScreenShot(driver, "FailedforDuplicateEmployeeFullName")));
 		}
 				
+		test.log(LogStatus.PASS, "21. Enter already existing 'Employee ID'.");
+		
 		addEmployeePOM.getEmployeeID().sendKeys(adminData.getEmployeeID());		
 		
 		sleep(1);
@@ -254,14 +295,12 @@ public class AddEmployee_Test extends BaseClass {
 		
 		if (addEmployeePOM.verifyUniqueEmployeeID()){
 			
-			test.log(LogStatus.PASS, "If User enters duplicate employeeID then it's showing employeeID already exists"+
+			test.log(LogStatus.PASS, "<b> ER11:A validation message 'EmployeeID already exists' should be displayed.<b>"+
 					test.addScreenCapture(captureScreenShot(driver, "employeeID already exists.")));
 		}else{			
-			test.log(LogStatus.FAIL,"Not checking for duplicate employee ID.");
+			test.log(LogStatus.FAIL,"FailedforDuplicateEmployeeID");
 		}
 				
-		
-		
 		addEmployeePOM.cancel_Btn().click();
 		
 		sleep(2);

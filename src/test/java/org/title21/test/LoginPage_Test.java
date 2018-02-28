@@ -28,7 +28,7 @@ public class LoginPage_Test extends BaseClass {
 	public void LoginToApp() throws Exception 
 	{
 		test = extent.startTest("Login authentication");	
-		
+		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase_WIA_TestCase-WIA-Login Authentication.doc'>TestCaseDocument</a>");
 		test.log(LogStatus.PASS, "1. Enter the URL in the browser to bring up the web interface login page.");
 		login= new LoginPage_POM(driver);
 		login.getLogin_button().click();

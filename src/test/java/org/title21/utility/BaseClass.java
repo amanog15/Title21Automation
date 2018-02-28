@@ -85,6 +85,7 @@ public class BaseClass {
 	public static String adminUsername="";
 	public static String adminPassword="";
 	static String imagesDirectory = "";
+	static String relativePathforImage="";
 	
 	int pixels=0;
 
@@ -163,7 +164,8 @@ public class BaseClass {
 
 		classname = classname.substring(4);
 		imagesDirectory = System.getProperty("user.dir") + "\\extentReports" + "\\" + classname;
-		//imagesDirectory = "c:\\Title21Automation" + "\\extentReports" + "\\" + classname;
+		relativePathforImage="..\\extentReports" + "\\" + classname+"\\";
+		
 		File file = new File(imagesDirectory);
 		if (!file.exists()) {
 			file.mkdir();
@@ -177,8 +179,9 @@ public class BaseClass {
 	 * 
 	 */
 	
-	/*public static String captureScreenShot(WebDriver driver, String screenshotName) {
+	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
+			String finalImagePath="";
 			Calendar calander = Calendar.getInstance();
 			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 			
@@ -188,17 +191,10 @@ public class BaseClass {
                         			
 			Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 			BufferedImage screenFullImage = robot.createScreenCapture(screenRect);
-			ImageIO.write(screenFullImage, format, new File(fileName));
-			String dest = imagesDirectory + "\\";
-			
-			String sourceDirectory=System.getProperty("user.dir");			
-			File src=new File(sourceDirectory+"\\"+fileName);			 
-			File destination = new File(dest);
-			
-			FileUtils.copyFile(src, destination);
-			
-			FileUtils.deleteQuietly(src);   		
-			return dest;
+			String dest = imagesDirectory + "\\"+fileName;
+			ImageIO.write(screenFullImage, format, new File(dest));	
+			finalImagePath=relativePathforImage+fileName;
+			return finalImagePath;
 		}
 
 		catch (Exception e) {
@@ -206,9 +202,9 @@ public class BaseClass {
 			return e.getMessage();
 		}
 	}
-		*/
+		
 
-	public static String captureScreenShot(WebDriver driver, String screenshotName) {
+	/*public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
 			Calendar calander = Calendar.getInstance();
 			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
@@ -225,7 +221,7 @@ public class BaseClass {
 			System.out.println("Exception while taking screenshot" + e.getMessage());
 			return e.getMessage();
 		}
-	}
+	}*/
 
 	public void waitForPageToLoad(WebDriver driver,int seconds) {
 		// sleep(2);
@@ -397,12 +393,16 @@ public class BaseClass {
 	}
 		
 	public void verticalScrollingDown() {		
-		JavascriptExecutor js=(JavascriptExecutor)driver;		
-		js.executeScript("window.scrollBy(0,500)");		
+		JavascriptExecutor js=(JavascriptExecutor)driver;	
+		for (int i=0;i<2;i++){
+			js.executeScript("window.scrollBy(0,250)");
+		}
 	}
-	
+		
 	public void verticalScrollingUp(){
-		JavascriptExecutor js=(JavascriptExecutor)driver;		
-		js.executeScript("window.scrollBy(0,-800)");		
+		JavascriptExecutor js=(JavascriptExecutor)driver;	
+		for (int i=0;i<2;i++){
+			js.executeScript("window.scrollBy(0,-250)");
+		}	
 	}
 }

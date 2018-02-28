@@ -11,6 +11,7 @@
 			<class name="org.title21.test.AddEmployee_Test"/>	
 			<class name="org.title21.test.CreateNewUser_Test"/>
 			<class name="org.title21.test.UpdateUser_Test"/>
+
 		</classes>
 	</test>
 </suite>
