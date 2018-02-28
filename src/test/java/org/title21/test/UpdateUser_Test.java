@@ -285,7 +285,7 @@ public class UpdateUser_Test extends BaseClass{
 		searchTable=new Table(driver);
 		List<WebElement> tableCells=searchTable.gettableCells(2);				
 		
-		for (int i=1;i<tableCells.size();i++){
+		for (int i=1;i<=tableCells.size();i++){
 			if (employeeFullName.equalsIgnoreCase(tableCells.get(i-1).getText()))
 			{				
 				WebElement delete = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]//span[@title='Edit User']"));
