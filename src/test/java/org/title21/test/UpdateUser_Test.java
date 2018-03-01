@@ -70,7 +70,6 @@ public class UpdateUser_Test extends BaseClass{
 		
 		test.log(LogStatus.PASS, "5.Click on search filter and enter the user's name");
 		updateUserPage.groupFilterResult().click();
-		//updateUserPage.groupFilterResult().sendKeys(adminData.getEmployeeName());
 		updateUserPage.groupFilterResult().sendKeys(adminData.getUserName());
 		
 		test.log(LogStatus.PASS, "6.Click on Go button");
@@ -160,7 +159,6 @@ public class UpdateUser_Test extends BaseClass{
 					
 					sleep(3);
 					test.log(LogStatus.PASS, "11.Again click on edit button.");
-					//clickOnEditButton(adminData.getEmployeeName());
 					clickOnEditButton(adminData.getUserName());
 					
 					sleep(2);
@@ -190,7 +188,6 @@ public class UpdateUser_Test extends BaseClass{
 					logout.logoutFunction();	
 					sleep(3);
 					login.getUsername().sendKeys(adminData.getUserName());
-					//login.getUsername().sendKeys(adminData.getEmployeeName());
 					login.getLogin_button().click();
 					sleep(2);
 					login.getpassword().sendKeys(userData[1][5]);
@@ -222,7 +219,6 @@ public class UpdateUser_Test extends BaseClass{
 					test.log(LogStatus.PASS, "21.Search for the user. ");
 					test.log(LogStatus.PASS, "22.Again edit user.");
 					clickOnEditButton(adminData.getUserName());
-					//clickOnEditButton(adminData.getEmployeeName());
 					
 					if(updateUserPage.password_Tab() != null)
 					{
