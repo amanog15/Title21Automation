@@ -88,9 +88,10 @@ public class UpdateUser_Test extends BaseClass{
 		{
 			test.log(LogStatus.PASS, "<b>ER 4- Update user screen is displayed.<b>"+
 					test.addScreenCapture(captureScreenShot(driver, "Record as per search")));
+			
 			if(!updateUserPage.locationDropDown_click().isEnabled())
 			{
-				test.log(LogStatus.PASS, "<b>ER 5- location,<b>");
+				test.log(LogStatus.PASS, "<b>ER 5- location field is disabled. <b>");
 			}
 			else
 			{
@@ -100,7 +101,7 @@ public class UpdateUser_Test extends BaseClass{
 			
 			if(!updateUserPage.userFullNameDropDown_click().isEnabled())
 			{
-				test.log(LogStatus.PASS, "<b>full name,<b>");
+				test.log(LogStatus.PASS, "<b>full name field is disabled.<b>");
 			}
 			else
 			{
@@ -110,7 +111,7 @@ public class UpdateUser_Test extends BaseClass{
 			
 			if(!updateUserPage.username_textbox().isEnabled())
 			{
-				test.log(LogStatus.PASS, "<b>and username field are disabled.<b>"+
+				test.log(LogStatus.PASS, "<b>username field is disabled.<b>"+
 						test.addScreenCapture(captureScreenShot(driver, "field are disabled")));
 			}
 			else
@@ -309,7 +310,7 @@ public class UpdateUser_Test extends BaseClass{
 			}
 		}
 		if (isRecordFound){
-			test.log(LogStatus.PASS, "All Rows contains expected locations.");
+			test.log(LogStatus.PASS, "4a. All Rows contains expected location.");
 		}			
 	}
 	

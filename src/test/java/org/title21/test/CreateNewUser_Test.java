@@ -117,6 +117,8 @@ public class CreateNewUser_Test extends BaseClass{
 		test.log(LogStatus.PASS, "6.Click on 'Add New' button.");
 		
 		sleep(3);
+		waitTillElementVisible(addNewUserPage.AddNewUserPopUpHeader());
+		
 		if(addNewUserPage.verifyAddNewUserPopUpHeader(driver))
 		{
 			test.log(LogStatus.PASS, "<b>ER 4- Add new user popup screen appears.<b>"+
@@ -157,6 +159,7 @@ public class CreateNewUser_Test extends BaseClass{
 							test.addScreenCapture(captureScreenShot(driver, "User Name is required")));
 				}
 				sleep(3);
+				
 				if(addNewUserPage.pleaseSelectOneGroup_ErrorMsg() != null)
 				{
 					test.log(LogStatus.PASS, "<b>'Please select at least one group'.<b>"+
