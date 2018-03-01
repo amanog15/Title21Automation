@@ -58,6 +58,19 @@ public class Table extends BaseClass
 	}
 	
 	/*
+	 *  
+	 */
+	
+	public List<WebElement> getColumnData(int columnNumber){	
+		List<WebElement> cells = null;
+		for(WebElement row : tableRows) {
+		    cells = row.findElements(By.xpath("//td"+"["+columnNumber+"]"));
+		  }
+		return cells;
+	}
+		
+	
+	/*
 	 * Following function will find tablecells only in given column.
 	 * @param columnNumber
 	 */
@@ -70,6 +83,11 @@ public class Table extends BaseClass
 		return cells;
 	}
 	
+	public WebElement getDeleteIcon(WebElement tableRow){
+		
+		WebElement rowToDeleteElement=tableRow.findElement(By.xpath("//span[@title='Remove Group']"));
+		return rowToDeleteElement;
+	}
 	
 	public WebElement getTableHeader()
 	{
@@ -98,8 +116,7 @@ public class Table extends BaseClass
 		}
 		return i-1;
 	}
-	
-	
+		
 }
 
 

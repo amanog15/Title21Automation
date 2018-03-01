@@ -4,17 +4,21 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
 import org.title21.POM.Table;
 import org.title21.POM.UpdateUser_POM;
 import org.title21.dao.AdminData;
 import org.title21.utility.BaseClass;
+
+
 
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -28,7 +32,9 @@ public class DeleteUser_Test extends BaseClass{
 	String employeeName="";
 	String username="";
 	Table searchTable;
-	static Logger log = Logger.getLogger(UpdateUser_Test.class);
+
+	static Logger log = Logger.getLogger(DeleteUser_Test.class);
+
 	boolean UserPresenceAfterSearch = false;
 	private boolean isRecordFound=true;
 	AdminData adminData=new AdminData();
@@ -39,15 +45,19 @@ public class DeleteUser_Test extends BaseClass{
 		getBrowser();
 		className = this.getClass().getName();
 		createDirectory(className);
+
 		logout=new LogoutPage_POM(driver);
+
 		login=new LoginPage_POM(driver);
 		login.loginFunction();
 	}
 	
-	@Test(testName = "UpdateUser_Test", groups = "Update User", priority = 0)
+
+	@Test(testName = "DeleteUser_Test", groups = "Delete User", priority = 0)
 	public void UpdateUser() throws Exception
 	{		
-		test = extent.startTest("UpdateUser");
+		test = extent.startTest("DeleteUser");
+
 		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		updateUserPage= new UpdateUser_POM(driver);		
 		
@@ -57,10 +67,11 @@ public class DeleteUser_Test extends BaseClass{
 		updateUserPage.user_link().click();
 		
 		test.log(LogStatus.PASS, "<b>ER 1- User records Screen is displayed.<b>"+
-				test.addScreenCapture(captureScreenShot(driver, "User records Screen")));
-		
+		test.addScreenCapture(captureScreenShot(driver, "User records Screen")));
+	
 		test.log(LogStatus.PASS, "4.Click on location drop-down and select the specific location (for eg. "+userData[1][0]+").");
 		sleep(2);
+
 		updateUserPage.getLocationforFilter().selectByVisibleText(userData[1][0]);
 		sleep(2);
 				
@@ -70,6 +81,8 @@ public class DeleteUser_Test extends BaseClass{
 		
 		test.log(LogStatus.PASS, "5.Click on search filter and enter the user's name");
 		updateUserPage.groupFilterResult().click();
+
+
 		updateUserPage.groupFilterResult().sendKeys(adminData.getUserName());
 		
 		test.log(LogStatus.PASS, "6.Click on Go button");
@@ -99,6 +112,7 @@ public class DeleteUser_Test extends BaseClass{
 			if (employeeFullName.equalsIgnoreCase(tableCells.get(i-1).getText()))
 			{				
 				WebElement delete = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]//span[@title='Remove Group']"));
+
 				delete.click();
 				break;
 			}
@@ -118,6 +132,7 @@ public class DeleteUser_Test extends BaseClass{
 				isRecordFound=false;
 			}
 		}
+
 		if (isRecordFound){
 			test.log(LogStatus.PASS, "All Rows contains expected locations.");
 		}			
@@ -148,4 +163,5 @@ public class DeleteUser_Test extends BaseClass{
 	{		
 		driver.close();
 	}
+
 }

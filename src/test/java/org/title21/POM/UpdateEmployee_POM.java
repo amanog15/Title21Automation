@@ -31,7 +31,7 @@ public class UpdateEmployee_POM extends AddEmployee_POM
 	WebElement Employeefilterresutgobutton;
 	
 	////
-	@FindBy(css="input[value='001099']")
+	@FindBy(css="input[value='01002']")
 	WebElement jobCodeRadio;
 	
 	@FindBy(xpath=".//*[@id='t21-workarea']/div/div/div[2]/div[2]/div/h5")
@@ -52,10 +52,13 @@ public class UpdateEmployee_POM extends AddEmployee_POM
 	WebElement EditjobCodesDropdown;
 	
 	
-	@FindBy(xpath="//a[contains(text(),'Telerecruiter')]")// 01025 - Telerecruiter
+	//@FindBy(xpath="//a[contains(text(),'Telerecruiter')]")// 01025 - Telerecruiter
+	//WebElement EditTelerecruiter;
+	
+	@FindBy(xpath="//a[contains(text(),'Blood Center Courier')]")// 01025 - Telerecruiter
 	WebElement EditTelerecruiter;
 	
-	@FindBy(xpath=".//*[@id='tab2']/div/div[1]/div/table/tbody/tr[3]/td[1]/a/span")
+	@FindBy(xpath=".//*[@id='tab2']/div/div[1]/div/table/tbody/tr/td[1]/a/span")
 	WebElement JobCode_Removed_minus;
 	
 	@FindBy(xpath="//*[text()='Message']")

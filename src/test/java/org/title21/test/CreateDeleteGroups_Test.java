@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import org.title21.POM.AdminCreateDeleteGroups_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
+import org.title21.POM.Table;
 import org.title21.utility.BaseClass;
 import org.title21.utility.FunctionUtils;
 
@@ -19,6 +20,7 @@ public class CreateDeleteGroups_Test extends BaseClass {
 
 	LoginPage_POM login; 
 	LogoutPage_POM logout;
+	Table groupTable;
 	String className="";
 	String number="";
 	AdminCreateDeleteGroups_POM adminCreateGroup;
@@ -42,7 +44,8 @@ public class CreateDeleteGroups_Test extends BaseClass {
 		number = FunctionUtils.generateRandomNumber();
 		adminCreateGroup = new AdminCreateDeleteGroups_POM(driver);
 		
-		test = extent.startTest("CreateDeleteGroups_Test");
+		test = extent.startTest("CreateDeleteGroups");
+		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase_WIA_CreateandDeleteGroups.doc'>TestCaseDocument</a>");
 		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		BaseClass.getAdministrationPage(test);
 		
@@ -126,15 +129,15 @@ public class CreateDeleteGroups_Test extends BaseClass {
 					adminCreateGroup.groupFilterResutGoButton().click();
 					
 					sleep(2);
-					
-					for(int i=1; i<=10; i++ ) {
-						
-						String groups = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[1]")).getText();
+					groupTable=new Table(driver);
+										
+					for (WebElement element:groupTable.getColumnData(1)){
+						String groups = element.getText();
 						sleep(1);
 						if(groups.equalsIgnoreCase(groupData[1][1]+number)) {
 							GroupPresenceAfterSearch = true;
 							break;
-						}
+						}						
 					}
 					
 					if(GroupPresenceAfterSearch) {
@@ -162,6 +165,7 @@ public class CreateDeleteGroups_Test extends BaseClass {
 							break;
 						}
 					}
+										
 					sleep(2);
 					
 					if(adminCreateGroup.verifyDeleteGroupPopUp()) 					{
