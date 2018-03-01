@@ -6,10 +6,8 @@
 /test-output/
 /build_artifacts/
 /.settings
-Log.log
-
-
-
+/testng.xml
+/testdata/TestData.xlsx
 Log.log
 /example.log
 /example.log.1
