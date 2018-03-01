@@ -11,6 +11,7 @@ import org.title21.dao.AdminData;
 import org.title21.utility.BaseClass;
 import org.title21.utility.FunctionUtils;
 
+import com.graphbuilder.math.func.RandFunction;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class CreateNewUser_Test extends BaseClass{
@@ -25,6 +26,7 @@ public class CreateNewUser_Test extends BaseClass{
 	String firstMsgColor = "";
 	String secondLineColor = "";
 	String thirdLinecolor = "";
+	String userName = "";
 	
 	boolean UserPresenceAfterSearch = false;
 	
@@ -43,13 +45,13 @@ public class CreateNewUser_Test extends BaseClass{
 	public void AddNewUser() throws Exception
 	{
 		
+		
 		test = extent.startTest("Create New User");
 		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase_WIA_Create New User.doc'>TestCaseDocument</a>");
 		addNewUserPage= new AddNewUser_POM(driver);
-		number = FunctionUtils.generateRandomNumber();
 		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		getAdministrationPage(test);	
-		
+		number = FunctionUtils.generateRandomNumber();
 		addNewUserPage.user_link().click();
 		test.log(LogStatus.PASS, "3.Click on Users link ");
 		
@@ -190,8 +192,11 @@ public class CreateNewUser_Test extends BaseClass{
 					//addNewUserPage.userFullName_Dropdown().selectByVisibleText("Martink696");
 					test.log(LogStatus.PASS, "9.Select one employee.");
 					
-					addNewUserPage.username_textbox().sendKeys(userData[1][2]+number);//Mart
+					userName=userData[1][2]+FunctionUtils.generateRandomNumber();
+					
+					addNewUserPage.username_textbox().sendKeys(userName);//Mart
 					test.log(LogStatus.PASS, "10.Enter username. ");
+					adminData.setUserName(userName);
 					
 					sleep(2);
 					addNewUserPage.available_Filter().sendKeys(userData[1][0]);//Dallas
@@ -353,7 +358,7 @@ public class CreateNewUser_Test extends BaseClass{
 									test.log(LogStatus.PASS, "23.Enter the created users in user's field and click on GO button.");
 									
 									addNewUserPage.groupFilterResult().clear();
-									addNewUserPage.groupFilterResult().sendKeys(userData[1][2]+number);
+									addNewUserPage.groupFilterResult().sendKeys(userName);
 									addNewUserPage.groupFilterResutGoButton().click();
 									
 									sleep(2);
@@ -362,7 +367,7 @@ public class CreateNewUser_Test extends BaseClass{
 										
 										String groups = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[2]")).getText();
 										sleep(1);
-										if(groups.equalsIgnoreCase(userData[1][2]+number)) {
+										if(groups.equalsIgnoreCase(userName)) {
 											UserPresenceAfterSearch = true;
 											break;
 										}

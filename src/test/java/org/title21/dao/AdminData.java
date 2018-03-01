@@ -14,6 +14,8 @@ public class AdminData {
 	private static String employeeID;
 
 	private static String groupName;
+	
+	private static String userName;
 
 	public String getEmployeeName() {
 		return employeeName;
@@ -37,6 +39,16 @@ public class AdminData {
 
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
+	}
+
+	public void setUserName(String userName) {
+		// TODO Auto-generated method stub
+		this.userName = userName;
+	}
+	
+	public String getUserName() {
+		return userName;
+		
 	}
 		
 }

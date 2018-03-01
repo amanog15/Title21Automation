@@ -47,10 +47,10 @@ public class DeleteUser_Test extends BaseClass{
 		login.loginFunction();
 	}
 	
-	@Test(testName = "UpdateUser_Test", groups = "Update User", priority = 0)
+	@Test(testName = "DeleteUser_Test", groups = "Delete User", priority = 0)
 	public void UpdateUser() throws Exception
 	{		
-		test = extent.startTest("UpdateUser");
+		test = extent.startTest("DeleteUser");
 		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		updateUserPage= new UpdateUser_POM(driver);		
 		

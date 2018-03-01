@@ -30,9 +30,25 @@ public class UpdateUser_POM extends AddNewUser_POM {
 	@FindBy(xpath="//div[contains(text(),'updated successfully')]")
 	WebElement userUpdatedSuccessfully;
 	
-	//a[text()='Password']
-	@FindBy(linkText="Password")
+	//@FindBy(linkText="Password")
+	@FindBy(xpath="//a[text()='Password']")
 	WebElement passwordTab;
+	
+	@FindBy(css=".btn-success")
+	WebElement iAgreeButton;
+	
+	@FindBy(xpath="//*[@id='bootstrap-duallistbox-nonselected-list_dualListItemList[]']/option[1]")
+	WebElement AvailableFirstElement;
+	
+	public WebElement AvailableFirst_Element()
+	{
+		return AvailableFirstElement;
+	}
+	
+	public WebElement iAgree_Button()
+	{
+		return iAgreeButton;
+	}
 	
 	public WebElement password_Tab()
 	{

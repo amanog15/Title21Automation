@@ -118,9 +118,7 @@ public class UpdateEmployee_Test extends BaseClass {
 					     +"<b>ER5: It displayed employee as per given information. <b>"+
 						test.addScreenCapture(captureScreenShot(driver, "Employee_info")));
 				break;
-			} 
-
-			
+			}	
 
 		}
 
