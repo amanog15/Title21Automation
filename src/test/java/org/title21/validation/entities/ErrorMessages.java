@@ -16,4 +16,16 @@ public class ErrorMessages
 	public static final String employeeIDExistsValidationMessage="EmployeeID Already Exists";
 	public static final String employeeNameExistsValidationMessage="Full Name already exists";
 	public static final String EditEmployeeSuccessMessage="updated successfully!";
+	
+	// CreateDocumentModule
+	public static final String DocumentTitleValidationMessage="Document Title is required.";
+	public static final String DocumentSummaryValidationMessage="Document Change Summary is required.";
+	public static final String AppendixValidationMessage="Please enter a Document Appendix";
+	public static final String nameFieldValidationMessage="Name is required.";
+	public static final String sequenceFieldValidationMessage="Sequence is required.";
+	public static final String allottedDaysValidationMessage="Allotted days are required.";
+	public static final String roleFieldValidationMessage="Role is required.";
+	
+	
+	
 }

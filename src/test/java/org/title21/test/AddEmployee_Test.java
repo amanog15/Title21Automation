@@ -48,7 +48,7 @@ public class AddEmployee_Test extends BaseClass {
 		login.loginFunction();
 	}
 	
-	@Test(testName = "AddEmployee", groups = "Employee", priority = 0)
+	@Test(testName = "AddEmployee", groups = "Employee")
 	public void createEmployee() throws Exception 
 	{	
 		test = extent.startTest("Add Employee");	
