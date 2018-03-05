@@ -60,8 +60,9 @@ public class UpdateEmployee_Test extends BaseClass {
 		
 	}
 
-	@Test(testName = "update employee ", groups = "update_Employee", priority = 0)
+	@Test(testName = "update employee ", groups = "Employee")
 	public void Edit_general_Employee() throws Exception {
+		
 		test = extent.startTest("Update  Employee");
 		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase_WIA_UpdateEmployee.doc'>TestCaseDocument</a>");
 		test.log(LogStatus.PASS, "1 Login to the web interface");
