@@ -5,10 +5,9 @@
 	<test name="TestDDF">
 		<classes>			
 					
-			<!-- <class name="org.title21.test.LoginPage_Test"/>
-			<class name="org.title21.test.LogoutPage_Test"/>	 -->		
-			<!-- <class name="org.title21.test.AddEmployee_Test"/> -->
-			<class name="org.title21.test.AddEmployee_Test"/>	
+			<class name="org.title21.test.LoginPage_Test"/>
+			<class name="org.title21.test.LogoutPage_Test"/>			
+			<class name="org.title21.test.AddEmployee_Test"/>
 			<class name="org.title21.test.CreateNewUser_Test"/>
 			<class name="org.title21.test.UpdateUser_Test"/>
 			<class name="org.title21.test.DeleteUser_Test"/>

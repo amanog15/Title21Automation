@@ -175,8 +175,9 @@ public class BaseClass {
 	}
 	
 	/*	
-	 * This function will take full screenshot of the application.
-	 * 
+	 * This function will take full screenshot of the application. This includes browser address bar.  
+	 * Can be used based on client requirement.
+	 *  
 	 */
 	
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
@@ -203,6 +204,10 @@ public class BaseClass {
 		}
 	}
 		
+	/*
+	 * Following method will take screenshot of the webpage by TakesScreenhot interface.
+	 * 
+	 */
 
 	/*public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {

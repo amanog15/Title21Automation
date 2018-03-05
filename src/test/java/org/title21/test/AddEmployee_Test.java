@@ -168,7 +168,7 @@ public class AddEmployee_Test extends BaseClass {
 				
 		addEmployeePOM.getDepartmentDropdown().selectByVisibleText(employeeData[1][5]);	
 		
-		test.log(LogStatus.PASS, "<b>ER4: – User should be able to add data for all mandatory fields.<b>"+
+		test.log(LogStatus.PASS, "<b>ER4: User should be able to add data for all mandatory fields.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "EnterMandatoryFields")));			
 		
 		addEmployeePOM.getAddressField().sendKeys(employeeData[1][6]);

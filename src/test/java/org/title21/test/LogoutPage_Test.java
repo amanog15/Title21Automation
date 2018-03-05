@@ -32,6 +32,7 @@ public class LogoutPage_Test extends BaseClass {
 	public void Logout() throws Exception {
 		
 		test = extent.startTest("Logout");
+		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase_WIA_Logout.doc'>TestCaseDocument</a>");
 		test.log(LogStatus.PASS, "1. Login to the web interface.");
 		login= new LoginPage_POM(driver);
 		login.getUsername().sendKeys(loginData[1][0]);
