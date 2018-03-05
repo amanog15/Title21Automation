@@ -1,12 +1,14 @@
 package org.title21.POM;
 
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class DeleteUser_POM extends AddNewUser_POM {
+public class DeleteUser_POM extends UpdateUser_POM {
 	
 	public WebDriver driver;
 	public WebElement element;
@@ -17,31 +19,29 @@ public class DeleteUser_POM extends AddNewUser_POM {
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath="//*[@name='GridLocation']")
-	WebElement locationDrodpdownforFilter;
+	@FindBy(xpath="//input[@value='Yes']")
+	WebElement deleteUserPopUpYesButton;
 		
-	@FindBy(xpath="//span[text()='Delete User']")
-	WebElement deleteUserPopupHeader;
+	@FindBy(css=".btn.t21-btn-default.pull-left")
+	WebElement deleteUserPopUpNoButton;
 	
-	@FindBy(xpath="//p[contains(text(),'Are you sure you want to delete')]")
-	WebElement deleteUserPopUpMsg;
+	@FindBy(xpath="//*[text()='No user found']")
+	WebElement noUserfoundresulttext;	
 	
-	public WebElement deleteUserPopupHeader_Text()
+	public WebElement getDeleteUserpopupYesButton()
 	{
-		return deleteUserPopupHeader;
+		return deleteUserPopUpYesButton;
 	}
 	
-	public WebElement deleteUserPopUp_Msg()
+	public WebElement getDeleteUserpopupNoButton()
 	{
-		return deleteUserPopUpMsg;
+		return deleteUserPopUpNoButton;
 	}
 	
-	
-	
-	public Select getLocationforFilter(){
-	
-		Select selectObj=new Select(locationDrodpdownforFilter);
-		return selectObj;
+	public WebElement getnoUserfoundMessage()
+	{
+		return noUserfoundresulttext;
 	}
-	
+		
+
 }

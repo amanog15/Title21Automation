@@ -45,7 +45,7 @@ public class DeleteEmployee_Test extends BaseClass {
 		login.loginFunction();
 	}
 
-	@Test(testName = "delete_employee ", groups = "delete_Employee", priority = 0)
+	@Test(testName = "delete_employee", groups = "Employee")
 	public void Delete_Employee() throws Exception {
 		
 		test = extent.startTest("Delete Employee");
@@ -98,14 +98,16 @@ public class DeleteEmployee_Test extends BaseClass {
 		logout.logoutFunction();
 
 		log.info("logout successfully.");
+		
 		extent.endTest(test);
-
 	}
-
+		
 	@AfterClass
 	public void closeBrowserInstance() {
 
 		driver.close();
+		test.log(LogStatus.PASS, "pass case");
+		
 	}
 	
 	public boolean clickonDelete(){

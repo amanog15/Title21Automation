@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
+import org.title21.POM.DeleteUser_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
 import org.title21.POM.Table;
@@ -26,6 +26,7 @@ public class DeleteUser_Test extends BaseClass{
 	LoginPage_POM login;
 	LogoutPage_POM logout;
 	UpdateUser_POM updateUserPage;
+	DeleteUser_POM deleteUser;
 	String className="";
 	String number="";
 	String location="";
@@ -82,7 +83,6 @@ public class DeleteUser_Test extends BaseClass{
 		test.log(LogStatus.PASS, "5.Click on search filter and enter the user's name");
 		updateUserPage.groupFilterResult().click();
 
-
 		updateUserPage.groupFilterResult().sendKeys(adminData.getUserName());
 		
 		test.log(LogStatus.PASS, "6.Click on Go button");
@@ -98,21 +98,32 @@ public class DeleteUser_Test extends BaseClass{
 		sleep(3);
 		test.log(LogStatus.PASS, "<b>ER 4- Delete user popup is displayed.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "Delete user popup")));
-		
-		
+
+		deleteUser=new DeleteUser_POM(driver);		
+		deleteUser.getDeleteUserpopupNoButton().click();
+		test.log(LogStatus.PASS, "8. Click on No button.");	
+		waitTillElementVisible(updateUserPage.groupFilterResult());
+		test.log(LogStatus.PASS, "<b>ER 5- User should redirect to 'user screen'. <b>"+
+				test.addScreenCapture(captureScreenShot(driver, "DeleteUserNo")));
+						
+		clickOnDeleteButton(adminData.getUserName());
+		waitTillElementVisible(deleteUser.getDeleteUserpopupYesButton());
+		deleteUser.getDeleteUserpopupYesButton().click();		
 		extent.endTest(test);
 	}
-	
-	private void clickOnDeleteButton(String employeeFullName) {
+		
+	private void clickOnDeleteButton(String userName) {
+
 		
 		searchTable=new Table(driver);
 		List<WebElement> tableCells=searchTable.gettableCells(2);				
 		
 		for (int i=1;i<=tableCells.size();i++){
-			if (employeeFullName.equalsIgnoreCase(tableCells.get(i-1).getText()))
-			{				
-				WebElement delete = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]//span[@title='Remove Group']"));
 
+			if (userName.equalsIgnoreCase(tableCells.get(i-1).getText()))
+
+			{	
+				WebElement delete = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]//span[@title='Remove User']"));
 				delete.click();
 				break;
 			}
@@ -164,4 +175,8 @@ public class DeleteUser_Test extends BaseClass{
 		driver.close();
 	}
 
+
 }
+
+
+
