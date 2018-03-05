@@ -1,6 +1,5 @@
 package org.title21.POM;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -85,63 +84,52 @@ WebElement deleteGroupConfirmPopUpHeaderText;
  }
  public WebElement groupsTab()
  {
-	 //element=driver.findElement(groupslink);
 	 return groupslink;
  }
  public WebElement groupAddNewLink()
  {
-	 //element=driver.findElement(addnewlink);
 	 return addnewlink;
  }
  public WebElement addGroupHeaderlable()
  {
-	 //element=driver.findElement(addgroupheaderlable); 
 	 return addgroupheaderlable;
  }
  
  public WebElement groupLocationDropDownValue()
  {
-	 //element=driver.findElement(grouplocationdropdownvalue); 
 	 return grouplocationdropdownvalue;
  }
  
  public WebElement addGroupTextBox()
  {
-	 //element=driver.findElement(addgrouptextbox); 
 	 return addgrouptextbox;
  }
  
  public WebElement addGroupAddButton()
  {
-	 //element=driver.findElement(addgroupaddbutton); 
 	 return addgroupaddbutton;
  }
  
  public WebElement addGroupCancelButton()
  {
-	 //element=driver.findElement(addgroupcancelbutton); 
 	 return addgroupcancelbutton;
  }
  
  public WebElement groupFilterResult()
  {
-	 //element=driver.findElement(groupfilterresult); 
 	 return groupfilterresult;
  }
  
  public WebElement groupFilterResutGoButton()
  {
-	 //element=driver.findElement(groupfilterresutgobutton); 
 	 return groupfilterresutgobutton;
  }
  
  public WebElement noGroupFoundResultText(){
-	 //element=driver.findElement(nogroupfoundresulttext);
 	 return nogroupfoundresulttext;
  }
  
  public WebElement listOfGroups(){
-	 //element=driver.findElement(listOfGroups);
 	 return listOfGroups;
  }
  
@@ -162,7 +150,6 @@ WebElement deleteGroupConfirmPopUpHeaderText;
  
  public WebElement deleteGroupPopUpYesButton()
  {
-	 //element=driver.findElement(groupslink);
 	 return deleteGroupPopUpYesButton;
  }
  
@@ -173,26 +160,16 @@ WebElement deleteGroupConfirmPopUpHeaderText;
  
  public WebElement deleteGroupPopUpHeaderText()
  {
-	// element=driver.findElement(deleteGroupPopUpHeaderText);
 	 return deleteGroupPopUpHeaderText;
  }
  
  public WebElement deleteGroupConfirmPopUpHeaderText()
  {
-	// element=driver.findElement(deleteGroupConfirmPopUpHeaderText);
 	 return deleteGroupConfirmPopUpHeaderText;
  }
  
- /*
-	 * 
-	 * This method verify text on Administration 
-	 * @param WebDriver obj
-	 */
-	
 	public boolean verifyAddGroupPopUp(WebDriver driver){
-		
 		String AddGroupPopUpHeaderText = addGroupHeaderlable().getText();
-		
 		if(AddGroupPopUpHeaderText.equalsIgnoreCase("Add Group"))
 		{
 			return true;
@@ -201,13 +178,10 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 		{
 			return false;
 		}
-		
 	}
 	
 	public boolean verifyNoGroupFoundText(WebDriver driver){
-		
 		String NoGroupFoundResultText="";
-		
 		try 
 		{
 			NoGroupFoundResultText = noGroupFoundResultText().getText();
@@ -223,7 +197,6 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 		{
 			return false;
 		}
-		
 	}
 
 	public boolean verifyAlerPopUp(WebDriver driver){
@@ -238,7 +211,6 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 		{
 			return false;
 		}
-		
 	}
 	
 	public boolean verifyalreadyGroupCreatedErrorMsg(WebDriver driver){
@@ -253,7 +225,6 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 		{	
 			return false;
 		}		
-		
 	}
 	
 	public boolean verifyalreadyGroupCreatedErrorMsg1(WebDriver driver){
@@ -275,7 +246,6 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 		{	
 			return false;
 		}		
-		
 	}
 	
 	public boolean verifyDeleteGroupPopUp(){
@@ -290,7 +260,6 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 		{
 			return false;
 		}
-		
 	}
 	
 	public boolean verifyDeleteGroupcConfirmPopUpText(){
@@ -307,7 +276,4 @@ WebElement deleteGroupConfirmPopUpHeaderText;
 		}
 		
 	}
-	
-	
-	
 }
