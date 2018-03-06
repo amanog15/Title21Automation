@@ -79,5 +79,4 @@ public class AccountLockout_Test extends BaseClass
 	{
 		driver.close();
 	}
-
 }

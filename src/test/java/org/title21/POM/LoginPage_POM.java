@@ -138,8 +138,8 @@ public class LoginPage_POM extends BaseClass
 		sleep(2);
 	}
 
-	public void loginUser(String username, String password){
-
+	public void loginUser(String username, String password)
+	{
 		getUsername().sendKeys(username);
 		getLogin_button().sendKeys(Keys.RETURN);
 		getpassword().sendKeys(password);
