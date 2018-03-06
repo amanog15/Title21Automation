@@ -75,9 +75,10 @@ public class DeleteEmployee_Test extends BaseClass {
 				+ test.addScreenCapture(captureScreenShot(driver, "NoButtonOnConfirmationPopup")));
 		
 		waitTillElementVisible(emp.EmployeeFilterResult());
-		sleep(4);
+		sleep(4);		
+		test.log(LogStatus.PASS, "6.Click on the delete icon against the employee in the previous step.");
 		if (clickonDelete()){
-			
+			test.log(LogStatus.PASS, "7.Click on Yes Button when the confirmation dialog is displayed.");
 			waitTillElementVisible(emp.deleteEmployeePopUpYesButton());
 			emp.deleteEmployeePopUpYesButton().click();
 			sleep(2);
@@ -87,6 +88,20 @@ public class DeleteEmployee_Test extends BaseClass {
 							+ test.addScreenCapture(captureScreenShot(driver, "yes_button_delete_confirm")));
 			waitTillElementVisible(emp.ConfirmPopUpCloseButton());
 			emp.ConfirmPopUpCloseButton().click();			
+		}
+		
+		waitTillElementVisible(emp.EmployeeFilterResult());
+		test.log(LogStatus.PASS, "8. Search for the employee which was deleted in the previous step.");
+		
+		emp.EmployeeFilterResult().sendKeys(adminData.getEmployeeName());
+		sleep(2);
+		emp.EmployeeFilterResutGoButton().click();
+		sleep(2);
+		
+		if (emp.verifyNoEmployeeFoundText()){
+			test.log(LogStatus.PASS,"<b>ER5: Employee is no longer available in the list.<b>");			
+		}else{
+			test.log(LogStatus.FAIL,"Employee is still available in the list.");
 		}
 		
 		sleep(3);

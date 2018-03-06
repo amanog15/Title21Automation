@@ -68,10 +68,12 @@ public class AddEmployee_Test extends BaseClass {
 		
 		log.info("Now clicking on Add new Link.");
 		addEmployeePOM.addNewLink().click();
-		test.log(LogStatus.PASS,"4.	Click on Add new Link.");
+		test.log(LogStatus.PASS,"4.	Click on Add new button.");
 		addEmployeePOM=new AddEmployee_POM(driver);
 		
 		waitTillElementVisible(addEmployeePOM.getEmployeeFullName());
+		test.log(LogStatus.PASS, "<b>ER3: Add new employee dialog is presented.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "AddNewEmployeeDialog")));
 						
 		log.info("First checking Validation Messages. without entering in any"
 				+ "field, click on Add button.");		
@@ -84,7 +86,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		javaScriptClick(addEmployeePOM.getAddBtn());
 		test.log(LogStatus.PASS,"5.	Click on Add Button without entering data in it.");
-		test.log(LogStatus.PASS,"ER3: It displays validation messages as 'Location is required', 'Full Name is required',"+
+		test.log(LogStatus.PASS,"ER4: It displays validation messages as 'Location is required', 'Full Name is required',"+
 				"'Employee ID is required', 'Business Unit is required', 'Department is required'."+
 				test.addScreenCapture(captureScreenShot(driver, "ValidationMessages")));
 				
@@ -168,7 +170,7 @@ public class AddEmployee_Test extends BaseClass {
 				
 		addEmployeePOM.getDepartmentDropdown().selectByVisibleText(employeeData[1][5]);	
 		
-		test.log(LogStatus.PASS, "<b>ER4: User should be able to add data for all mandatory fields.<b>"+
+		test.log(LogStatus.PASS, "<b>ER5: User should be able to add data for all mandatory fields.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "EnterMandatoryFields")));			
 		
 		addEmployeePOM.getAddressField().sendKeys(employeeData[1][6]);
@@ -187,7 +189,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		test.log(LogStatus.PASS, "12. Enter the data in other non-mandatory fields, (Address, City, State, Postal Code, Country, Phone, Email etc.).");
 		
-		test.log(LogStatus.PASS, "<b>ER5: User should able to add data for other Fields.<b>"+
+		test.log(LogStatus.PASS, "<b>ER6: User should able to add data for other Fields.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "employeeData")));
 		
 		verticalScrollingDown();
@@ -205,7 +207,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		//addEmployeePOM=new AddEmployee_POM(driver);
 		
-		test.log(LogStatus.PASS, "<b>ER6: User should be navigated to Job Codes Screen "
+		test.log(LogStatus.PASS, "<b>ER7: User should be navigated to Job Codes Screen "
 				+ "and job codes list should be visible.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "jobcodeList")));
 			
@@ -217,7 +219,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		waitTillElementVisible(addEmployeePOM.getSelectedJobCode());
 		
-		test.log(LogStatus.PASS, "ER7: It should be visible in 'selected job codes' section.  "+
+		test.log(LogStatus.PASS, "ER8: It should be visible in 'selected job codes' section.  "+
 				test.addScreenCapture(captureScreenShot(driver, "SelectedJobCodeList")));
 		
 		addEmployeePOM.getAddBtn().click();	
@@ -236,7 +238,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		waitTillElementVisible(addEmployeePOM.getCloseButtononSuccessMessage());
 		
-		test.log(LogStatus.PASS, "<b>ER8: The employee should get added successfully and A message confirming successfully added should get displayed.<b>");
+		test.log(LogStatus.PASS, "<b>ER9: The employee should get added successfully and A message confirming successfully added should get displayed.<b>");
 		
 		addEmployeePOM.getCloseButtononSuccessMessage().click();	
 		
@@ -260,7 +262,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		searchRecordInTable();
 		
-		test.log(LogStatus.PASS, "<b>ER9: The created employee record is displayed.<b>");
+		test.log(LogStatus.PASS, "<b>ER10: The created employee record is displayed.<b>");
 		
 		addEmployeePOM.addNewLink().click();	
 		
@@ -278,7 +280,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		if (addEmployeePOM.verifyUniqueEmployeeFullName()){
 			
-			test.log(LogStatus.PASS, "<b> ER10: A validation message 'Full Name already exists' should be displayed.<b>"+
+			test.log(LogStatus.PASS, "<b> ER11: A validation message 'Full Name already exists' should be displayed.<b>"+
 			test.addScreenCapture(captureScreenShot(driver, "employeeName already exists.")));
 		}else{			
 			test.log(LogStatus.FAIL,"Not checking for duplicate employeeFullName"+
@@ -295,7 +297,7 @@ public class AddEmployee_Test extends BaseClass {
 		
 		if (addEmployeePOM.verifyUniqueEmployeeID()){
 			
-			test.log(LogStatus.PASS, "<b> ER11:A validation message 'EmployeeID already exists' should be displayed.<b>"+
+			test.log(LogStatus.PASS, "<b> ER12:A validation message 'EmployeeID already exists' should be displayed.<b>"+
 					test.addScreenCapture(captureScreenShot(driver, "employeeID already exists.")));
 		}else{			
 			test.log(LogStatus.FAIL,"FailedforDuplicateEmployeeID");

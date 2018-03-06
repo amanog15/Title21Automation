@@ -1,6 +1,5 @@
 package org.title21.POM;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,7 +29,6 @@ public class UpdateUser_POM extends AddNewUser_POM {
 	@FindBy(xpath="//div[contains(text(),'updated successfully')]")
 	WebElement userUpdatedSuccessfully;
 	
-	//@FindBy(linkText="Password")
 	@FindBy(xpath="//a[text()='Password']")
 	WebElement passwordTab;
 	

@@ -114,7 +114,7 @@ WebElement ownuserdeletepopup;
 		 //element=driver.findElement(noEmployeefoundresulttext);
 		 return noEmployeefoundresulttext;
 	 }
-	 public boolean verifyNoEmployeeFoundText(WebDriver driver){
+	 public boolean verifyNoEmployeeFoundText(){
 			
 			String NoEmployeeFoundResultText="";
 			
