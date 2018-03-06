@@ -1,5 +1,5 @@
 package org.title21.POM;
-import java.util.List;
+//import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -36,6 +36,9 @@ public class CreateDocument_POM
 	@FindBy(xpath=".//*[@id='Location']")
 	WebElement location;
 	
+	@FindBy(css=".btn.btn-default.t21-yellow-background.t21-ajax-link")
+	WebElement EditModeOff;
+	
 	
 	@FindBy(xpath=".//*[@id='Cabinet']")
 	WebElement Cabinet;
@@ -47,6 +50,10 @@ public class CreateDocument_POM
 	@FindBy(css=".form-control.t21-placeholder.valid")
 	WebElement search;
 	
+	@FindBy(css=".t21-inline-block")
+	WebElement documentcreationverify;
+	
+	
 	@FindBy(css="#DocCheckOutTo")
 	WebElement AutoCheck;
 	
@@ -55,6 +62,10 @@ public class CreateDocument_POM
 	
 	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'DocumentTitle')]")
     WebElement DocumentTitlemsg;
+	
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'DocAppendix')]")
+    WebElement appedixvalmsg;
+	
 	
 	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'DocChangeSummary')]")
 	 WebElement Documentsummarymsg;
@@ -65,22 +76,50 @@ public class CreateDocument_POM
 	@FindBy(css=".btn.t21-btn-primary.t21-ajax-submit-button.process-btn-click")
 	WebElement ConfirmButtonm;
 	
+	@FindBy(xpath=".//*[@id='documentId']")
+	WebElement documentnumber;
+	
 	@FindBy(css=".btn.btn-default.fa.fa-pencil.t21-ajax-link")
 	WebElement editdocumentNO;
 	
 	@FindBy(css="#DocCounter")
 	WebElement Number;
+
+	@FindBy(css=".btn.btn-default.t21-ajax-link")
+	WebElement EditModeON;
 	
 	@FindBy(css="#DocAppendix")
 	WebElement Appendix;
 	
+	@FindBy(css="")
+	WebElement PlusButtonuploadfile;
+	
+	
 	@FindBy(css=".btn.t21-btn-default.pull-left")
 	WebElement Cancel;
+	
+	public WebElement getEditModeON()
+	{
+		
+		return EditModeON;			
+	}
 	
 	public WebElement getDocumentTitle()
 	{
 		
 		return DocumentTitle;			
+	}
+	
+	public WebElement getdocumentcreationverify()
+	{
+		
+		return documentcreationverify;			
+	}
+	
+	public WebElement getdocumentnumber()
+	{
+		
+		return documentnumber;			
 	}
 	
 	
@@ -89,7 +128,18 @@ public class CreateDocument_POM
 		
 		return DocChangeSummary;			
 	}
+
 	
+	public WebElement getEditModeOff()
+	{
+		
+		return EditModeOff;			
+	}
+	public WebElement GeteditdocumentNo()
+	{
+		
+		return editdocumentNO;			
+	}
 	public WebElement getnewdoc()
 	{
 		
@@ -106,6 +156,11 @@ public class CreateDocument_POM
 		
 		return Documentsummarymsg;			
 	}
+	public WebElement getappedixvalmsg()
+	{
+		
+		return appedixvalmsg;			
+	}
 	
 	
 public boolean DocumentTitlemsgvalidation(){
@@ -118,10 +173,25 @@ public boolean DocumentTitlemsgvalidation(){
 		{
 			isValidationMessagePresent=true;
 		}else{
-			log.error("Validation message for Location dropdown is not valid.");
+			log.error("Validation message for documet  title is not valid.");
 		}	
 		return isValidationMessagePresent;
 	}
+
+public boolean Appedixvalidation(){
+	
+	element=getappedixvalmsg();
+	String errorMessage = element.getText();
+	boolean isValidationMessagePresent=false;		
+	
+	if(errorMessage.contains(ErrorMessages.AppendixValidationMessage))
+	{
+		isValidationMessagePresent=true;
+	}else{
+		log.error("Validation message for Appendix is not valid.");
+	}	
+	return isValidationMessagePresent;
+}
 public boolean Documentsummarymsgvalidation(){
 	
 	element=getDocumentsummarymsg();
@@ -132,7 +202,7 @@ public boolean Documentsummarymsgvalidation(){
 	{
 		isValidationMessagePresent=true;
 	}else{
-		log.error("Validation message for Document summary not valid  is not valid.");
+		log.error("Validation message for Document summary is not valid  ");
 	}	
 	return isValidationMessagePresent;
 }
@@ -154,6 +224,7 @@ public boolean Documentsummarymsgvalidation(){
 		return selectObj;		
 	}
 	
+	
 	public Select getlocationDrodown()
 	{		
 		Select selectObj=new Select(location);
@@ -168,35 +239,22 @@ public boolean Documentsummarymsgvalidation(){
 	}
 	
 	
+	public Select getnumberappedix()
+	{		
+		Select selectObj=new Select(Number);
+		return selectObj;		
+	}
+	
+	
 	public WebElement getConfirmButton()
 	{
 		
 		return ConfirmButtonm;			
 	}
+	public WebElement Appendix()
+	{
+		
+		return Appendix;			
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-}
+	}

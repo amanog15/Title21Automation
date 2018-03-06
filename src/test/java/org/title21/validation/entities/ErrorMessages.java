@@ -18,4 +18,6 @@ public class ErrorMessages
 	public static final String EditEmployeeSuccessMessage="updated successfully!";
 	public static final String DocumentTitleValidationMessage="Document Title is required.";
 	public static final String DocumentSummaryValidationMessage="Document Change Summary is required.";
+	public static final String AppendixValidationMessage="Please enter a Document Appendix";
+
 }
