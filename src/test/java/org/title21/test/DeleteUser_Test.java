@@ -18,8 +18,6 @@ import org.title21.POM.UpdateUser_POM;
 import org.title21.dao.AdminData;
 import org.title21.utility.BaseClass;
 
-
-
 import com.relevantcodes.extentreports.LogStatus;
 
 public class DeleteUser_Test extends BaseClass{
@@ -108,7 +106,8 @@ public class DeleteUser_Test extends BaseClass{
 						
 		clickOnDeleteButton(adminData.getUserName());
 		waitTillElementVisible(deleteUser.getDeleteUserpopupYesButton());
-		deleteUser.getDeleteUserpopupYesButton().click();		
+		deleteUser.getDeleteUserpopupYesButton().click();
+		
 		extent.endTest(test);
 	}
 		

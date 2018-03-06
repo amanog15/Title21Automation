@@ -79,6 +79,18 @@ public class LogoutPage_Test extends BaseClass {
 		"<br/> <b> ER3: User should Log out and navigate to the Login Page.<b>" + 
 					test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));		
 		}
+		
+		test.log(LogStatus.PASS, "6. When logged out, navigate directly "
+				+ "to any of the pages directly by entering the URL into the browser address bar (E.G: https://qa21.title21health.com/Training).");
+				
+		driver.navigate().to("https://quantumdev.title21.com/Training");
+		sleep(2);
+		
+		if (login.getUsername().isDisplayed()){
+			test.log(LogStatus.PASS, 
+		"<b> ER4:  User remains logged out and cannot navigate to the page (E.G: Training)" + 
+					test.addScreenCapture(captureScreenShot(driver, "CannotnavigatetoTrainingPage")));		
+		}
 				
 		extent.endTest(test);
 	}
