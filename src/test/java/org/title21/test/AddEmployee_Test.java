@@ -334,8 +334,8 @@ public class AddEmployee_Test extends BaseClass {
 		for (int i=0;i<tableCells.size();i++){
 			if (employeeFullName.equalsIgnoreCase(tableCells.get(i).getText()))
 			{				
-				test.log(LogStatus.PASS, "record found in the Search result."+
-						test.addScreenCapture(captureScreenShot(driver, "foundRecord")));
+				//test.log(LogStatus.PASS, "record found in the Search result."+
+					//	test.addScreenCapture(captureScreenShot(driver, "foundRecord")));
 				isRecordFound=true;
 				break;
 			}
