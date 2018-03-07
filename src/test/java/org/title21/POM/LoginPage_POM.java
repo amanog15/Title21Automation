@@ -1,6 +1,10 @@
 package org.title21.POM;
 
+import java.util.List;
+import java.util.Set;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,63 +17,72 @@ public class LoginPage_POM extends BaseClass
 	public BaseClass baseClassObj=new BaseClass();
 	public WebDriver driver;
 	public WebElement element;
-		
+
 	@FindBy(css=".form-control#UserId")
 	WebElement username;
-	
+
 	@FindBy (css=".form-control#Password")
 	WebElement password;
-	
+
 	@FindBy (css=".btn.t21-btn-primary")
 	WebElement loginButton;
-	
+
 	@FindBy (xpath=".//*[@id='login_panel']/form/div[3]/span")
 	WebElement passwordErrorMessage;
-	
+
 	@FindBy (css=".text-danger#UserId-error")
 	WebElement useridValidationMessage;	
-	
+
 	@FindBy (css=".text-danger#Password-error")
 	WebElement passwordValidationMessage;	
+	
+	@FindBy (xpath=".//*[@id='t21-workarea-simple']/div/div/form/div/div/div[3]/div/input")
+	WebElement agreeButton;
+	
+	public void agreeButtonSize()
+	{
+		
+	}
+
 	
 	public LoginPage_POM(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
-	
+
+
 	public WebElement getUsername()
 	{
 		return username;
 	}
-	
+
 	public WebElement getpassword()
 	{
 		return password;
 	}
-	
+
 	public WebElement getLogin_button()
 	{
 		return loginButton;
 	}
-	
+
 	public WebElement getPasswordErrorMessage()
 	{
 		return passwordErrorMessage;
 	}
-	
+
 	public WebElement getUserIDValidationMessage()
 	{
 		return useridValidationMessage;
 	}
-	
+
 	public WebElement getPasswordValidationMessage()
 	{
 		return passwordValidationMessage;
 	}
-		
+
 	public boolean verifyPasswordValidationMessage(){
-		
+
 		element=getPasswordValidationMessage();
 		String errorMessage = element.getText();		
 		if(errorMessage.contains(ErrorMessages.messagewithoutPassword))
@@ -81,11 +94,11 @@ public class LoginPage_POM extends BaseClass
 		{			
 			return false;
 		}
-		
+
 	}
-	
+
 	public boolean verifyUserIDValidationMessage(){
-		
+
 		element=getUserIDValidationMessage();
 		String errorMessage = element.getText();		
 		if(errorMessage.contains(ErrorMessages.messagewithoutUsername))
@@ -97,9 +110,9 @@ public class LoginPage_POM extends BaseClass
 		{	
 			return false;
 		}		
-		
+
 	}
-	
+
 	public boolean verifyPasswordErrorMessage()
 	{
 		element=getPasswordErrorMessage();
@@ -113,15 +126,24 @@ public class LoginPage_POM extends BaseClass
 		{			
 			return false;
 		}
-				
+
 	}
 
 	public void loginFunction(){
-		
+
 		getUsername().sendKeys(adminUsername);
 		getLogin_button().click();
 		getpassword().sendKeys(adminPassword);
 		getLogin_button().click();
+		sleep(2);
+	}
+
+	public void loginUser(String username, String password)
+	{
+		getUsername().sendKeys(username);
+		getLogin_button().sendKeys(Keys.RETURN);
+		getpassword().sendKeys(password);
+		getLogin_button().sendKeys(Keys.RETURN);
 		sleep(2);
 	}
 
