@@ -3,17 +3,20 @@
 <suite name="DDFSuite">	
 	<parameter name="configFile" value="config.properties"/>
 	<test name="TestDDF">
-		<classes>			
-		
+		<classes>		
+			
 			<class name="org.title21.test.LoginPage_Test"/>
 			<class name="org.title21.test.LogoutPage_Test"/>			
 			<class name="org.title21.test.AddEmployee_Test"/>
+			<class name="org.title21.test.UpdateEmployee_Test"/>
 			<class name="org.title21.test.CreateNewUser_Test"/>
 			<class name="org.title21.test.UpdateUser_Test"/>
 			<class name="org.title21.test.DeleteUser_Test"/>
-			<class name="org.title21.test.AccountLockOut_Test"/>
-
-		</classes>
+			<class name="org.title21.test.CreateDeleteGroups_Test"/>
+			<class name="org.title21.test.DeleteEmployee_Test"/>
+			<class name="org.title21.test.AccountLockout_Test"/>
+						
+	</classes>
 	</test>
 </suite>
 

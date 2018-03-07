@@ -28,9 +28,7 @@ public class Delete_Employee_POM
 	WebElement Employeefilterresutgobutton;
 	
    @FindBy(xpath="//input[@value='Yes']")
-   WebElement deleteEmployeePopUpYesButton;
-
-   
+   WebElement deleteEmployeePopUpYesButton;   
 	
 @FindBy(css=".btn.t21-btn-default.pull-left")
 WebElement deleteEmployeePopUpNoButton;
@@ -41,9 +39,8 @@ WebElement ConfirmPopUpCloseButton;
 @FindBy(xpath="//*[text()='Message']")
 WebElement deleteEmployeeConfirmPopUpHeaderText;
 
-@FindBy(xpath="//*[text()='No Employee found']")
+@FindBy(xpath="//*[text()='No employee found']")
 WebElement noEmployeefoundresulttext;
-
 
 @FindBy(xpath="//*[text()='Can't delete this system account.']")
 WebElement ownuserdeletepopup;
@@ -53,7 +50,7 @@ WebElement ownuserdeletepopup;
 		 //element=driver.findElement(Employeefilterresult); 
 		 return Employeefilterresult;
 	 }
-	public WebElement  noemployeebutton()
+	public WebElement noemployeebutton()
 	 {
 		 //element=driver.findElement(Employeefilterresult); 
 		 return  deleteEmployeePopUpNoButton;
@@ -114,7 +111,7 @@ WebElement ownuserdeletepopup;
 		 //element=driver.findElement(noEmployeefoundresulttext);
 		 return noEmployeefoundresulttext;
 	 }
-	 public boolean verifyNoEmployeeFoundText(WebDriver driver){
+	 public boolean verifyNoEmployeeFoundText(){
 			
 			String NoEmployeeFoundResultText="";
 			
@@ -125,7 +122,8 @@ WebElement ownuserdeletepopup;
 			}catch(NoSuchElementException e) {
 				
 			}
-			if(NoEmployeeFoundResultText.equalsIgnoreCase("No Employee found"))
+			
+			if(NoEmployeeFoundResultText.equalsIgnoreCase("No employee found"))
 			{
 				return true;
 			}

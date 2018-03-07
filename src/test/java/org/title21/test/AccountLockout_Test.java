@@ -5,6 +5,7 @@ import org.title21.POM.DashBord_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
 import org.title21.utility.BaseClass;
+import org.title21.validation.entities.ErrorMessages;
 
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -35,28 +36,30 @@ public class AccountLockout_Test extends BaseClass
 		test.log(LogStatus.PASS,"<b>ER1: User is able to login with the correct username and password.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "SuccessfulLogin")));
 
-
 		logout.logoutFunction();
 		test.log(LogStatus.PASS,"3.	Log out of the web interface");
 
 		login.getUsername().sendKeys(loginData[2][0]);
 		login.getLogin_button().sendKeys(Keys.RETURN);
-		
-		for (int i = 1; i <= 9; i++)
-		{
-			login.getpassword().sendKeys(loginData[2][2]);
-			login.getLogin_button().sendKeys(Keys.RETURN);
-			test.log(LogStatus.PASS,"Invalid Login No:"+i);
-			assertEquals(driver.findElement(By.xpath(".//*[@id='login_panel']/form/div[3]/span")).getText(),
-					"Invalid credentials. Please try again or contact your System Administrator for assistance.");
-		}
 		test.log(LogStatus.PASS,"4.	Enter the test username with an incorrect password eight times consecutively");
+		int invalidLoginCounter=1;
+		
+		for (char i = 'a'; i <'i'; i++)
+		{
+			login.getpassword().sendKeys(loginData[3][2]);
+			login.getLogin_button().sendKeys(Keys.RETURN);
+			test.log(LogStatus.PASS,"4"+i+" Invalid Login No:"+invalidLoginCounter);			
+			assertEquals(login.getPasswordErrorMessage().getText(), ErrorMessages.passworderrormessages);
+			invalidLoginCounter++;			
+		}
+		
 		test.log(LogStatus.PASS,"<b>ER2: On entering the incorrect password eight times the user is locked out and asked to contact the administrator.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "AccountLocked")));
 		
-		login.getpassword().sendKeys(loginData[2][1]);
+		login.getpassword().sendKeys(loginData[2][2]);
 		login.getLogin_button().sendKeys(Keys.RETURN);
 		test.log(LogStatus.PASS,"5.	Login again, but now with the correct password.");
+		assertEquals(login.getPasswordErrorMessage().getText(), ErrorMessages.passworderrormessages);
 		test.log(LogStatus.PASS,"<b>ER3: The user remains locked out and cannot login with the correct password.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "UnableToLogin")));
 		

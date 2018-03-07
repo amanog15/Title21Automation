@@ -47,7 +47,8 @@ public class DeleteUser_Test extends BaseClass{
 	@Test(testName = "UpdateUser_Test", groups = "Update User", priority = 0)
 	public void UpdateUser() throws Exception
 	{		
-		test = extent.startTest("UpdateUser_Test");
+		test = extent.startTest("DeleteUser");
+		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase_WIA_Delete User.doc'>TestCaseDocument</a>");
 		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		deleteUser=new DeleteUser_POM(driver);
 		updatedAdminUsername=adminUsername;
@@ -75,7 +76,7 @@ public class DeleteUser_Test extends BaseClass{
 		
 		test.log(LogStatus.PASS, "6.Click on Go button");
 		deleteUser.groupFilterResutGoButton().click();
-	
+	    
 		sleep(2);
 		verifyUserNameInTable(adminData.getUserName());
 		if (isRecordFound)
@@ -117,6 +118,7 @@ public class DeleteUser_Test extends BaseClass{
 		clickOnDeleteButton(adminData.getUserName());
 		
 		waitTillElementVisible(deleteUser.getDeleteUserpopupYesButton());
+
 		test.log(LogStatus.PASS, "9. Click on yes button.");
 		deleteUser.getDeleteUserpopupYesButton().click();
 		
@@ -143,8 +145,8 @@ public class DeleteUser_Test extends BaseClass{
 		deleteUser.groupFilterResutGoButton().click();
 		
 		waitTillElementVisible(deleteUser.getnoUserfoundMessage());
-		
-		sleep(2);
+				
+		sleep(3);
 		driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
 		if(deleteUser.verifyNoUserFoundText(driver))
 		{
@@ -201,6 +203,7 @@ public class DeleteUser_Test extends BaseClass{
 			test.log(LogStatus.FAIL, "Unable to find It should display 'You can't delete yourself. The main administrator must perform this function.' message."+
 					test.addScreenCapture(captureScreenShot(driver, "adminDeleteWarning_Msg")));
 		}
+
 		extent.endTest(test);
 	}
 	private void clickOnDeleteButton(String employeeFullName) 
@@ -235,7 +238,7 @@ public class DeleteUser_Test extends BaseClass{
 			}
 		}
 		if (isRecordFound){
-			test.log(LogStatus.PASS, "All Rows contains expected locations.");
+			test.log(LogStatus.PASS, "4a. All Rows contains expected locations.");
 		}			
 	}
 	private void verifyUserNameInTable(String employeeUserName) 
@@ -245,8 +248,6 @@ public class DeleteUser_Test extends BaseClass{
 		for (int i=0;i<tableCells.size();i++){
 			if (tableCells.get(i).getText().equalsIgnoreCase(employeeUserName))
 			{				
-				test.log(LogStatus.PASS, "User Record as per search is displayed."+
-						test.addScreenCapture(captureScreenShot(driver, "Record as per search")));
 				isRecordFound=false;
 				break;
 			}

@@ -64,7 +64,7 @@ public class DeleteEmployee_Test extends BaseClass {
 		if (clickonDelete()){
 			waitTillElementVisible(emp.noemployeebutton());
 			test.log(LogStatus.PASS,
-					" 4.Click on Remove Employee Button." + "<br/>"
+					" 4. Click on Delete Employee icon." + "<br/>"
 							+ "<b>ER2: Delete Employee popup is displayed. <b>"
 							+ test.addScreenCapture(captureScreenShot(driver, "delete_popup")));
 			
@@ -75,18 +75,33 @@ public class DeleteEmployee_Test extends BaseClass {
 				+ test.addScreenCapture(captureScreenShot(driver, "NoButtonOnConfirmationPopup")));
 		
 		waitTillElementVisible(emp.EmployeeFilterResult());
-		sleep(4);
+		sleep(4);		
+		test.log(LogStatus.PASS, "6.Click on the delete icon against the employee in the previous step.");
 		if (clickonDelete()){
-			
+			test.log(LogStatus.PASS, "7.Click on Yes Button when the confirmation dialog is displayed.");
 			waitTillElementVisible(emp.deleteEmployeePopUpYesButton());
 			emp.deleteEmployeePopUpYesButton().click();
 			sleep(2);
 			test.log(LogStatus.PASS,
-					" 6.Click on Yes Button." + "<br/>"
-							+ "<b>ER4: Employee should get deleted and show a confirmation message.<b>"
+							"<b>ER4: Employee should get deleted and show a confirmation message.<b>"
 							+ test.addScreenCapture(captureScreenShot(driver, "yes_button_delete_confirm")));
 			waitTillElementVisible(emp.ConfirmPopUpCloseButton());
 			emp.ConfirmPopUpCloseButton().click();			
+		}
+		
+		waitTillElementVisible(emp.EmployeeFilterResult());
+		test.log(LogStatus.PASS, "8. Search for the employee which was deleted in the previous step.");
+		
+		emp.EmployeeFilterResult().sendKeys(adminData.getEmployeeName());
+		sleep(2);
+		emp.EmployeeFilterResutGoButton().click();
+		sleep(2);
+		
+		if (emp.verifyNoEmployeeFoundText()){
+			test.log(LogStatus.PASS,"<b>ER5: Employee is no longer available in the list.<b>"+
+					test.addScreenCapture(captureScreenShot(driver, "employeenoLongerAvailable")));			
+		}else{
+			test.log(LogStatus.FAIL,"Employee is still available in the list.");
 		}
 		
 		sleep(3);
@@ -105,8 +120,7 @@ public class DeleteEmployee_Test extends BaseClass {
 	@AfterClass
 	public void closeBrowserInstance() {
 
-		driver.close();
-		test.log(LogStatus.PASS, "pass case");
+		driver.close();	
 		
 	}
 	
