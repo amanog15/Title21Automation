@@ -47,7 +47,7 @@ public class DeleteUser_Test extends BaseClass{
 	@Test(testName = "UpdateUser_Test", groups = "Update User", priority = 0)
 	public void UpdateUser() throws Exception
 	{		
-		test = extent.startTest("DeleteUser");
+		test = extent.startTest("Delete User");
 		test.log(LogStatus.INFO, "Link to Test case document", "<a href='file:///E:/sameer/Sameer Joshi/Title health solutions/Test case by neosoft/TestCase_WIA_Delete User.doc'>TestCaseDocument</a>");
 		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		deleteUser=new DeleteUser_POM(driver);

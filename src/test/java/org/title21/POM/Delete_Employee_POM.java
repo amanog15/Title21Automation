@@ -55,9 +55,8 @@ WebElement ownuserdeletepopup;
 		 //element=driver.findElement(Employeefilterresult); 
 		 return  deleteEmployeePopUpNoButton;
 	 } 
-	
-	
-	 public WebElement  EmployeeFilterResutGoButton()
+		
+	 public WebElement EmployeeFilterResutGoButton()
 	 {
 		 //element=driver.findElement(Employeefilterresutgobutton); 
 		 return Employeefilterresutgobutton;
