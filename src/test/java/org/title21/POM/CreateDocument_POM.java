@@ -36,7 +36,7 @@ public class CreateDocument_POM
 	@FindBy(xpath=".//*[@id='Location']")
 	WebElement location;
 	
-	@FindBy(css=".btn.btn-default.t21-yellow-background.t21-ajax-link")
+	@FindBy(xpath=".//*[@id='lock']/a[1]")
 	WebElement EditModeOff;
 	
 	
@@ -70,6 +70,10 @@ public class CreateDocument_POM
 	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'DocChangeSummary')]")
 	 WebElement Documentsummarymsg;
 	
+
+	@FindBy(xpath="//span[contains(@class,'field-validation-error') and contains(@data-valmsg-for,'AttachmentFile')]")
+	 WebElement UploadSizemsg;
+	
 	@FindBy(css="#DocChangeSummary")
 	WebElement DocChangeSummary;
 	
@@ -91,18 +95,120 @@ public class CreateDocument_POM
 	@FindBy(css="#DocAppendix")
 	WebElement Appendix;
 	
-	@FindBy(css="")
+	@FindBy(css=".input-group-btn")
 	WebElement PlusButtonuploadfile;
 	
+	@FindBy(xpath=".//*[@id='AttachmentFile']")
+	WebElement Brouse;
+	
+	@FindBy(xpath="//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]")
+	WebElement AddButtonupload;
 	
 	@FindBy(css=".btn.t21-btn-default.pull-left")
 	WebElement Cancel;
+	
+	@FindBy(xpath=".//*[@id='collapse-0']/div/div[1]/div[2]/div[2]/a[2]")
+	WebElement pdf;
+	
+	@FindBy(css=".btn.t21-btn-default")
+	WebElement checkinwindowclose;
+	
+	@FindBy(css=".t21-js-user-message-text")
+	WebElement checkinwindowsuccessmsg;
+	
+	
+	
+	
+	@FindBy(css=".modal-title")
+	WebElement uploadpopuptitle;
+	
+	
+	@FindBy(css=".fa.fa-level-up.grid-button-icon")
+	WebElement checkin;
+	
+
+	@FindBy(xpath=".//*[@id='displaySel']/div[1]/div[3]/div/a/span[2]")//.//*[@id='displaySel']/div[1]/div[3]/div/a/span[2]
+	WebElement contextmenu;
+	
+	@FindBy(css=".btn.t21-btn-primary.t21-ajax-submit-button")
+	WebElement checkinbuttonwindow;
+	
+
+	@FindBy(css=".btn.t21-btn-default.pull-left")
+	WebElement checkincancel;
+	
+	
+	public WebElement getcheckinbuttonwindow()
+	{
+		
+		return checkinbuttonwindow;			
+	}
+	public WebElement getcheckincancel()
+	{
+		
+		return checkincancel;			
+	}
+	
+	public WebElement getcheckinwindowclose()
+	{
+		
+		return checkinwindowclose;			
+	}
+	public WebElement getcheckinwindowsuccessmsg()
+	{
+		
+		return checkinwindowsuccessmsg;			
+	}
+	
+	public WebElement getcheckin()
+	{
+		
+		return checkin;	//.//*[@id='displaySel']/div[1]/div[3]/div/ul/li[12]/div/a/span[2]		
+	}
 	
 	public WebElement getEditModeON()
 	{
 		
 		return EditModeON;			
 	}
+	
+	public WebElement getcontextmenu()
+	{
+		
+		return contextmenu;			
+	}
+	
+	public WebElement getpdf()
+	{
+		
+		return pdf;			
+	}
+	
+	public WebElement getCancel()
+	{
+		
+		return Cancel;			
+	}
+	public WebElement getuploadpopuptitle()
+	{
+		
+		return uploadpopuptitle;			
+	}
+	
+	public WebElement getAddButtonupload()
+	{
+		
+		return AddButtonupload;			
+	}
+	
+	
+	public WebElement getBrouse()
+	{
+		
+		return Brouse;			
+	}
+	
+	
 	
 	public WebElement getDocumentTitle()
 	{
@@ -162,6 +268,12 @@ public class CreateDocument_POM
 		return appedixvalmsg;			
 	}
 	
+	public WebElement getUploadSizemsg()
+	{
+		
+		return UploadSizemsg;			
+	}
+	
 	
 public boolean DocumentTitlemsgvalidation(){
 		
@@ -177,6 +289,21 @@ public boolean DocumentTitlemsgvalidation(){
 		}	
 		return isValidationMessagePresent;
 	}
+
+public boolean CheckinSuceessmessage(){
+	
+	element=getcheckinwindowsuccessmsg();
+	String errorMessage = element.getText();
+	boolean isValidationMessagePresent=false;		
+	
+	if(errorMessage.contains(ErrorMessages.checkedsuccessfullyMessage))
+	{
+		isValidationMessagePresent=true;
+	}else{
+		log.error("Validation message for check in is not valid.");
+	}	
+	return isValidationMessagePresent;
+}
 
 public boolean Appedixvalidation(){
 	
@@ -206,12 +333,33 @@ public boolean Documentsummarymsgvalidation(){
 	}	
 	return isValidationMessagePresent;
 }
+
+public boolean UploadFileSizeValidation(){
 	
+	element=getUploadSizemsg();
+	String errorMessage = element.getText();
+	boolean isValidationMessagePresent=false;		
 	
-	public WebElement getdocument()
+	if(errorMessage.contains(ErrorMessages.FileSizeuploadValidationMessage))
+	{
+		isValidationMessagePresent=true;
+	}else{
+		log.error("Validation message for file size is not valid  ");
+	}	
+	return isValidationMessagePresent;
+}
+	
+
+public WebElement getdocument()
+{
+	
+	return document;			
+}
+	
+	public WebElement getPlusButtonuploadfile()
 	{
 		
-		return document;			
+		return PlusButtonuploadfile;			
 	}
 	public Select getAutoCheck()
 	{		

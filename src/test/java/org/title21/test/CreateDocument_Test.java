@@ -20,8 +20,8 @@ public class CreateDocument_Test extends BaseClass
 	LogoutPage_POM logout;
 	CreateDocument_POM Credoc;
 	String className = "";
-	String AppendixNumber="24";
-	String Appendix="doc";
+	String AppendixNumber="29";
+	String Appendix="txt";
 	static Logger log = Logger.getLogger(CreateDocument_Test.class);
 	AdminData adminData=new AdminData();	
 	@BeforeClass
@@ -103,18 +103,62 @@ sleep(2);
   sleep(2);
   if(Credoc.getdocumentcreationverify().isDisplayed())
   {
-  test.log(LogStatus.PASS,"Enter all  mandatory field "+"<br/>"
+  test.log(LogStatus.PASS,"9. Enter all  mandatory field "+"<br/>"
 		  +"<b> ER6: Document should save to Draft cabinet.<b>"+
 			test.addScreenCapture(captureScreenShot(driver, "create_document")));	
-  
+
  }
+  sleep(2);
+ /* Credoc.getEditModeOff().click();
+  test.log(LogStatus.PASS,"10.Turn upper right-hand corner Edit Mode to off. "+"<br/>"
+		  +"<b> ER7: All the documents fields should get disabled..<b>"+
+			test.addScreenCapture(captureScreenShot(driver, "Edit_Mode_Off")));
+  Credoc.getEditModeON().click();*/
+  
+  Credoc.getPlusButtonuploadfile().click();
+  sleep(2);
+ /*  Credoc.getBrouse().sendKeys("C:\\Users\\dell\\Desktop\\Title21data\\testing_data\\Sizeval.doc");
+   sleep(7);
+   Credoc.getAddButtonupload().click();
+	//javaScriptClick(Credoc.getAddButtonupload());
+	  sleep(6);
+if(Credoc.UploadFileSizeValidation())
+  {
+	  test.log(LogStatus.PASS,"14. Add file with size more than 50 MB  and click on Add  button  "+"<br/>"
+			  +"<b> ER6: ER 11 : It should show validation message as \"File size must be less than 50 MB\".<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "File_Size")));	
+	 
+  }*/
+  Credoc.getBrouse().sendKeys("C:\\Users\\dell\\Desktop\\Title21data\\testing_data\\doc_creation.txt");
+  Credoc.getAddButtonupload().click();
+  sleep(2);
+  Credoc.getcontextmenu().click();
+  sleep(2);
+  Credoc.getcheckin().click();
+  sleep(2);
+  Credoc.getcheckinbuttonwindow().click();
+  sleep(2);
+  
+  if(Credoc.CheckinSuceessmessage())
+  {
+	  test.log(LogStatus.PASS,"19. Go to Action section and click on Check-In.  "+"<br/>"
+			  +"<b>ER 11 :  A Successful message that the document has been checked In is displayed.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "checkinsuccessmessage")));	
+}
+  Credoc.getcheckincancel().click();
+  
   }
-		
-	@AfterClass
-	public void closeBrowserInstance() {
+  @AfterClass
+	public void closeBrowserInstance() 
+	{
 
-		extent.endTest(test);		
+		extent.endTest(test);
+        logout = new LogoutPage_POM(driver);
+		logout.logoutFunction();
+		log.info("logout successfully."); 
+		sleep(2); 
+		extent.endTest(test);
 
-		// driver.close();
+		driver.close();
 	}
 }

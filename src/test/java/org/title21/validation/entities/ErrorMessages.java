@@ -19,5 +19,9 @@ public class ErrorMessages
 	public static final String DocumentTitleValidationMessage="Document Title is required.";
 	public static final String DocumentSummaryValidationMessage="Document Change Summary is required.";
 	public static final String AppendixValidationMessage="Please enter a Document Appendix";
+	public static final String FileSizeuploadValidationMessage="File size must be less than 50 MB.";
+	public static final String checkedsuccessfullyMessage="checked in successfully.";
+	
+	
 
 }
