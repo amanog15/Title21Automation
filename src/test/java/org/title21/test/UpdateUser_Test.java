@@ -47,7 +47,7 @@ public class UpdateUser_Test extends BaseClass{
 	@Test(testName = "UpdateUser_Test", groups = "Update User", priority = 0)
 	public void UpdateUser() throws Exception
 	{		
-		test = extent.startTest("UpdateUser");
+		test = extent.startTest("Update User");
 		test.log(LogStatus.PASS, "1.Login as a web interface.");
 		updateUserPage= new UpdateUser_POM(driver);		
 		

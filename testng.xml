@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="DDFSuite">	
+<suite name="Title21Suite">	
 	<parameter name="configFile" value="config.properties"/>
-	<test name="TestDDF">
+	<test name="AdminModuleScreens">
 		<classes>		
 			
 			<class name="org.title21.test.LoginPage_Test"/>
@@ -15,6 +15,14 @@
 			<class name="org.title21.test.CreateDeleteGroups_Test"/>
 			<class name="org.title21.test.DeleteEmployee_Test"/>
 			<class name="org.title21.test.AccountLockout_Test"/>
+					
+						
+	</classes>
+	</test> 
+	<test name="CreateDocumentScreens">
+		<classes>		
+			
+			<class name="org.title21.test.CreateDocument_Test"/>								
 						
 	</classes>
 	</test>
