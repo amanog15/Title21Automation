@@ -38,13 +38,7 @@ public class LoginPage_POM extends BaseClass
 	
 	@FindBy (xpath=".//*[@id='t21-workarea-simple']/div/div/form/div/div/div[3]/div/input")
 	WebElement agreeButton;
-	
-	public void agreeButtonSize()
-	{
-		
-	}
 
-	
 	public LoginPage_POM(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -120,6 +114,21 @@ public class LoginPage_POM extends BaseClass
 		if(errorMessage.contains(ErrorMessages.passworderrormessages))
 		{
 			baseClassObj.captureScreenShot(driver,"passwordFieldErrorMessage");
+			return true;
+		}
+		else
+		{			
+			return false;
+		}
+
+	}
+	
+	public boolean verifyPasswordErrorMessagePresence()
+	{	
+		List<WebElement> errormessage = driver.findElements(By.xpath(".//*[@id='login_panel']/form/div[3]/span"));
+		int size = errormessage.size();
+		if(size != 0)
+		{
 			return true;
 		}
 		else
