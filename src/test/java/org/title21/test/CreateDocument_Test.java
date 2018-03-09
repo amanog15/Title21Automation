@@ -146,14 +146,25 @@ if(Credoc.UploadFileSizeValidation())
 				test.addScreenCapture(captureScreenShot(driver, "checkinsuccessmessage")));	
 }
   Credoc.getcheckincancel().click();
-  //edit mode disable pending
+  if(Credoc.getEditModeON().isEnabled()&&Credoc.getEditModeOff().isEnabled())
+  {
+	  test.log(LogStatus.FAIL,"19.Click on close button\\ "+"<br/>"
+			  +"<b>ER15: Doument Edit mode is enable.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "documenteditmodedisable")));	 
+  }
+  else
+  {
+	  test.log(LogStatus.FAIL,"19.Click on close button\\ "+"<br/>"
+			  +"<b>ER15: Doument Edit mode is disabled.<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "documenteditmodedisable")));	 
+  }  
   sleep(2);
   Credoc.getcontextmenu().click();
   sleep(2);
   Credoc.getcheckoutbutton().click();
   sleep(2);
   if(Credoc.getpoupcheckin().isDisplayed())
-  test.log(LogStatus.PASS,"21 agin click onm context menu  "+"<br/>"+"24.Click on checkout link."+"<br/>"
+  test.log(LogStatus.PASS,"21 again click onm context menu  "+"<br/>"+"24.Click on checkout link."+"<br/>"
 		  +"<b>ER 11 : ER 15 – Check Out popup screen should get open.  <b>"+
 			test.addScreenCapture(captureScreenShot(driver, "checkinsuccessmessage")));	
   sleep(2);
@@ -162,9 +173,11 @@ if(Credoc.UploadFileSizeValidation())
   if(Credoc.checkoutversionvalidation())
   {
 	  test.log(LogStatus.PASS,"23. Check the open document after checkout checkbox "+"<br/>"+"24.Click on confirm button"+"<br/>"
-			  +"<b>ER 15 :  Document version should get changed (for eg, doc name changed from 001.398:0.1 to 001.398:0.2 ).<b>"+
+			  +"<b>ER 15 :  Document version should get changed.<b>"+
 				test.addScreenCapture(captureScreenShot(driver, "checkoutvesionvalidation")));	
   }
+  
+  
   
   
   
