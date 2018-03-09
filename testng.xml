@@ -12,7 +12,7 @@
 			<!-- <class name="org.title21.test.CreateNewUser_Test"/>-->	
 			<!--<class name="org.title21.test.UpdateEmployee_Test"/>-->		
 			<!--<class name="org.title21.test.DeleteEmployee_Test"/>-->
-            <class name="org.title21.test.CreateDocument_Test"/>  
+          <class name="org.title21.test.CreateDocument_Test"/> 
 			
 		</classes>
 	</test>

@@ -116,7 +116,9 @@ public class CreateDocument_POM
 	@FindBy(css=".t21-js-user-message-text")
 	WebElement checkinwindowsuccessmsg;
 	
-	
+
+	@FindBy(css=".modal-title")
+	WebElement poupcheckin;
 	
 	
 	@FindBy(css=".modal-title")
@@ -130,18 +132,70 @@ public class CreateDocument_POM
 	@FindBy(xpath=".//*[@id='displaySel']/div[1]/div[3]/div/a/span[2]")//.//*[@id='displaySel']/div[1]/div[3]/div/a/span[2]
 	WebElement contextmenu;
 	
+	
+	
 	@FindBy(css=".btn.t21-btn-primary.t21-ajax-submit-button")
 	WebElement checkinbuttonwindow;
+	
+	
+	@FindBy(css=".fa.fa-level-down.grid-button-icon")
+	WebElement checkoutbutton;
+	
+	
+	@FindBy(css="#OpenOnCheckOut")
+	WebElement checkbox;
+	
+	
+	
+	@FindBy(css=".btn.t21-btn-primary.t21-ajax-submit-button.process-btn-click")
+	WebElement checkoutconfirm;
+	
 	
 
 	@FindBy(css=".btn.t21-btn-default.pull-left")
 	WebElement checkincancel;
 	
+
+	@FindBy(css=".t21-no-bold")
+	WebElement checkoutversion;
+	
+	
+	public WebElement getpoupcheckin()
+	{
+		
+		return poupcheckin;			
+	}
 	
 	public WebElement getcheckinbuttonwindow()
 	{
 		
 		return checkinbuttonwindow;			
+	}
+	
+	public WebElement getcheckoutconfirm()
+	{
+		
+		return checkoutconfirm;			
+	}
+	public WebElement getcheckboxcheckout()
+	{
+		
+		return checkbox;			
+	}
+	
+	public WebElement checkoutvesionval()
+	{
+		
+		return checkoutversion;			
+	}
+	
+	
+	
+	
+	public WebElement getcheckoutbutton()
+	{
+		
+		return checkoutbutton;			
 	}
 	public WebElement getcheckincancel()
 	{
@@ -316,6 +370,21 @@ public boolean Appedixvalidation(){
 		isValidationMessagePresent=true;
 	}else{
 		log.error("Validation message for Appendix is not valid.");
+	}	
+	return isValidationMessagePresent;
+}
+
+public boolean checkoutversionvalidation(){
+	
+	element=checkoutvesionval();
+	String errorMessage = element.getText();
+	boolean isValidationMessagePresent=false;		
+	
+	if(errorMessage.contains("0.1"))
+	{
+		isValidationMessagePresent=true;
+	}else{
+		log.error("Version not chnages after Checkout.");
 	}	
 	return isValidationMessagePresent;
 }

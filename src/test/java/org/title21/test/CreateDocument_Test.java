@@ -20,8 +20,8 @@ public class CreateDocument_Test extends BaseClass
 	LogoutPage_POM logout;
 	CreateDocument_POM Credoc;
 	String className = "";
-	String AppendixNumber="29";
-	String Appendix="txt";
+	String AppendixNumber="22";
+	String Appendix="dxx";
 	static Logger log = Logger.getLogger(CreateDocument_Test.class);
 	AdminData adminData=new AdminData();	
 	@BeforeClass
@@ -129,11 +129,11 @@ if(Credoc.UploadFileSizeValidation())
 				test.addScreenCapture(captureScreenShot(driver, "File_Size")));	
 	 
   }*/
-  Credoc.getBrouse().sendKeys("C:\\Users\\dell\\Desktop\\Title21data\\testing_data\\doc_creation.txt");
+  Credoc.getBrouse().sendKeys("C:\\Users\\dell\\Desktop\\Title21data\\testing_data\\test.doc");//TestCase-WI-Creation of new Groups in administrator.doc
   Credoc.getAddButtonupload().click();
-  sleep(2);
+  sleep(10);
   Credoc.getcontextmenu().click();
-  sleep(2);
+  sleep(5);
   Credoc.getcheckin().click();
   sleep(2);
   Credoc.getcheckinbuttonwindow().click();
@@ -146,6 +146,29 @@ if(Credoc.UploadFileSizeValidation())
 				test.addScreenCapture(captureScreenShot(driver, "checkinsuccessmessage")));	
 }
   Credoc.getcheckincancel().click();
+  //edit mode disable pending
+  sleep(2);
+  Credoc.getcontextmenu().click();
+  sleep(2);
+  Credoc.getcheckoutbutton().click();
+  sleep(2);
+  if(Credoc.getpoupcheckin().isDisplayed())
+  test.log(LogStatus.PASS,"21 agin click onm context menu  "+"<br/>"+"24.Click on checkout link."+"<br/>"
+		  +"<b>ER 11 : ER 15 – Check Out popup screen should get open.  <b>"+
+			test.addScreenCapture(captureScreenShot(driver, "checkinsuccessmessage")));	
+  sleep(2);
+  Credoc.getcheckboxcheckout().click();
+  Credoc.getcheckoutconfirm().click();
+  if(Credoc.checkoutversionvalidation())
+  {
+	  test.log(LogStatus.PASS,"23. Check the open document after checkout checkbox "+"<br/>"+"24.Click on confirm button"+"<br/>"
+			  +"<b>ER 15 :  Document version should get changed (for eg, doc name changed from 001.398:0.1 to 001.398:0.2 ).<b>"+
+				test.addScreenCapture(captureScreenShot(driver, "checkoutvesionvalidation")));	
+  }
+  
+  
+  
+  
   
   }
   @AfterClass
