@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Formatter;
@@ -95,6 +98,10 @@ public class BaseClass {
 	static String imagesDirectory = "";
 	static String relativePathforImage="";
 	static String downloadPath="";
+	
+	protected static Connection connection;
+	protected static Statement statement;
+	protected static ResultSet rs;
 	
 	int pixels=0;
 
@@ -406,6 +413,8 @@ public class BaseClass {
 		return strReturn;
 	}
 
+	
+	
 	public static void sleep(double seconds) {
 		try {
 			Thread.sleep(Double.valueOf(seconds * 1000).intValue());
