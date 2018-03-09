@@ -87,6 +87,12 @@
 			<version>1.2.17</version>
 		</dependency>
 		
+		<dependency>
+	    	<groupId>com.microsoft.sqlserver</groupId>
+	    	<artifactId>mssql-jdbc</artifactId>
+	    	<version>6.1.7.jre8-preview</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey/jersey-bom -->
 		<dependency>
 		 <groupId>org.glassfish.jersey</groupId>

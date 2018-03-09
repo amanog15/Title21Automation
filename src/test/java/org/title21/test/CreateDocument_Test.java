@@ -71,7 +71,7 @@ if (Credoc.DocumentTitlemsgvalidation()&& Credoc.Documentsummarymsgvalidation())
 		     " <b>"+
 			test.addScreenCapture(captureScreenShot(driver, "validationmessagefortitleand")));
 };
- sleep(2);
+sleep(2);
 Credoc.GeteditdocumentNO().click();
 sleep(2);
 verticalScrollingDown();
@@ -114,7 +114,7 @@ sleep(2);
 	@AfterClass
 	public void closeBrowserInstance() {
 
-		extent.endTest(test);		
+		extent.endTest(test);	
 
 		// driver.close();
 	}

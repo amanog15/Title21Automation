@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Title21Suite">	
 	<parameter name="configFile" value="config.properties"/>
-	<test name="AdminModuleScreens">
+	<!-- <test name="AdminModuleScreens">
 		<classes>		
 			
 			<class name="org.title21.test.LoginPage_Test"/>
@@ -14,15 +14,15 @@
 			<class name="org.title21.test.DeleteUser_Test"/>
 			<class name="org.title21.test.CreateDeleteGroups_Test"/>
 			<class name="org.title21.test.DeleteEmployee_Test"/>
-			<class name="org.title21.test.AccountLockout_Test"/>
-					
+			<class name="org.title21.test.AccountLockout_Test"/>					
 						
 	</classes>
-	</test> 
+	</test>  -->
 	<test name="CreateDocumentScreens">
 		<classes>		
 			
-			<class name="org.title21.test.CreateDocument_Test"/>								
+			<!-- <class name="org.title21.test.CreateDocument_Test"/> -->			
+			<class name="org.title21.test.debug"/>							
 						
 	</classes>
 	</test>
